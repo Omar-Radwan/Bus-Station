@@ -1,5 +1,5 @@
 //y
-// bla bla bla 
+//boooom
 
 public class Main {
 	//simple conflict 1 trial
