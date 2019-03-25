@@ -1,4 +1,6 @@
-package classes;
+package vehicles.classes;
+
+import users.classes.Driver;
 
 public class Vehicle extends Driver{
 

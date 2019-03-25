@@ -1,4 +1,4 @@
-package classes;
+package users.classes;
 
 public class User {
 	
@@ -6,6 +6,7 @@ public class User {
 	String firstName; 
 	String lastName;
 	String password;
+	
 	String job;
 	
 	//---------------------------------------------------------------------------

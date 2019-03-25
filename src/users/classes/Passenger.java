@@ -1,11 +1,15 @@
-package classes;
+package users.classes;
 
 import java.util.ArrayList;
+
+import classes.Trip;
 
 public class Passenger {
 
 	ArrayList<Trip>trip;
+	
 	//pastAndUpcoming
-	//membershipType
+	String membershipType ; 
+	
 	
 }

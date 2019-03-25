@@ -3,6 +3,7 @@ package classes;
 	//---------------------------------------------------------------------------	
 
 public class Ticket {
+	
 	String type;
 	float price;
 	

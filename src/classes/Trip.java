@@ -4,7 +4,9 @@ public class Trip {
 
 	String source;
 	String destination;
-	Double distance;
+	
+	double distance;
+	
 	String type;
 	int numberOfStops;
 	
