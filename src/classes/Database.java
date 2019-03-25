@@ -100,7 +100,7 @@ public class Database {
 	public User authenticate(String userName, String password) {
 
 		User searchResult = userNameToUserMap.get(userName);
-		return (searchResult == null || searchResult.getPassword().equals(password)) ? null : searchResult;
+		return (searchResult == null || !searchResult.getPassword().equals(password)) ? null : searchResult;
 
 	}
 
