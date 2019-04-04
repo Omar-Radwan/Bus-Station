@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import users.classes.User;
 
@@ -103,5 +104,7 @@ public class Database {
 		return (searchResult == null || !searchResult.getPassword().equals(password)) ? null : searchResult;
 
 	}
+	
+
 
 }

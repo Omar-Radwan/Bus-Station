@@ -2,17 +2,24 @@ package vehicles.classes;
 
 import users.classes.Driver;
 
-public class Vehicle extends Driver{
+public class Vehicle {
+
+	/*
+	 * Attributes
+	 */
+
+	int numberOfSeats;
 
 	String color;
 	String number;
 	String type;
-	int numberOfSeats;
-	Driver driver;
-	
-	//---------------------------------------------------------------------------
 
-	
+	Driver driver;
+
+	/*
+	 * Constructor
+	 */
+
 	public Vehicle(String color, String number, String type, int numberOfSeats, Driver driver) {
 		super();
 		this.color = color;
@@ -21,6 +28,10 @@ public class Vehicle extends Driver{
 		this.numberOfSeats = numberOfSeats;
 		this.driver = driver;
 	}
+
+	/*
+	 * Getters And Setters
+	 */
 
 	public String getColor() {
 		return color;
@@ -61,10 +72,18 @@ public class Vehicle extends Driver{
 	public void setDriver(Driver driver) {
 		this.driver = driver;
 	}
-	
-	//---------------------------------------------------------------------------
-	
-	
-	
-	
+
+	/*
+	 * toString uses " " as delimiter
+	 */
+
+	@Override
+	public String toString() {
+		return numberOfSeats + " " + color + " " + number + " " + type + " " + driver + " ";
+	}
+
+	/*
+	 * Behavior
+	 */
+
 }

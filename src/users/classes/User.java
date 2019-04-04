@@ -1,24 +1,33 @@
 package users.classes;
 
 public class User {
-	
+
+	/*
+	 * Attributes
+	 */
+
 	String userName;
-	String firstName; 
+	String firstName;
 	String lastName;
 	String password;
-	
-	String job;
-	
-	//---------------------------------------------------------------------------
-	
-	public User(String userName, String firstName, String lastName, String password, String job) {
+	String type;
+
+	/*
+	 * Constructor
+	 */
+
+	public User(String userName, String firstName, String lastName, String password, String type) {
 		super();
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
-		this.job = job;
+		this.type = type;
 	}
+
+	/*
+	 * Getters And Setters
+	 */
 
 	public String getUserName() {
 		return userName;
@@ -53,14 +62,26 @@ public class User {
 	}
 
 	public String getJob() {
-		return job;
+		return type;
 	}
 
 	public void setJob(String job) {
-		this.job = job;
+		this.type = job;
+	}
+
+	/*
+	 * toString uses " " as delimiter
+	 */
+
+	@Override
+	public String toString() {
+		return userName + " " + firstName + " " + lastName + " " + password + " " + type + " ";
 	}
 	
-	//---------------------------------------------------------------------------
-	//---------------------------------------------------------------------------
+	/*
+	 * Behavior
+	 */
+	
+	
 
 }
