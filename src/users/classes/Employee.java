@@ -1,7 +1,10 @@
 package users.classes;
 
-public class Employee {
+public class Employee extends User {
 
-	//job
+	
+	
+	
+	
 	
 }

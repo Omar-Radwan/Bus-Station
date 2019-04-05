@@ -11,7 +11,9 @@ public class User {
 	String lastName;
 	String password;
 	String type;
-
+	
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -25,9 +27,15 @@ public class User {
 		this.type = type;
 	}
 
+	
 	/*
 	 * Getters And Setters
 	 */
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String getUserName() {
 		return userName;
@@ -82,6 +90,15 @@ public class User {
 	 * Behavior
 	 */
 	
-	
 
+	User user = new User();
+	
+	public boolean Authentication (String userName , String password)
+	
+	{
+		return (userName.equals(user.getUserName()) && password.equals(user.getPassword()) )?  true : false ;
+			  
+	}
+	
+	
 }

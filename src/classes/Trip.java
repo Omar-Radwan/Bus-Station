@@ -10,6 +10,8 @@ public class Trip {
 	String type;
 	int numberOfStops;
 	
+	int numberOfTrips = 0;
+	
 	//---------------------------------------------------------------------------
 	
 	public Trip(String source, String destination, Double distance, String type, int numberOfStops) {
@@ -63,4 +65,36 @@ public class Trip {
 	
 	//---------------------------------------------------------------------------
 
+	
+	Trip trip = new Trip(source, destination, distance, type, numberOfStops);
+	
+	public void AddTrips() {
+		
+	
+	
+		
+		
+	}
+	
+	
+	public void AvailableTrips()
+	{
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
