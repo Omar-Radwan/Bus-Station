@@ -1,13 +1,30 @@
-//y
+import gui.classes.LoginScreen;
+import gui.classes.Screen;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-// rabena maygeb conflicts asd
+public class Main extends Application {
 
+	
+	public static void main  (String [] args) {
 
-public class Main {
-	//simple conflict 1 trial
-	public static void main (String [] args) {
-		System.out.println("Initial Commit");
-		System.out.println("bla bla");
-		System.out.println("dada");
+		launch(args);
+	
+	
 	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+
+		Screen loginScreen = new LoginScreen();
+		
+		loginScreen.setStage(primaryStage);
+		loginScreen.setSize(300, 300);
+		loginScreen.draw();
+		
+		primaryStage.show();
+		
+	}
+	
+	
 }
