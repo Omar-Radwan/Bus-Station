@@ -8,7 +8,5 @@ public class Bus extends Vehicle{
 		super(color, number, type, numberOfSeats, driver);
 		// TODO Auto-generated constructor stub
 	}
-
-	String number ; 
-	
+	String number ;
 }

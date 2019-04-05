@@ -8,5 +8,5 @@ public class MiniBus extends Vehicle {
 		super(color, number, type, numberOfSeats, driver);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 }

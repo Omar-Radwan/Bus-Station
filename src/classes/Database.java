@@ -53,14 +53,16 @@ public class Database {
 	 */
 
 	public void loadAllUsers() throws IOException {
+		
 		File file = new File(pathname);
 		FileReader fileReader = new FileReader(file);
+		
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 
 		while (bufferedReader.ready()) {
 			String line = bufferedReader.readLine();
+			
 			loadUser(line);
-
 		}
 	}
 

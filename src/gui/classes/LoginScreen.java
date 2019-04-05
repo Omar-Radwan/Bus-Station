@@ -1,9 +1,12 @@
 package gui.classes;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 public class LoginScreen extends Screen  {
 
@@ -19,38 +22,31 @@ public class LoginScreen extends Screen  {
 	PasswordField passwordField ; 
 	
 	Button loginButton;
-	
+	Button backButton;
 	
 
 	/*
 	 * Constructor
 	 */
 	
-	public LoginScreen() {
-		super();
+	public LoginScreen(double width, double height,Stage stage) {
 		
-
+		super(width,height,stage);
+		
 		this.usernameLabel = new Label("Username");
 		this.passwordLabel = new Label("Password");
 		this.messageLabel = new Label("Press login to sign in. ");
 		this.usernameField = new TextField();
 		this.passwordField = new PasswordField();
 		this.loginButton = new Button("Login");
+		this.backButton = new Button("Back");
+		
 		this.gridpane = new GridPane();
 		this.borderpane = new BorderPane();
+
 	} 
 	
 	
-	
-
-	/*
-	 * Getters And Setters
-	 */
-
-
-	/*
-	 * toString uses " " as delimiter
-	 */
 
 	/*
 	 * Behavior
@@ -68,24 +64,38 @@ public class LoginScreen extends Screen  {
 		gridpane.add(passwordField, 1, 1);
 		
 		gridpane.add(loginButton, 0, 2);
-		
+		gridpane.add(backButton, 1,2);
 
-		gridpane.setAlignment(Pos.CENTER);
-		borderpane.setCenter(gridpane);
+		super.draw();
 		
-		scene = new Scene(borderpane,width,height);
-		
-		stage.setScene(scene);
-		
+		setActions();
 	
 	}
 
 
 
 
-	@Override
-	public void setActions() {
 	
+	private void setActions() {
+	
+		loginButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				
+			}
+		});
+		
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Screen homeScreen = new HomeScreen(scene.getWidth(), scene.getHeight(), stage);
+				homeScreen.draw();
+			}
+			
+		});
+		
 		
 	}
 
