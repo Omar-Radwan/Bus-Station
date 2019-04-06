@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
-	static final double defaultWidth =400; 
-	static final double defaultHeight = 400;
+	static final double defaultWidth =580; 
+	static final double defaultHeight = 450;
 	
 	public static void main  (String [] args) {
 

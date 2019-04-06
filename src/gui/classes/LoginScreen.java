@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class LoginScreen extends Screen  {
@@ -28,6 +30,7 @@ public class LoginScreen extends Screen  {
 	/*
 	 * Constructor
 	 */
+
 	
 	public LoginScreen(double width, double height,Stage stage) {
 		
@@ -52,9 +55,21 @@ public class LoginScreen extends Screen  {
 	 * Behavior
 	 */	
 	
+	private void setProperties () {
+		
+		
+		usernameLabel.setPrefSize(75, 40);
+		usernameLabel.setFont(Font.font(null,FontWeight.SEMI_BOLD,13));
+		
+		passwordLabel.setPrefSize(75, 40);
+		passwordLabel.setFont(Font.font(null,FontWeight.SEMI_BOLD,13));
+		
+		
+	}
+	
 	@Override
 	public void draw() {
-		
+		setProperties();
 		stage.setTitle("Login Page");
 		
 		gridpane.add(usernameLabel, 0, 0);
@@ -82,7 +97,8 @@ public class LoginScreen extends Screen  {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				
+				ProfileScreen passengerProfileScreen = new PassengerProfileScreen(scene.getWidth(), scene.getHeight(), stage);
+				passengerProfileScreen.draw();
 			}
 		});
 		

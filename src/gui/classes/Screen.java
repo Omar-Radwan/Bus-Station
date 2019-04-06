@@ -50,6 +50,7 @@ public abstract class Screen {
 		gridpane.setAlignment(Pos.CENTER);
 
 		borderpane.setCenter(gridpane);
+		borderpane.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
 		scene = new Scene(borderpane, width, height);
 
