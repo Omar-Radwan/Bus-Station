@@ -2,9 +2,13 @@ package gui.classes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 public class HomeScreen extends Screen {
@@ -32,7 +36,16 @@ public class HomeScreen extends Screen {
 	/*
 	 * Behavior
 	 */
+	private void setProperties () {
+		
 	
+		signInButton.setPrefSize(150, 50);
+		registerButton.setPrefSize(150, 50);
+		exitButton.setPrefSize(150, 50);
+
+
+		
+	}
 	@Override
 	public void draw() {
 		
@@ -41,6 +54,8 @@ public class HomeScreen extends Screen {
 		gridpane.add(signInButton,0,0);
 		gridpane.add(registerButton, 0, 1);
 		gridpane.add(exitButton, 0,2);
+		
+		setProperties();
 		
 		super.draw();
 		
