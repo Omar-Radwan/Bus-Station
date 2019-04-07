@@ -6,10 +6,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
+import users.classes.Driver;
+import users.classes.Employee;
+import users.classes.Manager;
+import users.classes.Passenger;
 import users.classes.User;
+import vehicles.classes.Bus;
+import vehicles.classes.Limosine;
+import vehicles.classes.MiniBus;
+import vehicles.classes.Vehicle;
 
 public class Database {
 
@@ -18,22 +27,80 @@ public class Database {
 	 */
 
 	String pathname;
-	LinkedList<User> usersList;
+	
+	LinkedList<Passenger> passengersList;
+	LinkedList<Employee> employeeList;
+	LinkedList<Vehicle> vehicleList;
+	LinkedList<Trip> tripList;
+	LinkedList<Ticket> ticketList;
 
 	/*
 	 * Constructor
 	 */
 
-	public Database(String filePath) {
+	public Database(String pathname) {
 		super();
-		this.pathname = filePath;
-		this.usersList = new LinkedList<User>();
+
+		this.pathname = pathname;
+		this.passengersList = new LinkedList<Passenger>();
+		this.employeeList = new LinkedList<Employee>();
+		this.vehicleList = new LinkedList<Vehicle>();
+		this.tripList = new LinkedList<Trip>();
+		this.ticketList = new LinkedList<Ticket>();
 	}
 
 	/*
 	 * Getters And Setters
 	 */
 
+	public String getPathname() {
+		return pathname;
+	}
+
+	public void setPathname(String pathname) {
+		this.pathname = pathname;
+	}
+
+	public LinkedList<Passenger> getPassengersList() {
+		return passengersList;
+	}
+
+	public void setPassengersList(LinkedList<Passenger> passengersList) {
+		this.passengersList = passengersList;
+	}
+
+	public LinkedList<Employee> getEmployeeList() {
+		return employeeList;
+	}
+
+	public void setEmployeeList(LinkedList<Employee> employeeList) {
+		this.employeeList = employeeList;
+	}
+
+	public LinkedList<Vehicle> getVehicleList() {
+		return vehicleList;
+	}
+
+	public void setVehicleList(LinkedList<Vehicle> vehicleList) {
+		this.vehicleList = vehicleList;
+	}
+
+	public LinkedList<Trip> getTripList() {
+		return tripList;
+	}
+
+	public void setTripList(LinkedList<Trip> tripList) {
+		this.tripList = tripList;
+	}
+
+	public LinkedList<Ticket> getTicketList() {
+		return ticketList;
+	}
+
+	public void setTicketList(LinkedList<Ticket> ticketList) {
+		this.ticketList = ticketList;
+	}
+	
 	public String getFilePath() {
 		return pathname;
 	}
@@ -42,6 +109,10 @@ public class Database {
 		this.pathname = filePath;
 	}
 
+	/*
+	 * Behavior
+	 */
+	
 	/*
 	 * Loads users from file to database
 	 */
@@ -68,22 +139,13 @@ public class Database {
 
 		StringTokenizer st = new StringTokenizer(line);
 
-		String[] userFields = new String[5];
+		String[] userFields = new String[4];
+
 		userFields[0] = st.nextToken();
 		userFields[1] = st.nextToken();
 		userFields[2] = st.nextToken();
 		userFields[3] = st.nextToken();
-		userFields[4] = st.nextToken();
 
-		if (userFields[0].equals("Manager")) {
-
-		} else if (userFields[0].equals("Driver")) {
-
-		}
-
-		else if (userFields[0].equals("Passenger")) {
-
-		}
 		return null;
 
 	}
@@ -95,9 +157,7 @@ public class Database {
 	public void registerUser(User x) throws IOException {
 
 		File file = new File(pathname);
-		FileWriter fileWriter = new FileWriter(file);
-
-		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+		PrintWriter pW = new PrintWriter(file);
 
 	}
 
@@ -105,22 +165,72 @@ public class Database {
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
-	public User authenticate(String userName, String password) {
+	public User authenticate(String userName, String password, String type) {
 
-		for (User x : usersList)
-			if (x.getUserName().equals(userName) && x.getPassword().equals(password))
-				return x;
+		if (type.equals("Passenger")) {
+			for (Passenger x : passengersList)
+				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+					return x;
+		}
+
+		else {
+			for (Employee x : employeeList)
+				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+					return x;
+		}
 
 		return null;
-
 	}
 
 	/*
-	 * 
+	 * Adders
 	 */
 
-	public void addUserToTheFile() {
+	public Vehicle addLimosine(Driver driver) {
 
+		vehicleList.add(new Limosine(driver));
+		return vehicleList.getLast();
+	}
+
+	public Vehicle addMiniBus(Driver driver) {
+
+		vehicleList.add(new MiniBus(driver));
+		return vehicleList.getLast();
+	}
+
+	public Vehicle addBus(Driver driver) {
+
+		vehicleList.add(new Bus(driver));
+		return vehicleList.getLast();
+	}
+
+	public Passenger addPassenger(String firstName, String lastName, String userName, String password, double balance) {
+
+		passengersList.add(new Passenger(firstName, lastName, userName, password, balance));
+
+		return passengersList.getLast();
+	}
+
+	public Employee addDriver(String firstName, String lastName, String userName, String password, double salary) {
+
+		employeeList.add(new Driver(firstName, lastName, userName, password, salary));
+
+		return (employeeList.getLast());
+	}
+
+	public Employee addManager(String firstName, String lastName, String userName, String password, double salary) {
+
+		employeeList.add(new Manager(firstName, lastName, userName, password, salary));
+
+		return employeeList.getLast();
+	}
+
+	public Trip addTrip(Vehicle vehicle, String source, String destination, double distance, String type,
+			int numberOfStops, Date date, Time time) {
+
+		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time));
+
+		return tripList.getLast();
 	}
 
 }

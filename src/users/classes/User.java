@@ -1,5 +1,9 @@
 package users.classes;
 
+import java.util.LinkedList;
+
+import classes.Message;
+
 public abstract class User {
 
 	/*
@@ -10,6 +14,8 @@ public abstract class User {
 	String firstName;
 	String lastName;
 	String password;
+	
+	LinkedList<Message> messageList= new LinkedList<Message>();
 
 	/*
 	 * Constructor
@@ -21,6 +27,8 @@ public abstract class User {
 		this.lastName = lastName;
 		this.userName = userName;
 		this.password = password;
+		
+		this.messageList = new LinkedList<Message>();
 	}
 
 	/*
@@ -74,7 +82,16 @@ public abstract class User {
 	/*
 	 * Behavior
 	 */
+	
+	
+	/*
+	 * Adders
+	 */
 
+	public Message addMessage(String from, String to, String subject, String content) {
+		messageList.add(0,new Message(from, to, subject, content));
+		return messageList.getFirst();
+	}
 	
 
 }
