@@ -1,5 +1,6 @@
 package gui.classes;
 
+import classes.Database;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -11,7 +12,7 @@ public abstract class Screen {
 	/*
 	 * Attributes
 	 */
-
+	protected Database  database ; 
 	protected double width;
 	protected double height;
 
@@ -25,8 +26,8 @@ public abstract class Screen {
 	 * Constructor
 	 */
 
-	Screen(double width, double height, Stage stage) {
-		
+	Screen(double width, double height, Stage stage,Database database) {
+		this.database = database;
 		this.width = width;
 		this.height = height;
 		
@@ -35,6 +36,7 @@ public abstract class Screen {
 		gridpane = new GridPane();
 		
 		borderpane = new BorderPane();
+		
 
 	}
 
@@ -53,7 +55,7 @@ public abstract class Screen {
 		borderpane.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
 		scene = new Scene(borderpane, width, height);
-
+		gridpane.setGridLinesVisible(true);
 		stage.setScene(scene);
 
 	};

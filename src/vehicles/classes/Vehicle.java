@@ -9,7 +9,6 @@ public class Vehicle {
 	 */
 	
 	Driver driver;
-	int maxNumberOfSeats;
 	int currentNumberOfSeats;
 	
 	// commented attributes
@@ -35,14 +34,6 @@ public class Vehicle {
 
 	public Driver getDriver() {
 		return driver;
-	}
-
-	public int getMaxNumberOfSeats() {
-		return maxNumberOfSeats;
-	}
-
-	public void setMaxNumberOfSeats(int maxNumberOfSeats) {
-		this.maxNumberOfSeats = maxNumberOfSeats;
 	}
 
 	public int getCurrentNumberOfSeats() {

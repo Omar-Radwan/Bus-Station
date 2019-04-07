@@ -3,11 +3,11 @@ package vehicles.classes;
 import users.classes.Driver;
 
 public class Bus extends Vehicle{
+	static final int maxNumberOfSeats = 50; 
 	
 	public Bus(Driver driver) {
 		super(driver);
-		this.maxNumberOfSeats = 50;
-		this.currentNumberOfSeats = 50;
+		this.currentNumberOfSeats = maxNumberOfSeats;
 	}
 	
 }

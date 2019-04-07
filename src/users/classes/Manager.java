@@ -1,5 +1,6 @@
 package users.classes;
 
+import classes.Database;
 import classes.Date;
 
 public class Manager extends Employee {
@@ -7,6 +8,8 @@ public class Manager extends Employee {
 	/*
 	 * Attributes
 	 */
+	
+	static Database database ;
 
 	/*
 	 * Constructor
@@ -20,7 +23,9 @@ public class Manager extends Employee {
 	/*
 	 * Getters And Setters
 	 */
-
+	public static void setDataBase (Database database) {
+		Manager.database = database;
+	}
 	/*
 	 * toString uses " " as delimiter
 	 */

@@ -1,7 +1,9 @@
 package gui.classes;
 
+import classes.Database;
 import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
+import users.classes.User;
 
 public class DriverProfileScreen extends ProfileScreen {
 
@@ -16,8 +18,8 @@ public class DriverProfileScreen extends ProfileScreen {
 	 * Constructor
 	 */
 
-	DriverProfileScreen(double width, double height, Stage stage) {
-		super(width, height, stage);
+	DriverProfileScreen(double width, double height, Stage stage, Database database, User user) {
+		super(width, height, stage, database, user);
 		cancelTripLink = new Hyperlink("Request trip cancelation");
 		viewTripsLink = new Hyperlink("View your trips");
 	}
@@ -29,10 +31,10 @@ public class DriverProfileScreen extends ProfileScreen {
 	@Override
 	public void draw() {
 		super.drawAboveChild();
-		
+
 		vBox.getChildren().add(cancelTripLink);
 		vBox.getChildren().add(viewTripsLink);
-		
+
 		super.drawBelowChild();
 
 	}

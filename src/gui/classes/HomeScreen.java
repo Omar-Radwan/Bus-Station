@@ -1,14 +1,9 @@
 package gui.classes;
 
+import classes.Database;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class HomeScreen extends Screen {
@@ -25,8 +20,8 @@ public class HomeScreen extends Screen {
 	 * Constructor
 	 */
 
-	public HomeScreen(double width, double height, Stage stage) {
-		super(width, height, stage);
+	public HomeScreen(double width, double height, Stage stage, Database database) {
+		super(width, height, stage, database);
 
 		signInButton = new Button("Sign in");
 		registerButton = new Button("Register");
@@ -42,7 +37,7 @@ public class HomeScreen extends Screen {
 		signInButton.setPrefSize(150, 50);
 		registerButton.setPrefSize(150, 50);
 		exitButton.setPrefSize(150, 50);
-		
+
 	}
 
 	@Override
@@ -67,7 +62,7 @@ public class HomeScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Screen loginScreen = new LoginScreen(scene.getWidth(), scene.getHeight(), stage);
+				Screen loginScreen = new LoginScreen(scene.getWidth(), scene.getHeight(), stage, database);
 				loginScreen.draw();
 			}
 		});
@@ -76,7 +71,7 @@ public class HomeScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Screen registerScreen = new RegisterScreen(scene.getWidth(), scene.getHeight(), stage);
+				Screen registerScreen = new RegisterScreen(scene.getWidth(), scene.getHeight(), stage, database);
 				registerScreen.draw();
 			}
 		});

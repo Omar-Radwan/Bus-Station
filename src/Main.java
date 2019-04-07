@@ -3,6 +3,7 @@ import java.util.LinkedList;
 
 import classes.Database;
 import classes.Date;
+import classes.Message;
 import classes.Time;
 import classes.Trip;
 import gui.classes.HomeScreen;
@@ -12,23 +13,27 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import users.classes.Driver;
 import users.classes.Employee;
+import users.classes.Manager;
 
 public class Main extends Application {
 
 	static final double defaultWidth = 580;
 	static final double defaultHeight = 450;
-
+	static Database database = new Database("C:\\Users\\omare\\Desktop\\");
+	
 	public static void main(String[] args) {
 
-		Database database = new Database("C:\\Users\\omare\\Desktop\\");
-
+		
+		
+		Manager.setDataBase(database);
+		
 		database.addDriver("mayar", "adel", "mayar", "123", 100);
 		database.addDriver("maram", "ghazal", "mrmr", "123", 100);
 		database.addDriver("fady", "samy", "fozdo2a", "123", 100);
 		database.addDriver("verginia", "ehab", "naugtyvergu", "123", 100);
 		database.addDriver("mohamed", "ahmed", "tokyo", "123", 100);
 
-		database.addManager("omar", "hisham", "mrmr", "123", 100);
+		database.addManager("omar", "hisham", "dada", "123", 100);
 		database.addManager("nadeen", "elgazar", "nadnod", "123", 100);
 		database.addManager("hana", "magdy", "hanhoon", "123", 100);
 		database.addManager("omar", "radwan", "rado", "123", 100);
@@ -46,11 +51,22 @@ public class Main extends Application {
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
 		database.addTrip(database.getVehicleList().get(0), "Menia", "Sohag", 140, "Internal", 2, new Date(12, 8, 2019),
 				new Time(10, 0, "am"));
-		database.addTrip(database.getVehicleList().get(0), "Egypt", "Saudia", 5300, "External", 0, new Date(12, 8, 2019),
-				new Time(10, 0, "am"));
+		database.addTrip(database.getVehicleList().get(0), "Egypt", "Saudia", 5300, "External", 0,
+				new Date(12, 8, 2019), new Time(10, 0, "am"));
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Matrouh", 300, "Internal", 1,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
+		
 
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		
 		launch(args);
 
@@ -59,8 +75,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Screen homeScreen = new HomeScreen(defaultWidth, defaultHeight, primaryStage);
-		Screen logiScreen = new LoginScreen(defaultWidth, defaultHeight, primaryStage);
+		Screen homeScreen = new HomeScreen(defaultWidth, defaultHeight, primaryStage,database);
+		Screen logiScreen = new LoginScreen(defaultWidth, defaultHeight, primaryStage,database);
 
 		primaryStage.setMinHeight(defaultHeight);
 		primaryStage.setMinWidth(defaultWidth);

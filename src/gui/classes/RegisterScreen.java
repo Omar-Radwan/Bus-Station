@@ -1,5 +1,6 @@
 package gui.classes;
 
+import classes.Database;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -30,8 +31,8 @@ public class RegisterScreen extends Screen {
 	 * Constructor
 	 */
 
-	RegisterScreen(double width, double height, Stage stage) {
-		super(width, height, stage);
+	RegisterScreen(double width, double height, Stage stage, Database database) {
+		super(width, height, stage, database);
 		firstNameLabel = new Label("Firstname: ");
 		lastNameLabel = new Label("Lastname: ");
 		userNameLabel = new Label("Username: ");
@@ -78,7 +79,7 @@ public class RegisterScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 
-				Screen homeScreen = new HomeScreen(scene.getWidth(), scene.getHeight(), stage);
+				Screen homeScreen = new HomeScreen(scene.getWidth(), scene.getHeight(), stage, database);
 				homeScreen.draw();
 			}
 		});

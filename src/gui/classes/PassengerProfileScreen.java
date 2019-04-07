@@ -1,55 +1,48 @@
 package gui.classes;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import classes.Database;
+import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
+import users.classes.User;
 
-public class PassengerProfileScreen extends ProfileScreen{
+public class PassengerProfileScreen extends ProfileScreen {
 
 	/*
 	 * Attributes
 	 */
-	
 
-	Hyperlink bookTripLink ;
+	Hyperlink bookTripLink;
 	Hyperlink cancelTripLink;
-	Hyperlink viewTripsLink;	
-	
+	Hyperlink viewTripsLink;
+
 	/*
 	 * Constructor
 	 */
-	
-	PassengerProfileScreen(double width, double height,Stage stage){
-		super(width, height,stage);
+
+	PassengerProfileScreen(double width, double height, Stage stage, Database database, User user) {
+		super(width, height, stage, database, user);
 		bookTripLink = new Hyperlink("Book a trip");
 		cancelTripLink = new Hyperlink("Cancel a trip");
 		viewTripsLink = new Hyperlink("View trips");
-		
-	}
-	
 
-	
+	}
+
 	/*
 	 * Behavior
 	 */
-	
+
 	private void setProperties() {
-	
 
 	}
-	
-	@Override 
+
+	@Override
 	public void draw() {
 		drawAboveChild();
 		setProperties();
-		vBox.getChildren().addAll(bookTripLink,cancelTripLink,viewTripsLink);
-		
-		
-		
+		vBox.getChildren().addAll(bookTripLink, cancelTripLink, viewTripsLink);
+
 		drawBelowChild();
-		
-		
+
 	}
-	
+
 }

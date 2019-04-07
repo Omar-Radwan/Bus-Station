@@ -166,7 +166,7 @@ public class Database {
 	 */
 
 	public User authenticate(String userName, String password, String type) {
-
+		System.out.println(type);
 		if (type.equals("Passenger")) {
 			for (Passenger x : passengersList)
 				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
@@ -180,6 +180,16 @@ public class Database {
 		}
 
 		return null;
+	}
+	
+	public boolean isExist(String userName) {
+		for (Passenger x : passengersList) 
+			if (x.getUserName().equals(userName))return true;
+		
+		for (Employee x : employeeList) 
+			if (x.getUserName().equals(userName))return true;
+		
+		return false ;
 	}
 
 	/*
