@@ -20,10 +20,6 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 
-		LinkedList<Trip> trips = new LinkedList<>();
-
-		Employee[] d = new Employee[5];
-
 		Database database = new Database("C:\\Users\\omare\\Desktop\\");
 
 		database.addDriver("mayar", "adel", "mayar", "123", 100);
