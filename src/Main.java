@@ -10,6 +10,7 @@ import gui.classes.Screen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import users.classes.Driver;
+import users.classes.Employee;
 import users.classes.Manager;
 import vehicles.classes.Bus;
 import vehicles.classes.Limosine;
@@ -25,25 +26,25 @@ public class Main extends Application {
 		
 		LinkedList<Trip> trips = new LinkedList<>();
 
-		Driver d1 = new Driver("mayar", "adel", "mayar", "123", 100);
-		Driver d2 = new Driver("mohamed", "ahmed", "tokyo", "123", 100);
-		Driver d3 = new Driver("verginia", "ehab", "naugtyvergu", "123", 100);
-		Driver d4 = new Driver("fady", "samy", "fozdo2a", "123", 100);
-		Driver d5 = new Driver("maram", "ghazal", "mrmr", "123", 100);
+		Employee d1 = new Driver("mayar", "adel", "mayar", "123", 100);
+		Employee d2 = new Driver("mohamed", "ahmed", "tokyo", "123", 100);
+		Employee d3 = new Driver("verginia", "ehab", "naugtyvergu", "123", 100);
+		Employee d4 = new Driver("fady", "samy", "fozdo2a", "123", 100);
+		Employee d5 = new Driver("maram", "ghazal", "mrmr", "123", 100);
 
-		Manager m1 = new Manager ("omar", "hisham", "mrmr", "123", 100);
-		Manager m2 = new Manager("nadeen", "elgazar", "nadnod", "123", 100);
-		Manager m3 = new Manager("hana", "magdy", "hanhoon", "123", 100);
-		Manager m4 = new Manager("omar", "radwan", "rado", "123", 100);
-		Manager m5 = new Manager("ahmed", "hamada", "hamada", "123", 100);
+		Employee m1 = new Manager ("omar", "hisham", "mrmr", "123", 100);
+		Employee m2 = new Manager("nadeen", "elgazar", "nadnod", "123", 100);
+		Employee m3 = new Manager("hana", "magdy", "hanhoon", "123", 100);
+		Employee m4 = new Manager("omar", "radwan", "rado", "123", 100);
+		Employee m5 = new Manager("ahmed", "hamada", "hamada", "123", 100);
 		
 
 		
-		Vehicle v1 = new Limosine(d1);
-		Vehicle v2 = new Bus(d2);
-		Vehicle v3 = new MiniBus(d3);
-		Vehicle v4 = new MiniBus(d4);
-		Vehicle v5 = new Bus(d5);
+		Vehicle v1 = new Limosine((Driver)d1);
+		Vehicle v2 = new Bus((Driver)d2);
+		Vehicle v3 = new MiniBus((Driver)d3);
+		Vehicle v4 = new MiniBus((Driver)d4);
+		Vehicle v5 = new Bus((Driver)d5);
 		
 		Trip t1 = new Trip(v1,"Alexandria", "Cairo", 100 , "Internal",0, new Date(12,8 ,2019 ), new Time(10,0, "am"));
 		Trip t2 = new Trip(v2,"Egypt", "Libia",30000, "External",0, new Date(12,8 ,2019 ), new Time(10,0, "am"));
@@ -70,8 +71,10 @@ public class Main extends Application {
 		Screen homeScreen = new HomeScreen(defaultWidth, defaultHeight, primaryStage);
 		Screen logiScreen = new LoginScreen(defaultWidth, defaultHeight, primaryStage);
 
-		primaryStage.setMinWidth(defaultWidth);
 		primaryStage.setMinHeight(defaultHeight);
+		primaryStage.setMinWidth(defaultWidth);
+		primaryStage.setMaxHeight(defaultHeight);
+		primaryStage.setMaxWidth(defaultWidth);
 
 		homeScreen.draw();
 
