@@ -120,43 +120,27 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				double gridWidth = gridpane.widthProperty().doubleValue();
-				double gridHeight = gridpane.heightProperty().doubleValue();
 				
 				gridpane.setPrefHeight(800);
 				gridpane.setPrefWidth(400);
 				
-				
-
-				ColumnConstraints cs = new ColumnConstraints();
-				cs.setPrefWidth(gridWidth);
-				gridpane.getColumnConstraints().add(cs);
-
-
-				
-				RowConstraints rc = new RowConstraints();
-				rc .setPrefHeight((gridHeight/8));
-				gridpane.getRowConstraints().add(rc);
-				
-				rc = new RowConstraints();
-				rc .setPrefHeight((gridHeight/8));
-				gridpane.getRowConstraints().add(rc);
-				
-				rc = new RowConstraints();
-				rc .setPrefHeight((gridHeight/8));
-				gridpane.getRowConstraints().add(rc);
-				
-				rc = new RowConstraints();
-				rc .setPrefHeight((gridHeight/8));
-				gridpane.getRowConstraints().add(rc);
+				HBox buttonsBox = new HBox();
+				gridpane.add(buttonsBox, 0, 0);
+				buttonsBox.setSpacing(10);
+				Button send = new Button("Send");
+				Label toLabel = new Label("			To:");
+				TextField userNameField =new TextField() ;
 				
 				
 				gridpane.setGridLinesVisible(true);
 				borderpane.setVisible(true);
-			
+				buttonsBox.getChildren().add(send);
 				
+				buttonsBox.getChildren().add(toLabel);
+				buttonsBox.getChildren().add(userNameField);
 				TextArea messageField = new TextArea();
-			
+				gridpane.add(messageField, 0, 1);
+				messageField.setPrefSize(300, 300);
 				gridpane.setAlignment(Pos.CENTER);
 				borderpane.setCenter(gridpane);
 
