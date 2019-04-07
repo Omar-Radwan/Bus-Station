@@ -7,25 +7,22 @@ public class Vehicle {
 	/*
 	 * Attributes
 	 */
-
-	int numberOfSeats;
-
-	String color;
-	String number;
-	String type;
-
+	
 	Driver driver;
+	int maxNumberOfSeats;
+	int currentNumberOfSeats;
+	
+	// commented attributes
+	/*String color;
+	String number;
+	String type;*/
 
 	/*
 	 * Constructor
 	 */
 
-	public Vehicle(String color, String number, String type, int numberOfSeats, Driver driver) {
+	public Vehicle(Driver driver) {
 		super();
-		this.color = color;
-		this.number = number;
-		this.type = type;
-		this.numberOfSeats = numberOfSeats;
 		this.driver = driver;
 	}
 
@@ -33,40 +30,27 @@ public class Vehicle {
 	 * Getters And Setters
 	 */
 
-	public String getColor() {
-		return color;
-	}
 
-	public void setColor(String color) {
-		this.color = color;
-	}
 
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getNumberOfSeats() {
-		return numberOfSeats;
-	}
-
-	public void setNumberOfSeats(int numberOfSeats) {
-		this.numberOfSeats = numberOfSeats;
-	}
 
 	public Driver getDriver() {
 		return driver;
+	}
+
+	public int getMaxNumberOfSeats() {
+		return maxNumberOfSeats;
+	}
+
+	public void setMaxNumberOfSeats(int maxNumberOfSeats) {
+		this.maxNumberOfSeats = maxNumberOfSeats;
+	}
+
+	public int getCurrentNumberOfSeats() {
+		return currentNumberOfSeats;
+	}
+
+	public void setCurrentNumberOfSeats(int currentNumberOfSeats) {
+		this.currentNumberOfSeats = currentNumberOfSeats;
 	}
 
 	public void setDriver(Driver driver) {
@@ -79,7 +63,7 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return numberOfSeats + " " + color + " " + number + " " + type + " " + driver + " ";
+		return "" ;
 	}
 
 	/*

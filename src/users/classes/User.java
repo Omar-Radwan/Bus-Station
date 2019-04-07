@@ -1,40 +1,31 @@
 package users.classes;
 
-public class User {
+public abstract class User {
 
 	/*
 	 * Attributes
 	 */
-
+	
 	String userName;
 	String firstName;
 	String lastName;
 	String password;
-	String type;
-	
-	
-	
+
 	/*
 	 * Constructor
 	 */
 
-	public User(String userName, String firstName, String lastName, String password, String type) {
+	public User( String firstName, String lastName, String userName, String password) {
 		super();
-		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.userName = userName;
 		this.password = password;
-		this.type = type;
 	}
 
-	
 	/*
 	 * Getters And Setters
 	 */
-
-	public User() {
-		// TODO Auto-generated constructor stub
-	}
 
 
 	public String getUserName() {
@@ -69,13 +60,7 @@ public class User {
 		this.password = password;
 	}
 
-	public String getJob() {
-		return type;
-	}
 
-	public void setJob(String job) {
-		this.type = job;
-	}
 
 	/*
 	 * toString uses " " as delimiter
@@ -83,22 +68,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return userName + " " + firstName + " " + lastName + " " + password + " " + type + " ";
+		return  firstName + " " + lastName + " " + userName + " " + password + " ";
 	}
-	
+
 	/*
 	 * Behavior
 	 */
+
 	
 
-	User user = new User();
-	
-	public boolean Authentication (String userName , String password)
-	
-	{
-		return (userName.equals(user.getUserName()) && password.equals(user.getPassword()) )?  true : false ;
-			  
-	}
-	
-	
 }

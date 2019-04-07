@@ -4,9 +4,10 @@ import users.classes.Driver;
 
 public class Bus extends Vehicle{
 	
-	public Bus(String color, String number, String type, int numberOfSeats, Driver driver) {
-		super(color, number, type, numberOfSeats, driver);
-		// TODO Auto-generated constructor stub
+	public Bus(Driver driver) {
+		super(driver);
+		this.maxNumberOfSeats = 50;
+		this.currentNumberOfSeats = 50;
 	}
-	String number ;
+	
 }

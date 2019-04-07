@@ -8,15 +8,16 @@ public class Time {
 	
 	int hours ; 
 	int minutes;
-
+	String amOrPM ;
 	/*
 	 * Constructor
 	 */
 	
-	public Time(int hours, int minutes) {
+	public Time(int hours, int minutes,String amOrPm) {
 		super();
 		this.hours = hours;
 		this.minutes = minutes;
+		this.amOrPM = amOrPm;
 	}
 
 	/*
@@ -37,11 +38,18 @@ public class Time {
 
 	public void setMinutes(int minutes) {
 		this.minutes = minutes;
-	}  
+	}
+
+
 	
 	/*
 	 * toString
 	 */
+	
+	@Override
+	public String toString() {
+		return String.format("%2d:%2d", hours,minutes);
+	}  
 	
 	
 	/*

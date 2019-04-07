@@ -1,11 +1,13 @@
 package classes;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 import users.classes.User;
 
@@ -16,7 +18,7 @@ public class Database {
 	 */
 
 	String pathname;
-	HashMap<String, User> userNameToUserMap;
+	LinkedList<User> usersList;
 
 	/*
 	 * Constructor
@@ -25,7 +27,7 @@ public class Database {
 	public Database(String filePath) {
 		super();
 		this.pathname = filePath;
-		this.userNameToUserMap = new HashMap<String, User>();
+		this.usersList = new LinkedList<User>();
 	}
 
 	/*
@@ -40,28 +42,20 @@ public class Database {
 		this.pathname = filePath;
 	}
 
-	public HashMap<String, User> getNameToUserDataBase() {
-		return userNameToUserMap;
-	}
-
-	public void setNameToUserDataBase(HashMap<String, User> nameToUserDataBase) {
-		this.userNameToUserMap = nameToUserDataBase;
-	}
-
 	/*
 	 * Loads users from file to database
 	 */
 
 	public void loadAllUsers() throws IOException {
-		
+
 		File file = new File(pathname);
 		FileReader fileReader = new FileReader(file);
-		
+
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
 
 		while (bufferedReader.ready()) {
 			String line = bufferedReader.readLine();
-			
+
 			loadUser(line);
 		}
 	}
@@ -70,21 +64,27 @@ public class Database {
 	 * Initializes one user by fields read from file and adds it to database
 	 */
 
-	public void loadUser(String line) {
+	public User loadUser(String line) {
 
-		String[] tokens = line.split(" ");
+		StringTokenizer st = new StringTokenizer(line);
 
-		if (tokens[0].equals("Manager")) {
+		String[] userFields = new String[5];
+		userFields[0] = st.nextToken();
+		userFields[1] = st.nextToken();
+		userFields[2] = st.nextToken();
+		userFields[3] = st.nextToken();
+		userFields[4] = st.nextToken();
+
+		if (userFields[0].equals("Manager")) {
+
+		} else if (userFields[0].equals("Driver")) {
 
 		}
 
-		else if (tokens[0].equals("Driver")) {
+		else if (userFields[0].equals("Passenger")) {
 
 		}
-
-		else if (tokens[0].equals("Passenger")) {
-
-		}
+		return null;
 
 	}
 
@@ -92,7 +92,12 @@ public class Database {
 	 * Adds new user to the file and to the database
 	 */
 
-	public void registerUser() {
+	public void registerUser(User x) throws IOException {
+
+		File file = new File(pathname);
+		FileWriter fileWriter = new FileWriter(file);
+
+		BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
 	}
 
@@ -102,11 +107,20 @@ public class Database {
 
 	public User authenticate(String userName, String password) {
 
-		User searchResult = userNameToUserMap.get(userName);
-		return (searchResult == null || !searchResult.getPassword().equals(password)) ? null : searchResult;
+		for (User x : usersList)
+			if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+				return x;
+
+		return null;
 
 	}
-	
 
+	/*
+	 * 
+	 */
+
+	public void addUserToTheFile() {
+
+	}
 
 }

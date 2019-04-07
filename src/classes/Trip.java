@@ -1,7 +1,14 @@
 package classes;
 
+import users.classes.Driver;
+import vehicles.classes.Vehicle;
+import classes.*;
 public class Trip {
-
+	
+	/*
+	 * Attributes
+	 */
+	Vehicle vehilce;
 	String source;
 	String destination;
 	
@@ -9,20 +16,31 @@ public class Trip {
 	
 	String type;
 	int numberOfStops;
+
+	Date date;
+	Time time;
 	
-	int numberOfTrips = 0;
 	
-	//---------------------------------------------------------------------------
+	/*
+	 * Constructor
+	 */
 	
-	public Trip(String source, String destination, Double distance, String type, int numberOfStops) {
+	public Trip(Vehicle vehicle ,String source, String destination, double distance, String type, int numberOfStops,Date date,Time time) {
 		super();
+		this.vehilce = vehicle;
 		this.source = source;
 		this.destination = destination;
 		this.distance = distance;
 		this.type = type;
 		this.numberOfStops = numberOfStops;
+		this.date = date;
+		this.time = time;
 	}
 
+	/*
+	 * Getters And Setters
+	 */
+	
 	public String getSource() {
 		return source;
 	}
@@ -62,11 +80,15 @@ public class Trip {
 	public void setNumberOfStops(int numberOfStops) {
 		this.numberOfStops = numberOfStops;
 	}
-	
-	//---------------------------------------------------------------------------
 
-	
-	Trip trip = new Trip(source, destination, distance, type, numberOfStops);
+
+	/*
+	 * toString uses " " as delimiter
+	 */
+
+	/*
+	 * Behavior
+	 */
 	
 	public void AddTrips() {
 		

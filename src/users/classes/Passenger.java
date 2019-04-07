@@ -1,26 +1,60 @@
 package users.classes;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
-import classes.Trip;
+import classes.Ticket;
 
-public class Passenger extends User{
+public class Passenger extends User {
 
-	public Passenger(String userName, String firstName, String lastName, String password, String type) {
-		super(userName, firstName, lastName, password, type);
-		// TODO Auto-generated constructor stub
+	/*
+	 * Attributes
+	 */
+
+	double balance;
+	LinkedList<Ticket> ticketList;
+	
+	/*
+	 * Constructor
+	 */
+
+	public Passenger( String firstName, String lastName, String userName, String password, double balance) {
+		super(firstName, lastName, firstName, password);
+		this.balance = balance;
+		ticketList = new LinkedList<Ticket>();
 	}
-	ArrayList<Trip>trip;
-	//pastAndUpcoming
-	String membershipType; 
-	int counter = 100;
 	
-	public void BuyTicket()
-	{
-		
-		
+
+	/*
+	 * Getters And Setters
+	 */
+
+	public LinkedList<Ticket> getTicketList() {
+		return ticketList;
+	}
+
+	public void setTicketList(LinkedList<Ticket> tickets) {
+		this.ticketList = tickets;
+	}
+
+
+
+	/*
+	 * toString uses " " as delimiter
+	 */
+
+	/*
+	 * Behavior
+	 */
+	
+	public boolean addTicket(double tripPrice, Ticket ticket) {
+		if (balance >= tripPrice) {
+			balance -= tripPrice;
+			ticketList.add(0, ticket);
+			return true;
+		}
+		return false;
 	}
 	
 	
-	
+
 }

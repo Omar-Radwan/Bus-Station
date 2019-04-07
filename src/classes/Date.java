@@ -62,7 +62,7 @@ public class Date {
 	 * Behaviors
 	 */
 
-	boolean checkValidity() {
+	public boolean checkValidity() {
 	
 		int[] lastValidDay = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 		

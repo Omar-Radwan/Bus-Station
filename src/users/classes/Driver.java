@@ -1,14 +1,47 @@
 package users.classes;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
+import classes.Date;
 import classes.Trip;
 
 public class Driver extends Employee{
 	
-	ArrayList<Trip>assigned;
-	double salary ; 
+	/*
+	 * Attributes
+	 */
+	LinkedList<Trip> tripsList; 
+
+
+
+	/*
+	 * Constructor
+	 */
 	
-	//infoAboutHim
+	public Driver(String firstName, String lastName, String userName, String password, double salary) {
+		super(firstName, lastName, userName,password, salary);
+		tripsList = new LinkedList<Trip>();
+		this.job = "Driver";
+	}
+
+
+	/*
+	 * Getters And Setters
+	 */
+
+
+	/*
+	 * toString uses " " as delimiter
+	 */
+
+	/*
+	 * Behavior
+	 */
 	
+	
+
+
+
+	
+
 }
