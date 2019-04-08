@@ -109,18 +109,23 @@ public class DriverProfileScreen extends ProfileScreen {
 
 				for (Trip x : driver.getTripsList()) {
 					Hyperlink tripLink = new Hyperlink();
+					
 					tripLink.setPrefSize(400, 150);
 					tripLink.setBorder(Border.EMPTY);
 					tripLink.setTextFill(Paint.valueOf("blue"));
 					tripLink.setFont(Font.font(12));
-					gridpane.add(tripLink, 0, i);
-					tripLink.setText(i+x.data());
 					
+					gridpane.add(tripLink, 0, i);
+			
+					tripLink.setText(i+x.data());
+				
 					tripLink.setOnAction(new EventHandler<ActionEvent>() {
 						
 						@Override
 						public void handle(ActionEvent event) {
 							// send a message to the concerned manager
+					
+							
 							gridpane = new GridPane();
 							Text noTripsText = new Text("A message has been sent to the\nconcerned manager");
 							gridpane.add(noTripsText, 0, 0);

@@ -164,13 +164,11 @@ public class Database {
 	 */
 
 	public User authenticate(String userName, String password, String type) {
-		System.out.println(type);
 
 		if (type.equals("Passenger")) {
 			for (Passenger x : passengersList)
 				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
 					return x;
-
 		}
 
 		else {
@@ -250,6 +248,7 @@ public class Database {
 	 */
 
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
+		// check if the user name already exist
 
 		return 1;
 	}

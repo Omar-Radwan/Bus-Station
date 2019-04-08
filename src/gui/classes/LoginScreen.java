@@ -53,6 +53,7 @@ public class LoginScreen extends Screen {
 		this.backButton = new Button("Back");
 
 		this.comboBox = new ComboBox<String>();
+	
 		comboBox.getItems().addAll("Passenger", "Employee");
 		comboBox.getSelectionModel().select(0);
 		
@@ -65,19 +66,11 @@ public class LoginScreen extends Screen {
 	 * Behavior
 	 */
 
-	private void setProperties() {
-
-		usernameLabel.setPrefSize(75, 40);
-		usernameLabel.setFont(Font.font(null, FontWeight.SEMI_BOLD, 13));
-
-		passwordLabel.setPrefSize(75, 40);
-		passwordLabel.setFont(Font.font(null, FontWeight.SEMI_BOLD, 13));
-
-	}
 
 	@Override
 	public void draw() {
-		setProperties();
+		
+
 		stage.setTitle("Login Page");
 
 		gridpane.add(usernameLabel, 0, 0);
@@ -94,7 +87,7 @@ public class LoginScreen extends Screen {
 		messageLabel.setPrefSize(200, 50);
 
 		super.draw();
-
+		
 		setActions();
 
 	}
@@ -105,8 +98,9 @@ public class LoginScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
+			
 				User x  ;
-				 database.authenticate("", "", "");
+				
 				if (comboBox.getValue().equals("Passenger")) {
 					x = database.authenticate(usernameField.getText(), passwordField.getText(), "Passenger");
 				} else {

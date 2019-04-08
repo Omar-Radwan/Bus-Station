@@ -26,6 +26,7 @@ public class RegisterScreen extends Screen {
 	PasswordField passwordField;
 
 	Button backButton;
+	Button saveButton;
 
 	/*
 	 * Constructor
@@ -43,7 +44,7 @@ public class RegisterScreen extends Screen {
 		userNameField = new TextField();
 		passwordField = new PasswordField();
 
-		
+		saveButton = new Button("Save");
 		backButton = new Button("Back");
 
 	}
@@ -68,7 +69,8 @@ public class RegisterScreen extends Screen {
 		gridpane.add(passwordField, 1, 3);
 
 		gridpane.add(backButton, 1, 4);
-
+		gridpane.add(saveButton, 0, 4);
+		
 		super.draw();
 
 		setActions();
@@ -79,9 +81,17 @@ public class RegisterScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-
+				
 				Screen homeScreen = new HomeScreen(scene.getWidth(), scene.getHeight(), stage, database);
 				homeScreen.draw();
+			}
+		});
+		
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// me7tag yktablo function
 			}
 		});
 	}

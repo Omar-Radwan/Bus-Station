@@ -106,7 +106,7 @@ public abstract class ProfileScreen extends Screen {
 		super.draw();
 		setActions();
 	}
-
+	
 	protected void drawBelowChild() {
 		vBox.getChildren().add(logoutLink);
 	}
@@ -140,7 +140,8 @@ public abstract class ProfileScreen extends Screen {
 	public abstract void draw();
 
 	private void setActions() {
-
+		
+		
 		sendMessageLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -166,6 +167,15 @@ public abstract class ProfileScreen extends Screen {
 
 				gridpane.setAlignment(Pos.CENTER);
 				borderpane.setCenter(gridpane);
+				
+				send.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent arg0) {
+						// code of sending message
+					}
+					
+				});
 
 			}
 		});
@@ -190,10 +200,19 @@ public abstract class ProfileScreen extends Screen {
 
 						messageSubjectLink.setTextFill(Paint.valueOf("blue"));
 						messageSubjectLink.setFont(Font.font(15));
-
+						
 						gridpane.add(messageSubjectLink, 0, i);
-
 						i++;
+						messageSubjectLink.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent arg0) {
+								// code of displaying message on the screen
+								
+							}
+							
+						});
+						
 					}
 					scrollPane.setContent(gridpane);
 
@@ -273,8 +292,11 @@ public abstract class ProfileScreen extends Screen {
 
 					@Override
 					public void handle(ActionEvent event) {
+						
+						// fill change result function 
 						int changeResult = database.changeUserAttributes(user, firstNameField.getText(),
 								lastNameField.getText(), userNameField.getText(), passwordField.getText());
+						
 						if (changeResult == 1) {
 							showUserInfo();
 						}

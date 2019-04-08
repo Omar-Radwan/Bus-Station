@@ -75,7 +75,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 				TextField[] dateFields = { new TextField(), new TextField(), new TextField() };
 				TextField[] timeFields = { new TextField(), new TextField() };
+				
 				ComboBox<String> amOrPmComboBox = new ComboBox<String>();
+				
 				amOrPmComboBox.getItems().addAll("am", "pm");
 				amOrPmComboBox.getSelectionModel().select(0);
 

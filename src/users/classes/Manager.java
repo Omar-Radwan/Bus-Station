@@ -2,6 +2,7 @@ package users.classes;
 
 import classes.Database;
 import classes.Date;
+import classes.Trip;
 
 public class Manager extends Employee {
 
@@ -33,5 +34,12 @@ public class Manager extends Employee {
 	/*
 	 * Behavior
 	 */
+	
+	public Trip addTrip () {
+		
+		// code of adding trip
+		//database.addTrip(vehicle, source, destination, distance, type, numberOfStops, date, time);\
+		return database.getTripList().getLast();
+	}
 
 }

@@ -19,14 +19,13 @@ public class Main extends Application {
 
 	static final double defaultWidth = 580;
 	static final double defaultHeight = 450;
+
 	static Database database = new Database("C:\\Users\\omare\\Desktop\\");
-	
+
 	public static void main(String[] args) {
 
-		
-		
 		Manager.setDataBase(database);
-		
+
 		database.addDriver("mayar", "adel", "mayar", "123", 100);
 		database.addDriver("maram", "ghazal", "mrmr", "123", 100);
 		database.addDriver("fady", "samy", "fozdo2a", "123", 100);
@@ -49,7 +48,7 @@ public class Main extends Application {
 		database.addPassenger("p", "8", "p8", "123", 100);
 		database.addPassenger("p", "9", "p9", "123", 100);
 		database.addPassenger("p", "10", "p10", "123", 100);
-		
+
 		database.addLimosine((Driver) database.getEmployeeList().get(0));
 		database.addBus((Driver) database.getEmployeeList().get(1));
 		database.addMiniBus((Driver) database.getEmployeeList().get(2));
@@ -58,21 +57,27 @@ public class Main extends Application {
 
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Cairo", 100, "Internal", 0,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
+
 		database.addTrip(database.getVehicleList().get(0), "Egypt", "Libia", 30000, "External", 0,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
+
 		database.addTrip(database.getVehicleList().get(0), "Menia", "Sohag", 140, "Internal", 2, new Date(12, 8, 2019),
 				new Time(10, 0, "am"));
+
 		database.addTrip(database.getVehicleList().get(0), "Egypt", "Saudia", 5300, "External", 0,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
+
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Matrouh", 300, "Internal", 1,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
-		
-		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
-		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(1));
-		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(2));
-		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(3));
-		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(4));
 
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(1));
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(2));
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(3));
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(4));
+
+		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "enta fen yasta .. yasta rod argook",
+				"bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
@@ -82,10 +87,9 @@ public class Main extends Application {
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
-		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
-		
+
 		System.out.println(database.getTripList().get(0));
-		
+
 		launch(args);
 
 	}
@@ -93,8 +97,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Screen homeScreen = new HomeScreen(defaultWidth, defaultHeight, primaryStage,database);
-		Screen logiScreen = new LoginScreen(defaultWidth, defaultHeight, primaryStage,database);
+		Screen homeScreen = new HomeScreen(defaultWidth, defaultHeight, primaryStage, database);
+		Screen logiScreen = new LoginScreen(defaultWidth, defaultHeight, primaryStage, database);
 
 		primaryStage.setMinHeight(defaultHeight);
 		primaryStage.setMinWidth(defaultWidth);
