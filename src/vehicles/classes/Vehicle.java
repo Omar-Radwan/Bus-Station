@@ -8,13 +8,13 @@ public class Vehicle {
 	 * Attributes
 	 */
 	
-	Driver driver;
 	int currentNumberOfSeats;
+	String type;
 	
 	// commented attributes
 	/*String color;
 	String number;
-	String type;*/
+	*/
 
 	/*
 	 * Constructor
@@ -22,7 +22,6 @@ public class Vehicle {
 
 	public Vehicle(Driver driver) {
 		super();
-		this.driver = driver;
 	}
 
 	/*
@@ -32,9 +31,6 @@ public class Vehicle {
 
 
 
-	public Driver getDriver() {
-		return driver;
-	}
 
 	public int getCurrentNumberOfSeats() {
 		return currentNumberOfSeats;
@@ -44,9 +40,6 @@ public class Vehicle {
 		this.currentNumberOfSeats = currentNumberOfSeats;
 	}
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
-	}
 
 	/*
 	 * toString uses " " as delimiter
@@ -54,7 +47,7 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return "" ;
+		return "";
 	}
 
 	/*

@@ -24,7 +24,7 @@ public class PassengerProfileScreen extends ProfileScreen {
 		bookTripLink = new Hyperlink("Book a trip");
 		cancelTripLink = new Hyperlink("Cancel a trip");
 		viewTripsLink = new Hyperlink("View trips");
-
+		sendMessageLink.setText("Send message to an employee");
 	}
 
 	/*

@@ -43,6 +43,7 @@ public class RegisterScreen extends Screen {
 		userNameField = new TextField();
 		passwordField = new PasswordField();
 
+		
 		backButton = new Button("Back");
 
 	}

@@ -22,6 +22,8 @@ public abstract class Employee extends User {
 		this.salary = salary;
 	
 	}
+	
+
 
 
 
@@ -29,6 +31,24 @@ public abstract class Employee extends User {
 	/*
 	 * Getters And Setters
 	 */
+
+
+
+	public String getJob() {
+		return job;
+	}
+
+
+
+
+
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+
+
 
 
 

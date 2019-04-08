@@ -25,6 +25,18 @@ public class Driver extends Employee{
 	}
 
 
+
+	public LinkedList<Trip> getTripsList() {
+		return tripsList;
+	}
+
+
+
+	public void setTripsList(LinkedList<Trip> tripsList) {
+		this.tripsList = tripsList;
+	}
+
+
 	/*
 	 * Getters And Setters
 	 */
@@ -39,7 +51,13 @@ public class Driver extends Employee{
 	 */
 	
 	
+	/*
+	 * Adders
+	 */
 
+	public void addTrip (Trip trip) {
+		tripsList.add(0,trip);
+	}
 
 
 	

@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,7 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import users.classes.Employee;
 import users.classes.User;
 
 public abstract class ProfileScreen extends Screen {
@@ -40,6 +44,7 @@ public abstract class ProfileScreen extends Screen {
 	VBox vBox;
 	HBox hBox;
 
+	ComboBox<String> userComboBox;
 	/*
 	 * Constructor
 	 */
@@ -50,11 +55,21 @@ public abstract class ProfileScreen extends Screen {
 		welcomeLabel = new Label("Welcome");
 		menuLabel = new Label("Home menu:");
 
-		sendMessageLink = new Hyperlink("Send new message");
+		sendMessageLink = new Hyperlink("Send message");
 		messagesLink = new Hyperlink("View messages");
 		infoLink = new Hyperlink("View your info");
 		editProfileLink = new Hyperlink("Edit your info");
 		logoutLink = new Hyperlink("Logout");
+
+		this.userComboBox = new ComboBox<String>();
+		userComboBox.setPrefSize(150, 10);
+
+		for (Employee x : database.getEmployeeList()) {
+			if (!x.equals(this.user)) {
+				userComboBox.getItems().add(x.getJob() + ": " + x.getFirstName() + " " + x.getLastName());
+			}
+			userComboBox.getSelectionModel().select(0);
+		}
 
 		vBox = new VBox();
 		hBox = new HBox();
@@ -96,6 +111,31 @@ public abstract class ProfileScreen extends Screen {
 		vBox.getChildren().add(logoutLink);
 	}
 
+	private void showUserInfo() {
+		gridpane = new GridPane();
+		gridpane.setAlignment(Pos.CENTER);
+		gridpane.setVgap(10);
+
+		Label firstNameLabel = new Label("Firstname: ");
+		Label lastNameLabel = new Label("Lastname: ");
+		Label userNameLabel = new Label("Username: ");
+
+		Label firstName = new Label(user.getFirstName());
+		Label lastName = new Label(user.getLastName());
+		Label userName = new Label(user.getUserName());
+
+		gridpane.add(firstNameLabel, 0, 0);
+		gridpane.add(lastNameLabel, 0, 1);
+		gridpane.add(userNameLabel, 0, 2);
+
+		gridpane.add(firstName, 1, 0);
+		gridpane.add(lastName, 1, 1);
+		gridpane.add(userName, 1, 2);
+
+		gridpane.setAlignment(Pos.CENTER);
+		borderpane.setCenter(gridpane);
+	}
+
 	@Override
 	public abstract void draw();
 
@@ -106,16 +146,12 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				sendMessageLink.setVisited(false);
-				
-				gridpane  = new GridPane();
 
-				
+				gridpane = new GridPane();
 
 				Button send = new Button("Send");
 
 				Label toLabel = new Label("			To:");
-
-				TextField userNameField = new TextField();
 
 				HBox buttonsBox = new HBox();
 				buttonsBox.setSpacing(10);
@@ -123,7 +159,7 @@ public abstract class ProfileScreen extends Screen {
 				TextArea messageTextArea = new TextArea();
 				messageTextArea.setPrefSize(300, 300);
 
-				buttonsBox.getChildren().addAll(send, toLabel, userNameField);
+				buttonsBox.getChildren().addAll(send, toLabel, userComboBox);
 
 				gridpane.add(buttonsBox, 0, 0);
 				gridpane.add(messageTextArea, 0, 1);
@@ -139,29 +175,40 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				messagesLink.setVisited(false);
-				
+
 				gridpane = new GridPane();
-				
-				ScrollPane scrollPane = new ScrollPane();
-				
-				int i = 0 ; 
-				
-				for (Message x : user.getMessageList()) {
-					Hyperlink messageSubjectLink = new Hyperlink(x.getSubject());
-					messageSubjectLink.setPrefSize(400, 50);
-					
-					
-					messageSubjectLink.setTextFill(Paint.valueOf("blue"));;
-					messageSubjectLink.setFont(Font.font(15));
-					
-					gridpane.add(messageSubjectLink, 0, i);
-					
-					i++;
+
+
+				int i = 0;
+
+				if (!user.getMessageList().isEmpty()) {
+					ScrollPane scrollPane = new ScrollPane();
+
+					for (Message x : user.getMessageList()) {
+						Hyperlink messageSubjectLink = new Hyperlink(x.getSubject());
+						messageSubjectLink.setPrefSize(400, 50);
+
+						messageSubjectLink.setTextFill(Paint.valueOf("blue"));
+						messageSubjectLink.setFont(Font.font(15));
+
+						gridpane.add(messageSubjectLink, 0, i);
+
+						i++;
+					}
+					scrollPane.setContent(gridpane);
+
+					borderpane.setCenter(scrollPane);
 				}
-				
-				scrollPane.setContent(gridpane);
-				
-				borderpane.setCenter(scrollPane);
+
+				else {
+					Text noMessagesText = new Text("You don't have any messages.");
+					gridpane.add(noMessagesText, 0, 0);
+					noMessagesText.setFont(Font.font ("Verdana", 20));
+					gridpane.setAlignment(Pos.CENTER);
+					borderpane.setCenter(gridpane);
+				}
+
+
 
 			}
 		});
@@ -171,7 +218,7 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				infoLink.setVisited(false);
-
+				showUserInfo();
 			}
 		});
 
@@ -180,6 +227,60 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				editProfileLink.setVisited(false);
+
+				gridpane = new GridPane();
+				gridpane.setAlignment(Pos.CENTER);
+				gridpane.setVgap(10);
+
+				Label firstNameLabel = new Label("Firstname: ");
+				Label lastNameLabel = new Label("Lastname: ");
+				Label userNameLabel = new Label("Username: ");
+				Label passwordLabel = new Label("Password: ");
+
+				TextField firstNameField = new TextField(user.getFirstName());
+				TextField lastNameField = new TextField(user.getLastName());
+				TextField userNameField = new TextField(user.getUserName());
+
+				PasswordField passwordField = new PasswordField();
+				passwordField.setText(user.getPassword());
+
+				Button saveButton = new Button("Save");
+				Button discardChangesButton = new Button("Discard changes");
+
+				gridpane.add(firstNameLabel, 0, 0);
+				gridpane.add(lastNameLabel, 0, 1);
+				gridpane.add(userNameLabel, 0, 2);
+				gridpane.add(passwordLabel, 0, 3);
+				gridpane.add(saveButton, 0, 4);
+
+				gridpane.add(firstNameField, 1, 0);
+				gridpane.add(lastNameField, 1, 1);
+				gridpane.add(userNameField, 1, 2);
+				gridpane.add(passwordField, 1, 3);
+				gridpane.add(discardChangesButton, 1, 4);
+				
+				borderpane.setCenter(gridpane);
+
+				discardChangesButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						showUserInfo();
+					}
+				});
+
+				saveButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						int changeResult = database.changeUserAttributes(user, firstNameField.getText(),
+								lastNameField.getText(), userNameField.getText(), passwordField.getText());
+						if (changeResult == 1) {
+							showUserInfo();
+						}
+
+					}
+				});
 
 			}
 		});

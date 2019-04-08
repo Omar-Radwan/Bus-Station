@@ -39,6 +39,17 @@ public class Main extends Application {
 		database.addManager("omar", "radwan", "rado", "123", 100);
 		database.addManager("ahmed", "hamada", "hamada", "123", 100);
 
+		database.addPassenger("p", "1", "p1", "123", 100);
+		database.addPassenger("p", "2", "p2", "123", 100);
+		database.addPassenger("p", "3", "p3", "123", 100);
+		database.addPassenger("p", "4", "p4", "123", 100);
+		database.addPassenger("p", "5", "p5", "123", 100);
+		database.addPassenger("p", "6", "p6", "123", 100);
+		database.addPassenger("p", "7", "p7", "123", 100);
+		database.addPassenger("p", "8", "p8", "123", 100);
+		database.addPassenger("p", "9", "p9", "123", 100);
+		database.addPassenger("p", "10", "p10", "123", 100);
+		
 		database.addLimosine((Driver) database.getEmployeeList().get(0));
 		database.addBus((Driver) database.getEmployeeList().get(1));
 		database.addMiniBus((Driver) database.getEmployeeList().get(2));
@@ -56,6 +67,11 @@ public class Main extends Application {
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Matrouh", 300, "Internal", 1,
 				new Date(12, 8, 2019), new Time(10, 0, "am"));
 		
+		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
+		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(1));
+		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(2));
+		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(3));
+		 ((Driver)(database.getEmployeeList().get(4))).addTrip(database.getTripList().get(4));
 
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
@@ -67,6 +83,8 @@ public class Main extends Application {
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
+		
+		System.out.println(database.getTripList().get(0));
 		
 		launch(args);
 

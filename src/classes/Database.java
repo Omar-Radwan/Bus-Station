@@ -1,10 +1,8 @@
 package classes;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -27,7 +25,7 @@ public class Database {
 	 */
 
 	String pathname;
-	
+
 	LinkedList<Passenger> passengersList;
 	LinkedList<Employee> employeeList;
 	LinkedList<Vehicle> vehicleList;
@@ -100,7 +98,7 @@ public class Database {
 	public void setTicketList(LinkedList<Ticket> ticketList) {
 		this.ticketList = ticketList;
 	}
-	
+
 	public String getFilePath() {
 		return pathname;
 	}
@@ -112,7 +110,7 @@ public class Database {
 	/*
 	 * Behavior
 	 */
-	
+
 	/*
 	 * Loads users from file to database
 	 */
@@ -167,10 +165,12 @@ public class Database {
 
 	public User authenticate(String userName, String password, String type) {
 		System.out.println(type);
+
 		if (type.equals("Passenger")) {
 			for (Passenger x : passengersList)
 				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
 					return x;
+
 		}
 
 		else {
@@ -181,15 +181,17 @@ public class Database {
 
 		return null;
 	}
-	
+
 	public boolean isExist(String userName) {
-		for (Passenger x : passengersList) 
-			if (x.getUserName().equals(userName))return true;
-		
-		for (Employee x : employeeList) 
-			if (x.getUserName().equals(userName))return true;
-		
-		return false ;
+		for (Passenger x : passengersList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		for (Employee x : employeeList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		return false;
 	}
 
 	/*
@@ -241,6 +243,15 @@ public class Database {
 		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time));
 
 		return tripList.getLast();
+	}
+
+	/*
+	 * Functions
+	 */
+
+	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
+
+		return 1;
 	}
 
 }

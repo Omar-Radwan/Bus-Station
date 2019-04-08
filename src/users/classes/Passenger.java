@@ -18,7 +18,7 @@ public class Passenger extends User {
 	 */
 
 	public Passenger( String firstName, String lastName, String userName, String password, double balance) {
-		super(firstName, lastName, firstName, password);
+		super(firstName, lastName, userName, password);
 		this.balance = balance;
 		ticketList = new LinkedList<Ticket>();
 	}

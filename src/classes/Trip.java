@@ -1,31 +1,30 @@
 package classes;
 
-import users.classes.Driver;
 import vehicles.classes.Vehicle;
-import classes.*;
+
 public class Trip {
-	
+
 	/*
 	 * Attributes
 	 */
 	Vehicle vehilce;
 	String source;
 	String destination;
-	
+
 	double distance;
-	
+
 	String type;
 	int numberOfStops;
 
 	Date date;
 	Time time;
-	
-	
+
 	/*
 	 * Constructor
 	 */
-	
-	public Trip(Vehicle vehicle ,String source, String destination, double distance, String type, int numberOfStops,Date date,Time time) {
+
+	public Trip(Vehicle vehicle, String source, String destination, double distance, String type, int numberOfStops,
+			Date date, Time time) {
 		super();
 		this.vehilce = vehicle;
 		this.source = source;
@@ -40,7 +39,47 @@ public class Trip {
 	/*
 	 * Getters And Setters
 	 */
-	
+
+	@Override
+	public String toString() {
+		return vehilce + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
+				+ date + " " + time + " ";
+	}
+
+	public String data() {
+		return ".Vehicle: " + vehilce + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
+				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
+				+ time;
+	}
+
+	public Vehicle getVehilce() {
+		return vehilce;
+	}
+
+	public void setVehilce(Vehicle vehilce) {
+		this.vehilce = vehilce;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Time getTime() {
+		return time;
+	}
+
+	public void setTime(Time time) {
+		this.time = time;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
 	public String getSource() {
 		return source;
 	}
@@ -81,7 +120,6 @@ public class Trip {
 		this.numberOfStops = numberOfStops;
 	}
 
-
 	/*
 	 * toString uses " " as delimiter
 	 */
@@ -89,34 +127,13 @@ public class Trip {
 	/*
 	 * Behavior
 	 */
-	
+
 	public void AddTrips() {
-		
-	
-	
-		
-		
+
 	}
-	
-	
-	public void AvailableTrips()
-	{
-		
-		
-		
-		
+
+	public void AvailableTrips() {
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
