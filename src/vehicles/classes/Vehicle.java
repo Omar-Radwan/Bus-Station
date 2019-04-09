@@ -10,6 +10,7 @@ public class Vehicle {
 	
 	int currentNumberOfSeats;
 	String type;
+	int maxNumberOfSeats;
 	
 	// commented attributes
 	/*String color;

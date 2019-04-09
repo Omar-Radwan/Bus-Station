@@ -215,7 +215,7 @@ public class Database {
 	}
 
 	public Passenger addPassenger(String firstName, String lastName, String userName, String password, double balance) {
-
+		
 		passengersList.add(new Passenger(firstName, lastName, userName, password, balance));
 
 		return passengersList.getLast();
@@ -252,5 +252,6 @@ public class Database {
 
 		return 1;
 	}
+	
 
 }

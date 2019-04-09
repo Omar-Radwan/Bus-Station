@@ -128,9 +128,6 @@ public class Trip {
 	 * Behavior
 	 */
 
-	public void AddTrips() {
-
-	}
 
 	public void AvailableTrips() {
 

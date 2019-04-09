@@ -62,20 +62,5 @@ public class Date {
 	 * Behaviors
 	 */
 
-	public boolean checkValidity() {
-	
-		int[] lastValidDay = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-		
-		// condition for leap year
-		if (this.year%4==0&&this.year%100!=0) lastValidDay[1] = 29;
-	
-		if (this.month<0||this.year<1900) return false;
-	
-		if (this.day<0||this.day>lastValidDay[this.month-1]) {
-			return false ; 
-		}
-		return true;
-		
-	}
 
 }
