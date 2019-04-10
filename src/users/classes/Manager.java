@@ -1,8 +1,12 @@
 package users.classes;
 
+import java.util.LinkedList;
+
 import classes.Database;
 import classes.Date;
 import classes.Trip;
+import classes.Message;
+
 
 public class Manager extends Employee {
 
@@ -11,6 +15,9 @@ public class Manager extends Employee {
 	 */
 	
 	static Database database ;
+	LinkedList<Trip> tripsList; 
+	Message message;
+	Driver driver;
 
 	/*
 	 * Constructor
@@ -35,19 +42,15 @@ public class Manager extends Employee {
 	 * Behavior
 	 */
 	
-	public Trip addTrip () {
-		
-		// code of adding trip
-		
-		
-		
 
-		
-		return database.getTripList().getLast();
-	}
 
 	@Override 
 	public String toString() {
 		return super.toString()+salary+"&";
 	}
 }
+
+
+
+
+

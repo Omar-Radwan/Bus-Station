@@ -112,6 +112,7 @@ public class Database {
 	}
 
 	/*
+<<<<<<< HEAD
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
@@ -153,6 +154,8 @@ public class Database {
 	}
 
 	/*
+=======
+>>>>>>> branch 'master' of https://github.com/Omar-Radwan/Bus-Station
 	 * Adders
 	 */
 
@@ -203,11 +206,53 @@ public class Database {
 		return tripList.getLast();
 	}
 
-	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
-		// check if the user name already exist
 
-		return 1;
+	/*
+	 * Functions
+	 */
+
+	
+	/*
+	 * Function that checks if there exists a user with user name and password given
+	 */
+
+	
+	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
+	
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		else 
+		{
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setUserName(userName);
+			user.setPassword(password);
+			
+			return 1;
+		}
+			
 	}
+
+	
+	public int RegisterNew (String firstName, String lastName, String userName, String password, double balance) 
+	{
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		
+		else 
+			
+			addPassenger(firstName, lastName, userName, password, balance);
+		return 1;
+	
+	}
+	
+
+
+
 
 	// writing functions
 
@@ -435,5 +480,8 @@ public class Database {
 		writeList(managerList, "Managers.txt");
 		writeList(vehicleList, "Vehicles.txt");
 	}
-
 }
+
+
+
+
