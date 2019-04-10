@@ -55,7 +55,7 @@ public class Trip {
 	@Override
 	public String toString() {
 		return vehilce + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
-				+ date + " " + time + " ";
+				+ date + " " + time + " "+price+" ";
 	}
 
 	public String data() {

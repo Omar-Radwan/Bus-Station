@@ -1,8 +1,10 @@
 package classes;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -24,13 +26,18 @@ public class Database {
 	 * Attributes
 	 */
 
-	String pathname;
 
 	LinkedList<Passenger> passengersList;
 	LinkedList<Employee> employeeList;
 	LinkedList<Vehicle> vehicleList;
 	LinkedList<Trip> tripList;
 	LinkedList<Ticket> ticketList;
+	
+	private File file;
+	private FileReader filereader;
+	private FileWriter filewriter;
+	private BufferedReader bufferedReader;
+	private BufferedWriter bufferedWriter;
 	
 	/*
 	 * Constructor
@@ -39,7 +46,7 @@ public class Database {
 	public Database(String pathname) {
 		super();
 
-		this.pathname = pathname;
+
 		this.passengersList = new LinkedList<Passenger>();
 		this.employeeList = new LinkedList<Employee>();
 		this.vehicleList = new LinkedList<Vehicle>();
@@ -51,13 +58,6 @@ public class Database {
 	 * Getters And Setters
 	 */
 
-	public String getPathname() {
-		return pathname;
-	}
-
-	public void setPathname(String pathname) {
-		this.pathname = pathname;
-	}
 
 	public LinkedList<Passenger> getPassengersList() {
 		return passengersList;
@@ -99,13 +99,7 @@ public class Database {
 		this.ticketList = ticketList;
 	}
 
-	public String getFilePath() {
-		return pathname;
-	}
 
-	public void setFilePath(String filePath) {
-		this.pathname = filePath;
-	}
 
 	/*
 	 * Behavior
@@ -117,7 +111,7 @@ public class Database {
 
 	public void loadAllUsers() throws IOException {
 
-		File file = new File(pathname);
+	//File file = new File(pathname);
 		FileReader fileReader = new FileReader(file);
 
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -154,8 +148,7 @@ public class Database {
 
 	public void registerUser(User x) throws IOException {
 
-		File file = new File(pathname);
-		PrintWriter pW = new PrintWriter(file);
+
 
 	}
 
@@ -251,6 +244,26 @@ public class Database {
 		// check if the user name already exist
 
 		return 1;
+	}
+	
+	public <T> void writeList (LinkedList<T> list,String s) throws IOException {
+		setBufferedWriter(s);
+		for (T x : list) {
+			bufferedWriter.write(x.toString());
+			bufferedWriter.newLine();
+		}
+		bufferedWriter.flush();
+	}
+	
+	private void setBufferedWriter (String fileName) {
+		file  = new File (fileName);
+		try {
+			filewriter = new FileWriter(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bufferedWriter=  new BufferedWriter(filewriter);
 	}
 	
 

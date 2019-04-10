@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import classes.Database;
@@ -23,10 +24,10 @@ public class Main extends Application {
 
 	static Database database = new Database("C:\\Users\\omare\\Desktop\\");
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		Manager.setDataBase(database);
-
+		
 		database.addDriver("mayar", "adel", "mayar", "123", 100);
 		database.addDriver("maram", "ghazal", "mrmr", "123", 100);
 		database.addDriver("fady", "samy", "fozdo2a", "123", 100);
@@ -58,7 +59,7 @@ public class Main extends Application {
 
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Cairo", 100, "Internal", 0,
 				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
-
+		
 		database.addTrip(database.getVehicleList().get(0), "Egypt", "Libia", 30000, "External", 0,
 				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
@@ -94,7 +95,13 @@ public class Main extends Application {
 		database.getPassengersList().get(0).addTicket(ticket);
 		System.out.println(database.getPassengersList().get(0).getTicketList().get(0).data());
 		System.out.println(database.getTripList().get(0));
-
+		
+		database.writeList(database.getTripList(),"Trips.txt");
+		database.writeList(database.getPassengersList(),"Passengetrs.txt");
+		database.writeList(database.getEmployeeList(), "Employees.txt" );
+		database.writeList(database.getTicketList(),"Tickets.txt");
+		database.writeList(database.getVehicleList(),"Vehicles.txt");
+		
 		launch(args);
 
 	}
