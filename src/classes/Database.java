@@ -231,11 +231,49 @@ public class Database {
 		return false;
 	}	
 	
-	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
-		// check if the user name already exist
 
-		return 1;
+	
+	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
+	
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		else 
+		{
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setUserName(userName);
+			user.setPassword(password);
+			
+			return 1;
+		}
+			
 	}
 	
-
+	public int RegisterNew (String firstName, String lastName, String userName, String password, double balance) 
+	{
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		
+		else 
+			
+			addPassenger(firstName, lastName, userName, password, balance);
+		return 1;
+	
+	}
+	
 }
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+
