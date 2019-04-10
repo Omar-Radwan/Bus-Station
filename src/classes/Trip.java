@@ -7,6 +7,7 @@ public class Trip {
 	/*
 	 * Attributes
 	 */
+	
 	Vehicle vehilce;
 	String source;
 	String destination;
@@ -19,12 +20,14 @@ public class Trip {
 	Date date;
 	Time time;
 
+	double price; 
+	
 	/*
 	 * Constructor
 	 */
 
 	public Trip(Vehicle vehicle, String source, String destination, double distance, String type, int numberOfStops,
-			Date date, Time time) {
+			Date date, Time time,double price) {
 		super();
 		this.vehilce = vehicle;
 		this.source = source;
@@ -34,11 +37,20 @@ public class Trip {
 		this.numberOfStops = numberOfStops;
 		this.date = date;
 		this.time = time;
+		this.price = price;
 	}
 
 	/*
 	 * Getters And Setters
 	 */
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	@Override
 	public String toString() {

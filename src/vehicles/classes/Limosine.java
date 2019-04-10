@@ -10,4 +10,6 @@ public class Limosine extends Vehicle {
 		this.maxNumberOfSeats = 5;
 		this.currentNumberOfSeats = maxNumberOfSeats;
 	}
+
+
 }

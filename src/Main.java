@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import classes.Database;
 import classes.Date;
 import classes.Message;
+import classes.Ticket;
 import classes.Time;
 import classes.Trip;
 import gui.classes.HomeScreen;
@@ -56,19 +57,19 @@ public class Main extends Application {
 		database.addBus((Driver) database.getEmployeeList().get(4));
 
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Cairo", 100, "Internal", 0,
-				new Date(12, 8, 2019), new Time(10, 0, "am"));
+				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
 		database.addTrip(database.getVehicleList().get(0), "Egypt", "Libia", 30000, "External", 0,
-				new Date(12, 8, 2019), new Time(10, 0, "am"));
+				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
 		database.addTrip(database.getVehicleList().get(0), "Menia", "Sohag", 140, "Internal", 2, new Date(12, 8, 2019),
-				new Time(10, 0, "am"));
+				new Time(10, 0, "am"),100);
 
 		database.addTrip(database.getVehicleList().get(0), "Egypt", "Saudia", 5300, "External", 0,
-				new Date(12, 8, 2019), new Time(10, 0, "am"));
+				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Matrouh", 300, "Internal", 1,
-				new Date(12, 8, 2019), new Time(10, 0, "am"));
+				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
 		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
 		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(1));
@@ -87,7 +88,11 @@ public class Main extends Application {
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "hi", "bla bla bla");
-
+		
+		Ticket ticket  = new Ticket("OneWay",10, database.getTripList().get(0));
+	
+		database.getPassengersList().get(0).addTicket(ticket);
+		System.out.println(database.getPassengersList().get(0).getTicketList().get(0).data());
 		System.out.println(database.getTripList().get(0));
 
 		launch(args);

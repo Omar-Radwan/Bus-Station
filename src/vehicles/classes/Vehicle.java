@@ -11,7 +11,7 @@ public class Vehicle {
 	int currentNumberOfSeats;
 	String type;
 	int maxNumberOfSeats;
-	
+	boolean isAssigned ; 
 	// commented attributes
 	/*String color;
 	String number;
@@ -23,11 +23,13 @@ public class Vehicle {
 
 	public Vehicle(Driver driver) {
 		super();
+		isAssigned = false;
 	}
 
 	/*
 	 * Getters And Setters
 	 */
+
 
 
 

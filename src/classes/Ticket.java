@@ -9,14 +9,16 @@ public class Ticket {
 	 */
 	
 	String type;
-	float price;
+	double price;
+	
 	Trip trip;
+	
 
 	/*
 	 * Constructor
 	 */
 	
-	public Ticket(String type, float price, Trip trip) {
+	public Ticket(String type, double price, Trip trip) {
 		super();
 		this.type = type;
 		this.price = price;
@@ -35,13 +37,14 @@ public class Ticket {
 		this.type = type;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
 
 	/*
 	 * toString uses " " as delimiter
@@ -50,5 +53,8 @@ public class Ticket {
 	/*
 	 * Behavior
 	 */
-
+	
+	public String data () {
+		return trip.data()+"\nType: "+type+"\nPrice: "+price;
+	}
 }

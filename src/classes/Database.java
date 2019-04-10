@@ -236,9 +236,9 @@ public class Database {
 	}
 
 	public Trip addTrip(Vehicle vehicle, String source, String destination, double distance, String type,
-			int numberOfStops, Date date, Time time) {
+			int numberOfStops, Date date, Time time,double price) {
 
-		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time));
+		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time,price));
 
 		return tripList.getLast();
 	}
@@ -252,6 +252,8 @@ public class Database {
 
 		return 1;
 	}
+	
+
 	
 
 }
