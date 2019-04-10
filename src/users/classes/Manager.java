@@ -66,7 +66,7 @@ public class Manager extends Employee {
 		for(Vehicle x : vehicleList)
 			
 		{
-			if (x.getType().equals(vehicle)  && x.getIsAssigned()==false)
+			if (x.getType().equals(vehicle)  && x.isAssigned()==false)
 			{
 				v=x;	
 			}
