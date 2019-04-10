@@ -4,10 +4,11 @@ import users.classes.Driver;
 
 public class Bus extends Vehicle {
 
-	public Bus(Driver driver) {
-		super(driver);
+	public Bus() {
+		super();
 		this.maxNumberOfSeats = 50;
 		this.currentNumberOfSeats = maxNumberOfSeats;
+		this.type = "Bus";
 	}
 
 }

@@ -76,5 +76,18 @@ public class Passenger extends User {
 		ticketList.add(t);
 	}
 
+	public String toString (){
+		StringBuilder stringBuilder = new StringBuilder(super.toString());
+
+		
+		stringBuilder.append(balance+"&");
+		stringBuilder.append(ticketList.size()+"&");
+		
+		for (Ticket x : ticketList) {
+			stringBuilder.append(x.toString());
+		}
+		
+		return stringBuilder.toString();
+	}
 	
 }

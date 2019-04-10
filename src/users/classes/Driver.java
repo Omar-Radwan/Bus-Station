@@ -36,6 +36,20 @@ public class Driver extends Employee{
 		this.tripsList = tripsList;
 	}
 
+	
+	public String toString () {
+		
+		StringBuilder stringBuilder = new StringBuilder(super.toString());
+		
+		stringBuilder.append(salary+"&");
+		stringBuilder.append(tripsList.size()+"&");
+		
+		for (Trip x : tripsList) {
+			stringBuilder.append(x.getNumber()+"&");
+		}
+		
+		return stringBuilder.toString();
+	}
 
 	/*
 	 * Getters And Setters

@@ -57,4 +57,9 @@ public class Ticket {
 	public String data () {
 		return trip.data()+"\nType: "+type+"\nPrice: "+price;
 	}
+	
+	@Override 
+	public String toString() {
+		return type+"$"+price+"$"+trip.getNumber()+"&";
+	}
 }

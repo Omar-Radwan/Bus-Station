@@ -81,7 +81,13 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-		return firstName + " " + lastName + " " + userName + " " + password + " ";
+		StringBuilder stringBuilder =  new StringBuilder(firstName + "&" + lastName + "&" + userName + "&" + password + "&");
+		stringBuilder.append(messageList.size()+"&");
+		
+		for (Message x: messageList) {
+			stringBuilder.append(x.toString());
+		}
+		return stringBuilder.toString();
 	}
 
 	/*

@@ -7,7 +7,7 @@ public class Trip {
 	/*
 	 * Attributes
 	 */
-	
+
 	Vehicle vehilce;
 	String source;
 	String destination;
@@ -20,14 +20,18 @@ public class Trip {
 	Date date;
 	Time time;
 
-	double price; 
-	
+	double price;
+
+	static int firstFreeNumber = 0;
+	int number;
+
+
 	/*
 	 * Constructor
 	 */
 
 	public Trip(Vehicle vehicle, String source, String destination, double distance, String type, int numberOfStops,
-			Date date, Time time,double price) {
+			Date date, Time time, double price) {
 		super();
 		this.vehilce = vehicle;
 		this.source = source;
@@ -38,6 +42,8 @@ public class Trip {
 		this.date = date;
 		this.time = time;
 		this.price = price;
+		changeFreeNumbers();
+		this.number = firstFreeNumber;
 	}
 
 	/*
@@ -54,8 +60,8 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return vehilce + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
-				+ date + " " + time + " "+price+" ";
+		return number+" "+vehilce.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
+				+ date + " " + time + " " + price + " ";
 	}
 
 	public String data() {
@@ -132,6 +138,24 @@ public class Trip {
 		this.numberOfStops = numberOfStops;
 	}
 
+	 public static int getFirstFreeNumber() {
+		return firstFreeNumber;
+	}
+
+	public static void setFirstFreeNumber(int firstFreeNumber) {
+		Trip.firstFreeNumber = firstFreeNumber;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+
+
 	/*
 	 * toString uses " " as delimiter
 	 */
@@ -140,9 +164,13 @@ public class Trip {
 	 * Behavior
 	 */
 
-
 	public void AvailableTrips() {
 
 	}
+	
+	static void changeFreeNumbers() {
+		firstFreeNumber++;
+	}
+
 
 }

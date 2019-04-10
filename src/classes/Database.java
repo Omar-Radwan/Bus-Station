@@ -3,10 +3,11 @@ package classes;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -26,19 +27,18 @@ public class Database {
 	 * Attributes
 	 */
 
-
 	LinkedList<Passenger> passengersList;
-	LinkedList<Employee> employeeList;
+	LinkedList<Driver> driverList;
+	LinkedList<Manager> managerList;
 	LinkedList<Vehicle> vehicleList;
 	LinkedList<Trip> tripList;
-	LinkedList<Ticket> ticketList;
-	
+
 	private File file;
 	private FileReader filereader;
 	private FileWriter filewriter;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
-	
+
 	/*
 	 * Constructor
 	 */
@@ -46,18 +46,17 @@ public class Database {
 	public Database(String pathname) {
 		super();
 
-
 		this.passengersList = new LinkedList<Passenger>();
-		this.employeeList = new LinkedList<Employee>();
+		this.driverList = new LinkedList<Driver>();
+		this.managerList = new LinkedList<Manager>();
 		this.vehicleList = new LinkedList<Vehicle>();
 		this.tripList = new LinkedList<Trip>();
-		this.ticketList = new LinkedList<Ticket>();
+	
 	}
 
 	/*
 	 * Getters And Setters
 	 */
-
 
 	public LinkedList<Passenger> getPassengersList() {
 		return passengersList;
@@ -65,14 +64,6 @@ public class Database {
 
 	public void setPassengersList(LinkedList<Passenger> passengersList) {
 		this.passengersList = passengersList;
-	}
-
-	public LinkedList<Employee> getEmployeeList() {
-		return employeeList;
-	}
-
-	public void setEmployeeList(LinkedList<Employee> employeeList) {
-		this.employeeList = employeeList;
 	}
 
 	public LinkedList<Vehicle> getVehicleList() {
@@ -91,64 +82,32 @@ public class Database {
 		this.tripList = tripList;
 	}
 
-	public LinkedList<Ticket> getTicketList() {
-		return ticketList;
+
+	public LinkedList<Driver> getDriverList() {
+		return driverList;
 	}
 
-	public void setTicketList(LinkedList<Ticket> ticketList) {
-		this.ticketList = ticketList;
+	public void setDriverList(LinkedList<Driver> driverList) {
+		this.driverList = driverList;
 	}
 
+	public LinkedList<Manager> getManagerList() {
+		return managerList;
+	}
 
+	public void setManagerList(LinkedList<Manager> managerList) {
+		this.managerList = managerList;
+	}
 
 	/*
 	 * Behavior
 	 */
 
 	/*
-	 * Loads users from file to database
-	 */
-
-	public void loadAllUsers() throws IOException {
-
-	//File file = new File(pathname);
-		FileReader fileReader = new FileReader(file);
-
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-		while (bufferedReader.ready()) {
-			String line = bufferedReader.readLine();
-
-			loadUser(line);
-		}
-	}
-
-	/*
-	 * Initializes one user by fields read from file and adds it to database
-	 */
-
-	public User loadUser(String line) {
-
-		StringTokenizer st = new StringTokenizer(line);
-
-		String[] userFields = new String[4];
-
-		userFields[0] = st.nextToken();
-		userFields[1] = st.nextToken();
-		userFields[2] = st.nextToken();
-		userFields[3] = st.nextToken();
-
-		return null;
-
-	}
-
-	/*
 	 * Adds new user to the file and to the database
 	 */
 
 	public void registerUser(User x) throws IOException {
-
-
 
 	}
 
@@ -165,7 +124,11 @@ public class Database {
 		}
 
 		else {
-			for (Employee x : employeeList)
+			for (Driver x : driverList)
+				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+					return x;
+
+			for (Manager x : managerList)
 				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
 					return x;
 		}
@@ -178,7 +141,11 @@ public class Database {
 			if (x.getUserName().equals(userName))
 				return true;
 
-		for (Employee x : employeeList)
+		for (Driver x : driverList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		for (Manager x : managerList)
 			if (x.getUserName().equals(userName))
 				return true;
 
@@ -189,84 +156,284 @@ public class Database {
 	 * Adders
 	 */
 
-	public Vehicle addLimosine(Driver driver) {
+	public Vehicle addLimosine() {
 
-		vehicleList.add(new Limosine(driver));
+		vehicleList.add(new Limosine());
 		return vehicleList.getLast();
 	}
 
-	public Vehicle addMiniBus(Driver driver) {
+	public Vehicle addMiniBus() {
 
-		vehicleList.add(new MiniBus(driver));
+		vehicleList.add(new MiniBus());
 		return vehicleList.getLast();
 	}
 
-	public Vehicle addBus(Driver driver) {
+	public Vehicle addBus() {
 
-		vehicleList.add(new Bus(driver));
+		vehicleList.add(new Bus());
 		return vehicleList.getLast();
 	}
 
 	public Passenger addPassenger(String firstName, String lastName, String userName, String password, double balance) {
-		
+
 		passengersList.add(new Passenger(firstName, lastName, userName, password, balance));
 
 		return passengersList.getLast();
 	}
 
-	public Employee addDriver(String firstName, String lastName, String userName, String password, double salary) {
+	public Driver addDriver(String firstName, String lastName, String userName, String password, double salary) {
 
-		employeeList.add(new Driver(firstName, lastName, userName, password, salary));
+		driverList.add(new Driver(firstName, lastName, userName, password, salary));
 
-		return (employeeList.getLast());
+		return (driverList.getLast());
 	}
 
-	public Employee addManager(String firstName, String lastName, String userName, String password, double salary) {
+	public Manager addManager(String firstName, String lastName, String userName, String password, double salary) {
 
-		employeeList.add(new Manager(firstName, lastName, userName, password, salary));
+		managerList.add(new Manager(firstName, lastName, userName, password, salary));
 
-		return employeeList.getLast();
+		return managerList.getLast();
 	}
 
 	public Trip addTrip(Vehicle vehicle, String source, String destination, double distance, String type,
-			int numberOfStops, Date date, Time time,double price) {
+			int numberOfStops, Date date, Time time, double price) {
 
-		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time,price));
+		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time, price));
 
 		return tripList.getLast();
 	}
-
-	/*
-	 * Functions
-	 */
 
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 		// check if the user name already exist
 
 		return 1;
 	}
-	
-	public <T> void writeList (LinkedList<T> list,String s) throws IOException {
-		setBufferedWriter(s);
+
+	// writing functions
+
+	public <T> void writeList(LinkedList<T> list, String fileName) throws IOException {
+		setBufferedWriter(fileName);
 		for (T x : list) {
 			bufferedWriter.write(x.toString());
 			bufferedWriter.newLine();
 		}
 		bufferedWriter.flush();
+		bufferedWriter.close();
 	}
-	
-	private void setBufferedWriter (String fileName) {
-		file  = new File (fileName);
+
+	private void setBufferedWriter(String fileName) {
+		file = new File(fileName);
 		try {
 			filewriter = new FileWriter(file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		bufferedWriter=  new BufferedWriter(filewriter);
+		bufferedWriter = new BufferedWriter(filewriter);
 	}
-	
 
-	
+	public void loadVehicles() throws IOException {
+		setBufferedReader("Vehicles.txt");
+		while (bufferedReader.ready()) {
+
+			loadVehicle(bufferedReader.readLine());
+		}
+	}
+
+	public void loadVehicle(String line) {
+		String[] tokens = line.split(" ");
+
+		Vehicle v = null;
+		if (tokens[1].equals("Limosine")) {
+			v = addLimosine();
+		}
+
+		else if (tokens[1].equals("MiniBus")) {
+			v = addMiniBus();
+		}
+
+		else if (tokens[1].equals("Bus")) {
+			v = addBus();
+		}
+		v.setNumber(Integer.parseInt(tokens[0]));
+		v.setMaxNumberOfSeats(Integer.parseInt(tokens[3]));
+		v.setAssigned(Boolean.parseBoolean(tokens[4]));
+
+		Vehicle.setFirstFreeNumber(Math.max(Vehicle.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
+
+	}
+
+	public void loadTrips() throws IOException {
+		setBufferedReader("Trips.txt");
+		while (bufferedReader.ready()) {
+
+			loadTrip(bufferedReader.readLine());
+		}
+	}
+
+	public void loadTrip(String line) {
+		String[] tokens = line.split(" ");
+		Trip trip = null;
+		System.out.println(Arrays.toString(tokens));
+		int vehicleNumber = Integer.parseInt(tokens[1]);
+		Vehicle v = null;
+
+		for (Vehicle x : vehicleList) {
+			if (x.getNumber() == vehicleNumber) {
+				v = x;
+			}
+		}
+
+		trip = addTrip(v, tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]),
+				stringToDate(tokens[7]), stringToTime(tokens[8]), Double.parseDouble(tokens[9]));
+
+		trip.setNumber(Integer.parseInt(tokens[0]));
+		Trip.setFirstFreeNumber(Math.max(Vehicle.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
+
+	}
+
+	public void loadDrivers() throws IOException {
+		setBufferedReader("Drivers.txt");
+		while (bufferedReader.ready()) {
+
+			loadDriver(bufferedReader.readLine());
+		}
+	}
+
+	public void loadDriver(String line) {
+		String[] tokens = line.split("&");
+		int messageSize = Integer.parseInt(tokens[4]);
+
+		Driver d = addDriver(tokens[0], tokens[1], tokens[2], tokens[3], Double.parseDouble(tokens[5 + messageSize]));
+
+		int i = 5;
+
+		for (; i < 5 + messageSize; i++) {
+			d.getMessageList().add(stringToMessage(tokens[i]));
+		}
+		i++; // salary
+		int tripsSize = Integer.parseInt(tokens[i]);
+		i++; // tripsSize
+		int offset = i;
+		for (; i < offset + tripsSize; i++) {
+			int tripNumber = Integer.parseInt(tokens[i]);
+			for (Trip x : tripList) {
+				if (x.getNumber() == tripNumber) {
+					d.getTripsList().add(x);
+					break;
+				}
+			}
+		}
+
+	}
+
+	public void loadPassengers() throws IOException {
+		setBufferedReader("Passengers.txt");
+		while (bufferedReader.ready()) {
+
+			loadPassenger(bufferedReader.readLine());
+		}
+	}
+
+	public void loadPassenger(String line) {
+		String[] tokens = line.split("&");
+		System.out.println(Arrays.toString(tokens));
+		int messageSize = Integer.parseInt(tokens[4]);
+
+		Passenger p = addPassenger(tokens[0], tokens[1], tokens[2], tokens[3],
+				Double.parseDouble(tokens[5 + messageSize]));
+
+		int i = 5;
+
+		for (; i < 5 + messageSize; i++) {
+			p.getMessageList().add(stringToMessage(tokens[i]));
+		}
+		i++; // salary
+		int ticketsSize = Integer.parseInt(tokens[i]);
+		i++; // ticketSize
+
+		int offset = i;
+
+		for (; i < offset + ticketsSize; i++) {
+			StringTokenizer st = new StringTokenizer(tokens[i], "$");
+
+			String type = st.nextToken();
+			double price = Double.parseDouble(st.nextToken());
+			int tripNumber = Integer.parseInt(st.nextToken());
+			Trip trip = null;
+
+			for (Trip x : tripList) {
+				if (x.getNumber() == tripNumber) {
+					trip = x;
+					break;
+				}
+			}
+
+			p.getTicketList().add(new Ticket(type, price, trip));
+		}
+
+	}
+
+	public void loadManagers() throws IOException {
+		setBufferedReader("Managers.txt");
+		while (bufferedReader.ready()) {
+			loadManager(bufferedReader.readLine());
+		}
+	}
+
+	public void loadManager(String line) {
+		String[] tokens = line.split("&");
+		System.out.println(Arrays.toString(tokens));
+		int messageSize = Integer.parseInt(tokens[4]);
+
+		Manager m = addManager(tokens[0], tokens[1], tokens[2], tokens[3], Double.parseDouble(tokens[5 + messageSize]));
+
+		int i = 5;
+
+		for (; i < 5 + messageSize; i++) {
+			m.getMessageList().add(stringToMessage(tokens[i]));
+		}
+	}
+
+	void setBufferedReader(String fileName) throws FileNotFoundException {
+		file = new File(fileName);
+		filereader = new FileReader(file);
+		bufferedReader = new BufferedReader(filereader);
+	}
+
+	public Date stringToDate(String s) {
+		StringTokenizer st = new StringTokenizer(s, "/");
+		Date date = new Date(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
+				Integer.parseInt(st.nextToken()));
+		return date;
+	}
+
+	public Time stringToTime(String s) {
+		StringTokenizer st = new StringTokenizer(s, ":,");
+		Time time = new Time(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), st.nextToken());
+		return time;
+	}
+
+	public Message stringToMessage(String s) {
+		StringTokenizer st = new StringTokenizer(s, "$");
+		Message message = new Message(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
+		return message;
+	}
+
+	public void load() throws IOException {
+		loadVehicles();
+		loadTrips();
+		loadDrivers();
+		loadPassengers();
+		loadManagers();
+	}
+
+	public void write() throws IOException {
+		writeList(tripList, "Trips.txt");
+		writeList(passengersList, "Passengers.txt");
+		writeList(driverList, "Drivers.txt");
+		writeList(managerList, "Managers.txt");
+		writeList(vehicleList, "Vehicles.txt");
+	}
 
 }

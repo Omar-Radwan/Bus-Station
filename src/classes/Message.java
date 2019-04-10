@@ -47,5 +47,9 @@ public class Message {
 		this.subject = subject;
 		this.content = content;
 	}
+	@Override
+	public String toString () {
+		return to+"$"+from+"$"+subject+"$"+content+"&";
+	}
 	
 }

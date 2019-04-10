@@ -41,11 +41,13 @@ public class Manager extends Employee {
 		
 		
 		
-		
-		
-		
+
 		
 		return database.getTripList().getLast();
 	}
 
+	@Override 
+	public String toString() {
+		return super.toString()+salary+"&";
+	}
 }

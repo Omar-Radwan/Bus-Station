@@ -22,6 +22,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import users.classes.Employee;
+import users.classes.Manager;
 import users.classes.User;
 
 public abstract class ProfileScreen extends Screen {
@@ -64,7 +65,7 @@ public abstract class ProfileScreen extends Screen {
 		this.userComboBox = new ComboBox<String>();
 		userComboBox.setPrefSize(150, 10);
 
-		for (Employee x : database.getEmployeeList()) {
+		for (Manager x : database.getManagerList()) {
 			if (!x.equals(this.user)) {
 				userComboBox.getItems().add(x.getJob() + ": " + x.getFirstName() + " " + x.getLastName());
 			}
