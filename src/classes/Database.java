@@ -31,6 +31,7 @@ public class Database {
 	LinkedList<Vehicle> vehicleList;
 	LinkedList<Trip> tripList;
 	LinkedList<Ticket> ticketList;
+	
 
 	/*
 	 * Constructor
@@ -214,6 +215,8 @@ public class Database {
 		return tripList.getLast();
 	}
 
+	
+	
 	/*
 	 * Functions
 	 */
@@ -230,8 +233,6 @@ public class Database {
 
 		return false;
 	}	
-	
-
 	
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 	
@@ -265,15 +266,23 @@ public class Database {
 	
 	}
 	
+
+
+    public User authenticate(String userName, String password, String type) {
+
+	if (type.equals("Passenger")) {
+		for (Passenger x : passengersList)
+			if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+				return x;
+	}
+
+	else {
+		for (Employee x : employeeList)
+			if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+				return x;
+	}
+
+	return null;
 }
-
-	
-	
-	
-	
-	
-	
-	
-	
-
+}
 

@@ -38,7 +38,13 @@ public class Manager extends Employee {
 	public Trip addTrip () {
 		
 		// code of adding trip
-		//database.addTrip(vehicle, source, destination, distance, type, numberOfStops, date, time);\
+		
+		
+		
+		
+		
+		
+		
 		return database.getTripList().getLast();
 	}
 

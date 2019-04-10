@@ -39,10 +39,6 @@ public abstract class Employee extends User {
 	}
 
 
-
-
-
-
 	public void setJob(String job) {
 		this.job = job;
 	}

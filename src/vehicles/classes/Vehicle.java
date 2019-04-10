@@ -12,6 +12,7 @@ public class Vehicle {
 	String type;
 	int maxNumberOfSeats;
 	
+	
 	// commented attributes
 	/*String color;
 	String number;
