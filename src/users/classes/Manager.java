@@ -1,8 +1,12 @@
 package users.classes;
 
+import java.util.LinkedList;
+
 import classes.Database;
 import classes.Date;
 import classes.Trip;
+import classes.Message;
+
 
 public class Manager extends Employee {
 
@@ -11,6 +15,9 @@ public class Manager extends Employee {
 	 */
 	
 	static Database database ;
+	LinkedList<Trip> tripsList; 
+	Message message;
+	Driver driver;
 
 	/*
 	 * Constructor
@@ -40,12 +47,24 @@ public class Manager extends Employee {
 		// code of adding trip
 		
 		
-		
-		
-		
-		
-		
 		return database.getTripList().getLast();
 	}
 
-}
+
+	public void CancelTrip()
+	{
+		if (driver.RequestToCancelTrip()==1)
+		{	
+			for (Trip trip : tripsList){
+			
+			if(trip.equals(trip)) {
+				
+				tripsList.remove();				
+			}
+			
+		}
+		
+		}
+	}
+	}	
+	

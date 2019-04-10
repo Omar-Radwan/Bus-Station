@@ -71,11 +71,11 @@ public class Main extends Application {
 		database.addTrip(database.getVehicleList().get(0), "Alexandria", "Matrouh", 300, "Internal", 1,
 				new Date(12, 8, 2019), new Time(10, 0, "am"),100);
 
-		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
+		/*((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(0));
 		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(1));
 		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(2));
 		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(3));
-		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(4));
+		((Driver) (database.getEmployeeList().get(4))).addTrip(database.getTripList().get(4));*/
 
 		database.getEmployeeList().get(4).addMessage("Omar Radwan", "Tokyo", "enta fen yasta .. yasta rod argook",
 				"bla bla bla");

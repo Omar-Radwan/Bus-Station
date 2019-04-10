@@ -3,6 +3,7 @@ package users.classes;
 import java.util.LinkedList;
 
 import classes.Date;
+import classes.Message;
 import classes.Trip;
 
 public class Driver extends Employee{
@@ -11,6 +12,7 @@ public class Driver extends Employee{
 	 * Attributes
 	 */
 	LinkedList<Trip> tripsList; 
+	Message message ; 
 
 
 
@@ -55,11 +57,21 @@ public class Driver extends Employee{
 	 * Adders
 	 */
 
-	public void addTrip (Trip trip) {
-		tripsList.add(0,trip);
+	public int RequestToCancelTrip()
+	{
+		{
+		
+		for (Trip trip : tripsList)
+		{
+			if(trip.equals(trip)) {	
+				return 1;
+							
+			}
+		}
+		return 0;
+		
+		}
 	}
-
-
+	}
 	
-
-}
+	
