@@ -163,35 +163,6 @@ public class Database {
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
-	public User authenticate(String userName, String password, String type) {
-
-		if (type.equals("Passenger")) {
-			for (Passenger x : passengersList)
-				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
-					return x;
-		}
-
-		else {
-			for (Employee x : employeeList)
-				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
-					return x;
-		}
-
-		return null;
-	}
-
-	public boolean isExist(String userName) {
-		for (Passenger x : passengersList)
-			if (x.getUserName().equals(userName))
-				return true;
-
-		for (Employee x : employeeList)
-			if (x.getUserName().equals(userName))
-				return true;
-
-		return false;
-	}
-
 	/*
 	 * Adders
 	 */
@@ -247,6 +218,19 @@ public class Database {
 	 * Functions
 	 */
 
+
+	public boolean isExist(String userName) {
+		for (Passenger x : passengersList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		for (Employee x : employeeList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		return false;
+	}	
+	
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 		// check if the user name already exist
 
