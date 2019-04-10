@@ -160,39 +160,6 @@ public class Database {
 	}
 
 	/*
-	 * Function that checks if there exists a user with user name and password given
-	 */
-
-	public User authenticate(String userName, String password, String type) {
-
-		if (type.equals("Passenger")) {
-			for (Passenger x : passengersList)
-				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
-					return x;
-		}
-
-		else {
-			for (Employee x : employeeList)
-				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
-					return x;
-		}
-
-		return null;
-	}
-
-	public boolean isExist(String userName) {
-		for (Passenger x : passengersList)
-			if (x.getUserName().equals(userName))
-				return true;
-
-		for (Employee x : employeeList)
-			if (x.getUserName().equals(userName))
-				return true;
-
-		return false;
-	}
-
-	/*
 	 * Adders
 	 */
 
@@ -247,13 +214,78 @@ public class Database {
 	 * Functions
 	 */
 
-	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
-		// check if the user name already exist
+	
+	/*
+	 * Function that checks if there exists a user with user name and password given
+	 */
+	public User authenticate(String userName, String password, String type) {
 
-		return 1;
+		if (type.equals("Passenger")) {
+			for (Passenger x : passengersList)
+				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+					return x;
+		}
+
+		else {
+			for (Employee x : employeeList)
+				if (x.getUserName().equals(userName) && x.getPassword().equals(password))
+					return x;
+		}
+
+		return null;
+	}
+
+	
+	
+	public boolean isExist(String userName) {
+		for (Passenger x : passengersList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		for (Employee x : employeeList)
+			if (x.getUserName().equals(userName))
+				return true;
+
+		return false;
+	}	
+	
+	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
+	
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		else 
+		{
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.setUserName(userName);
+			user.setPassword(password);
+			
+			return 1;
+		}
+			
 	}
 	
+	
+	public int RegisterNew (String firstName, String lastName, String userName, String password, double balance) 
+	{
+		if (isExist(userName)) {
+			
+			return -1;
+		}
+		
+		else 
+			
+			addPassenger(firstName, lastName, userName, password, balance);
+		return 1;
+	
+	}
+	
+}
+
 
 	
 
-}
+
+
