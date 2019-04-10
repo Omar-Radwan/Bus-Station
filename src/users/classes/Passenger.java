@@ -53,6 +53,9 @@ public class Passenger extends User {
 		return false;
 	}
 
+	
+	
+
 	public void removeTicket(Ticket ticket) {
 		int i = 0;
 		for (Ticket x : ticketList) {
@@ -62,7 +65,7 @@ public class Passenger extends User {
 			i++;
 		}
 	}
-
+	
 	public void addOneWayTicket(Trip trip) {
 		Ticket t = new Ticket("One way", trip.getPrice(), trip);
 		ticketList.add(t);
@@ -73,4 +76,5 @@ public class Passenger extends User {
 		ticketList.add(t);
 	}
 
+	
 }

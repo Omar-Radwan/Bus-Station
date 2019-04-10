@@ -31,7 +31,7 @@ public class Database {
 	LinkedList<Vehicle> vehicleList;
 	LinkedList<Trip> tripList;
 	LinkedList<Ticket> ticketList;
-
+	
 	/*
 	 * Constructor
 	 */

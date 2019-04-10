@@ -11,7 +11,9 @@ public class Vehicle {
 	int currentNumberOfSeats;
 	String type;
 	int maxNumberOfSeats;
+
 	boolean isAssigned ; 
+//github.com/Omar-Radwan/Bus-Station
 	// commented attributes
 	/*String color;
 	String number;
