@@ -9,9 +9,11 @@ public class Vehicle {
 	int currentNumberOfSeats;
 	String type;
 	int maxNumberOfSeats;
+	
 	boolean isAssigned;
 	static int firstFreeNumber = 0 ;
 	int number;
+
 
 	/*
 	 * Constructor
@@ -45,6 +47,7 @@ public class Vehicle {
 		this.maxNumberOfSeats = maxNumberOfSeats;
 	}
 
+
 	public boolean isAssigned() {
 		return isAssigned;
 	}
@@ -60,6 +63,7 @@ public class Vehicle {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+
 
 	public int getCurrentNumberOfSeats() {
 		return currentNumberOfSeats;

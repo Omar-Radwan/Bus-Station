@@ -3,6 +3,7 @@ package gui.classes;
 import java.util.ArrayList;
 
 import classes.Database;
+import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,9 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,6 +31,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 	Hyperlink addTripLink;
 	Hyperlink removeTripLink;
 	Hyperlink assignDriversLink;
+	Hyperlink viewTrips;
 
 	/*
 	 * Constructor
@@ -37,6 +42,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		addTripLink = new Hyperlink("Add new trip");
 		removeTripLink = new Hyperlink("Remove trip");
 		assignDriversLink = new Hyperlink("Assign driver to trip");
+		viewTrips= new Hyperlink("View Trips");
 
 		for (Passenger x : database.getPassengersList()) {
 			userComboBox.getItems().add("Passenger" + ": " + x.getFirstName() + " " + x.getLastName());
@@ -48,6 +54,59 @@ public class ManagerProfileScreen extends ProfileScreen {
 	 */
 
 	public void setActions() {
+		
+		
+		removeTripLink.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+		
+
+				
+				}
+			}
+		);
+
+		
+		
+		
+		
+		
+		
+		
+		viewTrips.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				viewTrips.setVisited(false);
+				gridpane = new GridPane();
+				gridpane.setAlignment(Pos.CENTER);
+
+				ScrollPane scrollPane = new ScrollPane();
+				scrollPane.setContent(gridpane);
+				borderpane.setCenter(scrollPane);
+
+				int i = 1;
+
+				for (Trip x : database.getTripList()) {
+					Label tripLabel = new Label();
+
+					tripLabel.setPrefSize(400, 150);
+					tripLabel.setBorder(Border.EMPTY);
+					tripLabel.setTextFill(Paint.valueOf("black"));
+					tripLabel.setFont(Font.font(12));
+
+					gridpane.add(tripLabel, 0, i);
+
+					tripLabel.setText(i + x.data());
+					
+					i++;
+					}
+			}}
+			
+				);
+		
+		
 		addTripLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -65,13 +124,15 @@ public class ManagerProfileScreen extends ProfileScreen {
 				Label numberOfStopsLabel = new Label("Number of stops: ");
 				Label dateLabel = new Label("Date: ");
 				Label timeLabel = new Label("Time: ");
-
+				Label priceLabel = new Label ("Trip price: ");
+				
 				TextField vehicleField = new TextField();
 				TextField sourceField = new TextField();
 				TextField destinationField = new TextField();
 				TextField distanceField = new TextField();
 				TextField typeField = new TextField();
 				TextField numberOfStopsField = new TextField();
+				TextField priceField = new TextField();
 
 				TextField[] dateFields = { new TextField(), new TextField(), new TextField() };
 				TextField[] timeFields = { new TextField(), new TextField() };
@@ -101,7 +162,8 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(numberOfStopsLabel, 0, 5);
 				gridpane.add(dateLabel, 0, 6);
 				gridpane.add(timeLabel, 0, 7);
-				gridpane.add(saveButton, 0, 8);
+				gridpane.add(saveButton, 0, 9);
+				gridpane.add(priceLabel, 0, 8);
 
 				gridpane.add(vehicleField, 1, 0);
 				gridpane.add(sourceField, 1, 1);
@@ -111,7 +173,8 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(numberOfStopsField, 1, 5);
 				gridpane.add(dateHBox, 1, 6);
 				gridpane.add(timeHBox, 1, 7);
-				gridpane.add(discardChangesButton, 1, 8);
+				gridpane.add(discardChangesButton, 1, 9);
+				gridpane.add(priceField, 1, 8);
 
 				borderpane.setCenter(gridpane);
 			}
@@ -126,8 +189,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 		vBox.getChildren().add(addTripLink);
 		vBox.getChildren().add(removeTripLink);
 		vBox.getChildren().add(assignDriversLink);
+		vBox.getChildren().add(viewTrips);
 		setActions();
-		
+
 		super.drawBelowChild();
 	}
 

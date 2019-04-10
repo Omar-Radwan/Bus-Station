@@ -112,7 +112,7 @@ public class Database {
 	}
 
 	/*
-<<<<<<< HEAD
+
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
@@ -481,7 +481,3 @@ public class Database {
 		writeList(vehicleList, "Vehicles.txt");
 	}
 }
-
-
-
-

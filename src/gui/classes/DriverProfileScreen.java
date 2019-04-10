@@ -124,8 +124,11 @@ public class DriverProfileScreen extends ProfileScreen {
 						@Override
 						public void handle(ActionEvent event) {
 							// send a message to the concerned manager
-					
 							
+							String driverFirstName = driver.getFirstName();
+							String driverLastName = driver.getLastName();
+							String managerFirstName = database.getManagerList().get(0).getFirstName();
+	
 							gridpane = new GridPane();
 							Text noTripsText = new Text("A message has been sent to the\nconcerned manager");
 							gridpane.add(noTripsText, 0, 0);
@@ -137,9 +140,6 @@ public class DriverProfileScreen extends ProfileScreen {
 
 					i++;
 				}
-
-				
-
 			}
 		});
 

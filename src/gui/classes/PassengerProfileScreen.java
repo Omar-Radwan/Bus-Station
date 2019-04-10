@@ -75,6 +75,8 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 					tripLink.setText(i + x.data());
 
+					
+					
 					tripLink.setOnAction(new EventHandler<ActionEvent>() {
 
 						@Override
@@ -86,7 +88,7 @@ public class PassengerProfileScreen extends ProfileScreen {
 							ComboBox<String> ticketComboBox = new ComboBox<String>();
 							ticketComboBox.getItems().addAll("One way", "Round");
 							ticketComboBox.getSelectionModel().select(0);
-
+							
 							Button okButton = new Button("Ok");
 
 							gridpane.add(ticketTypeLabel, 0, 0);

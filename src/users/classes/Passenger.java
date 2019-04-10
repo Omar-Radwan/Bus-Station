@@ -54,8 +54,6 @@ public class Passenger extends User {
 	}
 
 	
-	
-
 	public void removeTicket(Ticket ticket) {
 		int i = 0;
 		for (Ticket x : ticketList) {

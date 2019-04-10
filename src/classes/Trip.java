@@ -8,7 +8,9 @@ public class Trip {
 	 * Attributes
 	 */
 
-	Vehicle vehilce;
+
+	Vehicle vehicle;
+
 	String source;
 	String destination;
 
@@ -22,18 +24,20 @@ public class Trip {
 
 	double price;
 
+
 	static int firstFreeNumber = 0;
 	int number;
+
 
 
 	/*
 	 * Constructor
 	 */
 
-	public Trip(Vehicle vehicle, String source, String destination, double distance, String type, int numberOfStops,
+	public Trip(Vehicle vehilce, String source, String destination, double distance, String type, int numberOfStops,
 			Date date, Time time, double price) {
 		super();
-		this.vehilce = vehicle;
+		this.vehicle= vehilce;
 		this.source = source;
 		this.destination = destination;
 		this.distance = distance;
@@ -60,22 +64,24 @@ public class Trip {
 
 	@Override
 	public String toString() {
-		return number+" "+vehilce.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
+
+		return number+" "+vehicle.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
 				+ date + " " + time + " " + price + " ";
+
 	}
 
 	public String data() {
-		return ".Vehicle: " + vehilce + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
+		return ".Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
 				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
 				+ time;
 	}
 
 	public Vehicle getVehilce() {
-		return vehilce;
+		return vehicle;
 	}
 
 	public void setVehilce(Vehicle vehilce) {
-		this.vehilce = vehilce;
+		this.vehicle = vehilce;
 	}
 
 	public Date getDate() {
@@ -164,13 +170,9 @@ public class Trip {
 	 * Behavior
 	 */
 
-	public void AvailableTrips() {
-
-	}
 	
 	static void changeFreeNumbers() {
 		firstFreeNumber++;
 	}
-
 
 }

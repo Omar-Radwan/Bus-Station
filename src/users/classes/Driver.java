@@ -75,17 +75,15 @@ public class Driver extends Employee{
 	{
 		{
 		
+			
 		for (Trip trip : tripsList)
 		{
 			if(trip.equals(trip)) {	
 				return 1;
-							
 			}
 		}
-		return 0;
 		
+		return 0;
 		}
 	}
 	}
-	
-	

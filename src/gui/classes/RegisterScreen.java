@@ -91,9 +91,8 @@ public class RegisterScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// me7tag yktablo function
 				
-				
+			database.RegisterNew(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), passwordField.getText(),100);
 				
 			}
 		});
