@@ -1,0 +1,5 @@
+1 Limosine 5 5 false 
+2 Bus 50 50 false 
+3 MiniBus 14 14 false 
+4 MiniBus 14 14 false 
+5 Bus 50 50 false 

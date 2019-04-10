@@ -27,11 +27,10 @@ public class Main extends Application {
 		Manager.setDataBase(database);
 
 		database.load();
-
 	
 		launch(args);
+	
 		database.write();
-
 
 	}
 
