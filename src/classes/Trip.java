@@ -19,14 +19,14 @@ public class Trip {
 	private double price;
 	private static int firstFreeNumber = 0;
 	private int number;
-	private int duration;
+	private double duration;
 
 	/*
 	 * Constructor
 	 */
 
 	public Trip(Vehicle vehilce, String source, String destination, double distance, String type, int numberOfStops,
-			Date date, Time time, double price,int duration) {
+			Date date, Time time, double price,double duration) {
 		super();
 		this.vehicle= vehilce;
 		this.source = source;
@@ -57,7 +57,7 @@ public class Trip {
 	}
 
 
-	public int getDuration() {
+	public double getDuration() {
 		return duration;
 	}
 

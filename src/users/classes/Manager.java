@@ -116,4 +116,13 @@ public class Manager extends Employee {
 		database.getTripList().remove(trip);
 		
 	}
+	
+	
+	public Driver assignTrip(Trip trip,Driver driver) {
+		for (Driver x :database.getDriverList()) {
+			if (x.getTripsList().contains(trip)) return x;
+		}
+		driver.addTrip(trip);
+		return null;
+	}
 }

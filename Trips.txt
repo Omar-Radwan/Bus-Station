@@ -1,0 +1,2 @@
+1&1&Alexandria&Cairo&1000.0&Internal&0&12/04/2019&01:00,am&99.0&3.0&
+1&1&Alexandria&Mansora&1000.0&Internal&0&12/04/2019&01:00,am&99.0&3.0&

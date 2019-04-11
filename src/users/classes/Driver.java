@@ -3,6 +3,7 @@ package users.classes;
 import java.util.LinkedList;
 
 import classes.Message;
+import classes.Time;
 import classes.Trip;
 
 public class Driver extends Employee {
@@ -62,11 +63,15 @@ public class Driver extends Employee {
 		return stringBuilder.toString();
 	}
 
+	public String data() {
+		return userName;
+	}
 	/*
 	 * Adders
 	 */
 
 	public void addTrip(Trip trip) {
+
 
 		if (!tripsList.contains(trip))
 			tripsList.add(0, trip);
@@ -77,4 +82,23 @@ public class Driver extends Employee {
 	 * Behavior
 	 */
 
+	public LinkedList<Trip> tripsCanTake(LinkedList<Trip> allTrips) {
+		LinkedList<Trip> canTakeTrip = new LinkedList<Trip>();
+		for (Trip x : allTrips) {
+			boolean canTake = true;
+			for (Trip y : tripsList) {
+				if (x.getDate().toString().equals((y.getDate().toString()))) {
+						canTake = false;
+						break;
+					
+				}
+		
+			}
+			if (canTake) {
+				System.out.println(canTake);
+				canTakeTrip.add(x);
+			}
+		}
+		return canTakeTrip;
+	}
 }

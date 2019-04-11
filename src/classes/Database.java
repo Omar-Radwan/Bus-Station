@@ -51,7 +51,7 @@ public class Database {
 		this.managerList = new LinkedList<Manager>();
 		this.vehicleList = new LinkedList<Vehicle>();
 		this.tripList = new LinkedList<Trip>();
-	
+
 	}
 
 	/*
@@ -82,7 +82,6 @@ public class Database {
 		this.tripList = tripList;
 	}
 
-
 	public LinkedList<Driver> getDriverList() {
 		return driverList;
 	}
@@ -107,12 +106,10 @@ public class Database {
 	 * Adds new user to the file and to the database
 	 */
 
-	public void registerUser(User x) throws IOException {
 
-	}
 
 	/*
-
+	 * 
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
@@ -153,8 +150,7 @@ public class Database {
 	}
 
 	/*
-=======
->>>>>>> branch 'master' of https://github.com/Omar-Radwan/Bus-Station
+	 * ======= >>>>>>> branch 'master' of https://github.com/Omar-Radwan/Bus-Station
 	 * Adders
 	 */
 
@@ -197,62 +193,49 @@ public class Database {
 		return managerList.getLast();
 	}
 
-	
 	public Trip addTrip(Vehicle vehicle, String source, String destination, double distance, String type,
-			int numberOfStops, Date date, Time time, double price,int duration) {
+			int numberOfStops, Date date, Time time, double price, double duration) {
 
-		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time, price,duration));
+		tripList.add(
+				new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time, price, duration));
 
 		return tripList.getLast();
 	}
-
 
 	/*
 	 * Functions
 	 */
 
-	
 	/*
 	 * Function that checks if there exists a user with user name and password given
 	 */
 
-	
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
-	
-		if (getUser(userName)==null) {
-			
+
+		if (!(getUser(userName) == null)) {
 			return -1;
-		}
-		else 
-		{
+		} else {
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setUserName(userName);
 			user.setPassword(password);
-			
 			return 1;
 		}
-			
+
 	}
 
-	
-	public int RegisterNew (String firstName, String lastName, String userName, String password, double balance) 
-	{
-		if (getUser(userName)==null) {
-			
-			return -1;
-		}
-		
-		else 
-			
+	public int RegisterNew(String firstName, String lastName, String userName, String password, double balance) {
+		if (getUser(userName) == null) {
+
 			addPassenger(firstName, lastName, userName, password, balance);
-		return 1;
-	
+			return 1;
+
+		}
+
+		else
+			return -1;
+
 	}
-	
-
-
-
 
 	// writing functions
 
@@ -266,7 +249,6 @@ public class Database {
 		bufferedWriter.close();
 	}
 
-	
 	private void setBufferedWriter(String fileName) {
 		file = new File(fileName);
 		try {
@@ -278,7 +260,6 @@ public class Database {
 		bufferedWriter = new BufferedWriter(filewriter);
 	}
 
-	
 	public void loadVehicles() throws IOException {
 		setBufferedReader("Vehicles.txt");
 		while (bufferedReader.ready()) {
@@ -322,7 +303,7 @@ public class Database {
 		Trip trip = null;
 		int vehicleNumber = Integer.parseInt(tokens[1]);
 		Vehicle v = null;
-		
+
 		for (Vehicle x : vehicleList) {
 			if (x.getNumber() == vehicleNumber) {
 				v = x;
@@ -330,7 +311,8 @@ public class Database {
 		}
 
 		trip = addTrip(v, tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]),
-				stringToDate(tokens[7]), stringToTime(tokens[8]), Double.parseDouble(tokens[9]),Integer.parseInt(tokens[10]));
+				stringToDate(tokens[7]), stringToTime(tokens[8]), Double.parseDouble(tokens[9]),
+				Double.parseDouble(tokens[10]));
 
 		trip.setNumber(Integer.parseInt(tokens[0]));
 		Trip.setFirstFreeNumber(Math.max(Trip.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
@@ -475,9 +457,12 @@ public class Database {
 
 	public void write() throws IOException {
 		writeList(tripList, "Trips.txt");
+		writeUsers();
+		writeList(vehicleList, "Vehicles.txt");
+	}
+	public void writeUsers () throws IOException{
 		writeList(passengersList, "Passengers.txt");
 		writeList(driverList, "Drivers.txt");
 		writeList(managerList, "Managers.txt");
-		writeList(vehicleList, "Vehicles.txt");
 	}
 }

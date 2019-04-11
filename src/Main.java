@@ -28,9 +28,9 @@ public class Main extends Application {
 
 		database.load();
 		
-		database.getDriverList().get(4).addTrip(database.getTripList().get(0));
 		launch(args);
-
+		
+		database.write();
 	
 
 	}

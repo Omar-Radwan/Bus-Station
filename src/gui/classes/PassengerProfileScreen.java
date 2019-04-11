@@ -1,5 +1,8 @@
 package gui.classes;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import classes.Database;
 import classes.Ticket;
 import classes.Trip;
@@ -44,16 +47,26 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 		Passenger passenger = (Passenger) user;
 
-		bookTripLink.setOnAction(new EventHandler<ActionEvent>() {
-			int i = 0;
+		
+		
+		
+		
+		
+		// done but needs testing
 
+		bookTripLink.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				bookTripLink.setVisited(false);
 				cleanScrollableGridPane(0);
+				
+				LinkedList<Trip> unbookedTrips = passenger.getUnbookedTrips(database.getTripList());
+				
+				if (!unbookedTrips.isEmpty()) {
+					
+					showList(unbookedTrips, 300, 200, "Hyperlink", "Blue");
 
-				if (!database.getTripList().isEmpty()) {
-					showList(database.getTripList(), 300, 150, "Hyperlink", "Blue");
+					Iterator<Trip> tripIterator = unbookedTrips.iterator();
 
 					for (Node x : gridpane.getChildren()) {
 
@@ -61,7 +74,7 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-							Trip trip = database.getTripList().get(i);
+							Trip trip = tripIterator.next();
 
 							@Override
 							public void handle(ActionEvent event) {
@@ -86,12 +99,20 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 										String choice = ticketComboBox.getValue();
 
+										int result = -5;
+
 										if (choice.equals("One way")) {
-											passenger.addOneWayTicket(trip);
+											result = passenger.addOneWayTicket(trip);
 										}
 
 										else {
-											passenger.addRoundTicket(trip);
+											result = passenger.addRoundTicket(trip);
+										}
+
+										if (result == 1) {
+											addConfirmationText("Trip ticket has been booked successfully.");
+										} else if (result == 0) {
+											addConfirmationText("You don't have enough balance.");
 										}
 
 									}
@@ -99,23 +120,25 @@ public class PassengerProfileScreen extends ProfileScreen {
 								});
 							}
 						});
-
-						i++;
 					}
 
 				}
 
 				else {
-					addConfirmationText("No trips to show.");
+					addConfirmationText("No available trips.");
 				}
 
 			}
 
 		});
 
+		
+		
+		
+		
+		
+		// done but needs testing
 		cancelTripLink.setOnAction(new EventHandler<ActionEvent>() {
-
-			int i = 0;
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -125,6 +148,8 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 				if (!passenger.getTicketList().isEmpty()) {
 
+					Iterator<Ticket> tickIterator = passenger.getTicketList().iterator();
+
 					showList(passenger.getTicketList(), 300, 200, "Hyperlink", "Green");
 
 					for (Node x : gridpane.getChildren()) {
@@ -133,7 +158,7 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-							Ticket ticket = passenger.getTicketList().get(i);
+							Ticket ticket = tickIterator.next();
 
 							@Override
 							public void handle(ActionEvent event) {
@@ -143,9 +168,7 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 						});
 
-						i++;
 					}
-
 				}
 
 				else {
@@ -155,13 +178,17 @@ public class PassengerProfileScreen extends ProfileScreen {
 			}
 		});
 
+		
+		
+		
+		// done
 		viewTripsLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				viewTripsLink.setVisited(false);
 				if (!passenger.getTicketList().isEmpty()) {
-					showList(passenger.getTicketList(), 300, 200, "Label", "Black");
+					showList(passenger.getTicketList(), 300, 250, "Label", "Black");
 				} else {
 					addConfirmationText("No trips to show.");
 				}

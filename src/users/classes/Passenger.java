@@ -87,29 +87,74 @@ public class Passenger extends User {
 	}
 
 	
-	public void addOneWayTicket(Trip trip) {
-		Ticket t = new Ticket("One way", trip.getPrice(), trip);
-		ticketList.add(t);
+	public int addOneWayTicket(Trip trip) {
+	
+		if (getTicketFromTrip(trip)==null) {
+			Ticket t = new Ticket("One way", trip.getPrice(), trip);
+			if (addTicket(t)) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		else return -1;
 	}
 
-	public void addRoundTicket(Trip trip) {
-		Ticket t = new Ticket("Round",( trip.getPrice()*2)-((20/100)*trip.getPrice()) , trip);
-		ticketList.add(t);
+	public int addRoundTicket(Trip trip) {
+		if (getTicketFromTrip(trip)==null) {
+			Ticket t = new Ticket("Round",( trip.getPrice()*2)-((20/100)*trip.getPrice()) , trip);
+			if (addTicket(t)) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		else return -1;
 	}
 
+	public Ticket getTicketFromTrip(Trip trip) {
+		for (Ticket x : ticketList) {
+			if (x.getTrip().equals(trip)) {
+				return x;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	public LinkedList<Trip> getUnbookedTrips(LinkedList<Trip> allTrips) {
+		LinkedList<Trip> unbookedTrips = new LinkedList<Trip>();
+		
+		for (Trip x : allTrips) {
+			boolean canTake = true;
+			for (Ticket y : ticketList) {
+				if (y.getTrip().equals(x)) {
+						canTake = false;
+						break;
+				}
+		
+			}
+			if (canTake) {
+				unbookedTrips.add(x);
+			}
+		}
+		return unbookedTrips;
+	}
+	
+	
 	
 	/*
 	 * Behavior
 	 */
 	
 	public void removeTicket(Ticket ticket) {
-		int i = 0;
-		for (Ticket x : ticketList) {
-			if (x.equals(ticket)) {
-				ticketList.remove(i);
-			}
-			i++;
-		}
+
+				balance+=ticket.getPrice();
+				ticketList.remove(ticket);
+			
 	}
 	
 }

@@ -43,7 +43,16 @@ public class Time {
 	public void setMinutes(int minutes) {
 		this.minutes = minutes;
 	}
+	
+	public String getAmOrPM() {
+		return amOrPM;
+	}
 
+
+	public void setAmOrPM(String amOrPM) {
+		this.amOrPM = amOrPM;
+	}
+	
 
 	/*
 	 * toString uses "&" as delimiter
@@ -61,5 +70,21 @@ public class Time {
 	/*
 	 *  Behavior
 	 */
+
+	public boolean areOverlapping (double duration1,Time t2,double duration2) {
+		
+		double time1Start = this.hours*60+this.minutes+(amOrPM.equals("pm")? 12*60:0);
+		double time2Start = t2.getHours()*60+t2.getMinutes()+(t2.getAmOrPM().equals("pm")? 12*60:0);
+		double time1End = time1Start+duration1*60;
+		double time2End = time2Start+duration2*60;
+		
+		if (time1Start>=time2End||time2Start>=time1End) {
+			return true;
+		}
+		else return false;
+		
+	}
+
+
 	
 }

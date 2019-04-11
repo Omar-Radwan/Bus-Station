@@ -1,5 +1,7 @@
 package gui.classes;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -29,6 +31,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import users.classes.Driver;
 import users.classes.Manager;
 import users.classes.User;
 
@@ -117,6 +120,7 @@ public abstract class ProfileScreen extends Screen {
 
 	private void setActions() {
 
+		// done .. recheck
 		sendMessageLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -165,7 +169,14 @@ public abstract class ProfileScreen extends Screen {
 						x.addMessage(user.getUserName(), x.getUserName(), subjectField.getText(),
 								messageTextArea.getText());
 
-						addConfirmationText("Your feedback has been sent to the manager thanks.");
+						addConfirmationText("Message sent successfully.");
+
+						try {
+							database.writeUsers();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
 					}
 
 				});
@@ -173,19 +184,19 @@ public abstract class ProfileScreen extends Screen {
 			}
 		});
 
+		// done .. recheck many times
 		messagesLink.setOnAction(new EventHandler<ActionEvent>() {
-
-			int i = 0;
 
 			@Override
 			public void handle(ActionEvent event) {
-
 				messagesLink.setVisited(false);
 				cleanScrollableGridPane(0);
 
 				if (!user.getMessageList().isEmpty()) {
 
-					showList(user.getMessageList(), 300, 100, "Hyperlink", "Blue");
+					showList(user.getMessageList(), 300, 75, "Hyperlink", "Blue");
+
+					Iterator<Message> messageIterator = user.getMessageList().iterator();
 
 					for (Node x : gridpane.getChildren()) {
 
@@ -193,17 +204,14 @@ public abstract class ProfileScreen extends Screen {
 
 						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-							Message message = user.getMessageList().get(i);
+							Message message = messageIterator.next();
 
 							@Override
 							public void handle(ActionEvent event) {
 								addConfirmationText(message.getContent());
-								i = 0 ; 
 							}
 
 						});
-
-						i++;
 					}
 
 				}
@@ -215,6 +223,7 @@ public abstract class ProfileScreen extends Screen {
 			}
 		});
 
+		// done
 		infoLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -224,6 +233,7 @@ public abstract class ProfileScreen extends Screen {
 			}
 		});
 
+		// done
 		editProfileLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -272,20 +282,27 @@ public abstract class ProfileScreen extends Screen {
 					@Override
 					public void handle(ActionEvent event) {
 
-						// fill change result function
 						int changeResult = database.changeUserAttributes(user, firstNameField.getText(),
 								lastNameField.getText(), userNameField.getText(), passwordField.getText());
 
 						if (changeResult == 1) {
-							showUserInfo();
+							addConfirmationText("Info changed successfully.");
+							try {
+								database.writeUsers();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} else {
+							addConfirmationText(
+									"unfortunately, a user with the same username you chose exist, please try choosing another username.");
 						}
-
 					}
 				});
 
 			}
 		});
 
+		// done
 		logoutLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -302,30 +319,6 @@ public abstract class ProfileScreen extends Screen {
 	/*
 	 * Helping functions
 	 */
-
-	protected void cleanGridPane(double vGap) {
-		gridpane = new GridPane();
-		gridpane.setAlignment(Pos.CENTER);
-		gridpane.setVgap(vGap);
-		borderpane.setCenter(gridpane);
-
-	}
-
-	protected void cleanScrollableGridPane(double vGap) {
-		gridpane = new GridPane();
-		gridpane.setVgap(vGap);
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(gridpane);
-		borderpane.setCenter(scrollPane);
-	}
-
-	protected void addConfirmationText(String text) {
-		cleanGridPane(0);
-		Text confirmationText = new Text(text);
-		gridpane.add(confirmationText, 0, 0);
-		confirmationText.setWrappingWidth(300);
-		confirmationText.setFont(Font.font("Verdana", 20));
-	}
 
 	protected <T> void comboBoxFromList(LinkedList<T> list, ComboBox<String> comboBox, String type) {
 
@@ -359,9 +352,10 @@ public abstract class ProfileScreen extends Screen {
 			else if (x instanceof Ticket) {
 				data = ((Ticket) x).data();
 			} else if (x instanceof Message) {
-				data = Message.data();
+				data = ((Message) x).data();
+			} else if (x instanceof Driver) {
+				data = ((Driver) x).data();
 			}
-
 			if (nodeType.equals("Label")) {
 				tLabel = new Label();
 				tLabel.setPrefSize(prefWidth, prefHeight);

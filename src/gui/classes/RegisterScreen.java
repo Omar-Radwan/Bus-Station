@@ -1,5 +1,7 @@
 package gui.classes;
 
+import java.io.IOException;
+
 import classes.Database;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -92,8 +94,23 @@ public class RegisterScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				
-			database.RegisterNew(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), passwordField.getText(),100);
+			int result = database.RegisterNew(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), passwordField.getText(),100);
+				if (result==-1) {
+					addConfirmationText("Username you chose already exist.");
+	
+				}
+				else {
+					addConfirmationText("Account created successfully.");
+				}
 				
+				gridpane.add(backButton, 0, 1);
+			
+				try {
+					database.writeList(database.getPassengersList(), "Passeneger.txt");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			
 			}
 		});
 	}

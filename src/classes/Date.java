@@ -69,4 +69,7 @@ public class Date {
 	/*
 	 * Behaviors
 	 */
+	public boolean areEqual (Date y ) {
+		return this.toString().equals(y);
+	}
 }

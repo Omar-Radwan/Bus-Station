@@ -1,6 +1,11 @@
 package gui.classes;
 
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import classes.Database;
+import classes.Message;
 import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import users.classes.Driver;
 import users.classes.Manager;
 import users.classes.User;
 
@@ -42,7 +48,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 		comboBoxFromList(database.getPassengersList(), comboBox, "Passenger: ");
 		comboBoxFromList(database.getDriverList(), comboBox, "Driver: ");
-		manager = (Manager) user;
+
 	}
 
 	/*
@@ -51,15 +57,17 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 	public void setActions() {
 
+		manager = (Manager) user;
+
 		removeTripLink.setOnAction(new EventHandler<ActionEvent>() {
-			int i = 0;
+			
 
 			@Override
 			public void handle(ActionEvent event) {
 				removeTripLink.setVisited(false);
 
 				if (!database.getTripList().isEmpty()) {
-
+					Iterator<Trip> tripsIterator = database.getTripList().iterator();
 					showList(database.getTripList(), 300, 150, "Hyperlink", "Blue");
 
 					for (Node x : gridpane.getChildren()) {
@@ -68,18 +76,17 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-							Trip trip = database.getTripList().get(i);
+							Trip trip = tripsIterator.next();
 
 							@Override
 							public void handle(ActionEvent event) {
 								manager.removeTrip(trip);
 								addConfirmationText("Trip has been removed successfully.");
-								i = 0;
 							}
 
 						});
 
-						i++;
+			
 					}
 
 				}
@@ -90,6 +97,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 			}
 		});
 
+		
+		
+		// done
 		viewTrips.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -109,6 +119,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 		);
 
+		// needs testing
 		addTripLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -128,11 +139,22 @@ public class ManagerProfileScreen extends ProfileScreen {
 				Label priceLabel = new Label("Trip price: ");
 				Label durationLabel = new Label("Duration: ");
 
-				TextField vehicleField = new TextField();
+				Label kmLabel = new Label("KM");
+				Label egpLabel = new Label("EGP");
+				Label hrLabel = new Label("Hour");
+
+				ComboBox<String> vehicleComboBox = new ComboBox<String>();
+				vehicleComboBox.getItems().addAll("Limosine", "Bus", "MiniBus");
+				vehicleComboBox.getSelectionModel().select(0);
+
 				TextField sourceField = new TextField();
 				TextField destinationField = new TextField();
 				TextField distanceField = new TextField();
-				TextField typeField = new TextField();
+
+				ComboBox<String> typeComboBox = new ComboBox<String>();
+				typeComboBox.getItems().addAll("Internal", "External");
+				typeComboBox.getSelectionModel().select(0);
+
 				TextField numberOfStopsField = new TextField();
 				TextField priceField = new TextField();
 				TextField durationField = new TextField();
@@ -164,19 +186,22 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(sourceLabel, 0, 1);
 				gridpane.add(destinationLabel, 0, 2);
 				gridpane.add(distanceLabel, 0, 3);
+				gridpane.add(kmLabel, 2, 3);
 				gridpane.add(typeLabel, 0, 4);
 				gridpane.add(numberOfStopsLabel, 0, 5);
 				gridpane.add(dateLabel, 0, 6);
 				gridpane.add(timeLabel, 0, 7);
 				gridpane.add(durationLabel, 0, 9);
+				gridpane.add(hrLabel, 2, 9);
 				gridpane.add(priceLabel, 0, 8);
+				gridpane.add(egpLabel, 2, 8);
 				gridpane.add(saveButton, 0, 10);
 
-				gridpane.add(vehicleField, 1, 0);
+				gridpane.add(vehicleComboBox, 1, 0);
 				gridpane.add(sourceField, 1, 1);
 				gridpane.add(destinationField, 1, 2);
 				gridpane.add(distanceField, 1, 3);
-				gridpane.add(typeField, 1, 4);
+				gridpane.add(typeComboBox, 1, 4);
 				gridpane.add(numberOfStopsField, 1, 5);
 				gridpane.add(dateHBox, 1, 6);
 				gridpane.add(timeHBox, 1, 7);
@@ -188,21 +213,35 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 					@Override
 					public void handle(ActionEvent event) {
-					
-						Trip t = manager.addTrip(vehicleField.getText(), sourceField.getText(), destinationField.getText(),
-								Double.parseDouble(distanceField.getText()), typeField.getText(),
-								Integer.parseInt(numberOfStopsField.getText()),
-								database.stringToDate(dateFields[0].getText() + "-" + dateFields[1].getText() + "-"
-										+ dateFields[2].getText()),
-								database.stringToTime(timeFields[0].getText() + "/" + timeFields[1].getText() + ","
-										+ amOrPmComboBox.getValue()),
-								Double.parseDouble(priceField.getText()), Integer.parseInt(durationField.getText()));
-						
-						if (t.equals(null)) {
-							addConfirmationText("No free vehicle available.");
+
+						Trip t = null;
+						boolean isError = false;
+						try {
+							t = manager.addTrip(vehicleComboBox.getValue(), sourceField.getText(),
+									destinationField.getText(),
+
+									Double.parseDouble(distanceField.getText()), typeComboBox.getValue(),
+									Integer.parseInt(numberOfStopsField.getText()),
+									database.stringToDate(dateFields[0].getText() + "/" + dateFields[1].getText() + "/"
+											+ dateFields[2].getText()),
+									database.stringToTime(timeFields[0].getText() + ":" + timeFields[1].getText() + ","
+											+ amOrPmComboBox.getValue()),
+									Double.parseDouble(priceField.getText()),
+									Integer.parseInt(durationField.getText()));
+						} catch (Exception e) {
+							addConfirmationText("Error in entered data.");
+							isError = true;
 						}
-						else {
+
+						if (t == null && !isError) {
+							addConfirmationText("No free vehicle available.");
+						} else if (t != null && !isError) {
 							addConfirmationText("Trip added successfully.");
+							try {
+								database.writeList(database.getTripList(), "Trips.txt");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 
 					}
@@ -221,21 +260,131 @@ public class ManagerProfileScreen extends ProfileScreen {
 			}
 		});
 
+		// done but needs testing
+
 		removeDriverFromTripLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				removeDriverFromTripLink.setVisited(false);
 
+				if (!database.getDriverList().isEmpty()) {
+					Iterator<Driver> driverIterator = database.getDriverList().iterator();
+					showList(database.getDriverList(), 300, 45, "Hyperlink", "Blue");
+
+					for (Node x : gridpane.getChildren()) {
+
+						Hyperlink hyperlink = (Hyperlink) x;
+
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+
+							Driver driver = driverIterator.next();
+
+							@Override
+							public void handle(ActionEvent event) {
+
+								if (!driver.getTripsList().isEmpty()) {
+									showList(driver.getTripsList(), 300, 225, "Hyperlink", "Blue");
+									Iterator<Trip> tripsIterator = driver.getTripsList().iterator();
+
+									for (Node y : gridpane.getChildren()) {
+										Hyperlink hyperlinky = (Hyperlink) y;
+										hyperlinky.setOnAction(new EventHandler<ActionEvent>() {
+
+											Trip trip = tripsIterator.next();
+
+											@Override
+											public void handle(ActionEvent event) {
+												driver.getTripsList().remove(trip);
+												addConfirmationText("Trip removed successfully.");
+											}
+										});
+
+									}
+								} else {
+									addConfirmationText("Driver doesn't have any assigned trips.");
+								}
+
+							}
+
+						});
+
+					}
+
+				}
+
+				else {
+					addConfirmationText("No drivers Available.");
+				}
 			}
+
 		});
 
+		// done but needs testing
 		assignDriversLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				assignDriversLink.setVisited(false);
 
+				if (!database.getDriverList().isEmpty()) {
+
+					Iterator<Driver> driverIterator = database.getDriverList().iterator();
+
+					showList(database.getDriverList(), 300, 45, "Hyperlink", "Blue");
+
+					for (Node x : gridpane.getChildren()) {
+
+						Hyperlink hyperlink = (Hyperlink) x;
+
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+
+							Driver driver = driverIterator.next();
+
+							@Override
+							public void handle(ActionEvent event) {
+
+								LinkedList<Trip> canTakeTrips = driver.tripsCanTake(database.getTripList());
+
+								if (!canTakeTrips.isEmpty()) {
+
+									Iterator<Trip> tripsIterator = canTakeTrips.iterator();
+									showList(canTakeTrips, 300, 225, "Hyperlink", "Blue");
+
+									for (Node y : gridpane.getChildren()) {
+										Hyperlink hyperlinky = (Hyperlink) y;
+										hyperlinky.setOnAction(new EventHandler<ActionEvent>() {
+
+											Trip trip = tripsIterator.next();
+
+											@Override
+											public void handle(ActionEvent event) {
+												Driver assignedDriver = manager.assignTrip(trip, driver);
+												if (assignedDriver == null)
+													addConfirmationText("Trip assigned successfully.");
+												else
+													addConfirmationText("Trip is already assigned to another driver "
+															+ assignedDriver.getUserName()
+															+ " please remove him from the trip first.");
+
+											}
+										});
+									}
+								} else {
+									addConfirmationText("No trips can be taken by this driver he is so busy.");
+								}
+
+							}
+
+						});
+
+					}
+
+				}
+
+				else {
+					addConfirmationText("No drivers Available.");
+				}
 			}
 
 		});
@@ -248,6 +397,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		vBox.getChildren().add(addTripLink);
 		vBox.getChildren().add(removeTripLink);
 		vBox.getChildren().add(assignDriversLink);
+		vBox.getChildren().add(removeDriverFromTripLink);
 		vBox.getChildren().add(viewTrips);
 
 		setActions();

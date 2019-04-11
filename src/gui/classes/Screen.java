@@ -3,8 +3,11 @@ package gui.classes;
 import classes.Database;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public abstract class Screen {
@@ -59,5 +62,30 @@ public abstract class Screen {
 		stage.setScene(scene);
 
 	};
+	
+	protected void cleanGridPane(double vGap) {
+		gridpane = new GridPane();
+		gridpane.setAlignment(Pos.CENTER);
+		gridpane.setVgap(vGap);
+		borderpane.setCenter(gridpane);
+
+	}
+
+	protected void cleanScrollableGridPane(double vGap) {
+		gridpane = new GridPane();
+		gridpane.setVgap(vGap);
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setContent(gridpane);
+		borderpane.setCenter(scrollPane);
+	}
+
+	protected void addConfirmationText(String text) {
+		cleanGridPane(0);
+		Text confirmationText = new Text(text);
+		gridpane.add(confirmationText, 0, 0);
+		confirmationText.setWrappingWidth(300);
+		confirmationText.setFont(Font.font("Verdana", 20));
+	}
+
 
 }

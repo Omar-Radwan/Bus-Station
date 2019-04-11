@@ -48,6 +48,8 @@ public class DriverProfileScreen extends ProfileScreen {
 	public void setActions() {
 		Driver driver = (Driver) user;
 		
+		
+		
 		viewTripsLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

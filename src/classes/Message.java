@@ -75,9 +75,9 @@ public class Message {
 	}
 
 
-	public static String data() {
+	public  String data() {
 
-		return null;
+		return "From: "+from+"\nSubject: "+subject;
 	}
 
 
