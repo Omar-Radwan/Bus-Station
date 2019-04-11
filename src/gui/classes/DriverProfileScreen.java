@@ -1,6 +1,7 @@
 package gui.classes;
 
 import classes.Database;
+import classes.Message;
 import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -125,10 +126,13 @@ public class DriverProfileScreen extends ProfileScreen {
 						public void handle(ActionEvent event) {
 							// send a message to the concerned manager
 							
-							String driverFirstName = driver.getFirstName();
-							String driverLastName = driver.getLastName();
-							String managerFirstName = database.getManagerList().get(0).getFirstName();
-	
+							String driverName = driver.getFirstName()+" "+driver.getLastName();
+							String managerName = database.getManagerList().get(0).getFirstName()+" "+database.getManagerList().get(0).getLastName();
+							String subject = "Trip cancelation";
+							String content = "unfortunately i won't be able to take trip number"+x.getNumber();
+							
+							database.getManagerList().get(0).addMessage(driverName, managerName, subject, content);
+							
 							gridpane = new GridPane();
 							Text noTripsText = new Text("A message has been sent to the\nconcerned manager");
 							gridpane.add(noTripsText, 0, 0);

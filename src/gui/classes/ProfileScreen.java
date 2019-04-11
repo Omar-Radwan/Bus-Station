@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import users.classes.Employee;
 import users.classes.Manager;
 import users.classes.User;
 
@@ -107,7 +106,7 @@ public abstract class ProfileScreen extends Screen {
 		super.draw();
 		setActions();
 	}
-	
+
 	protected void drawBelowChild() {
 		vBox.getChildren().add(logoutLink);
 	}
@@ -141,8 +140,7 @@ public abstract class ProfileScreen extends Screen {
 	public abstract void draw();
 
 	private void setActions() {
-		
-		
+
 		sendMessageLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -168,14 +166,14 @@ public abstract class ProfileScreen extends Screen {
 
 				gridpane.setAlignment(Pos.CENTER);
 				borderpane.setCenter(gridpane);
-				
+
 				send.setOnAction(new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent arg0) {
 						// code of sending message
 					}
-					
+
 				});
 
 			}
@@ -189,7 +187,6 @@ public abstract class ProfileScreen extends Screen {
 
 				gridpane = new GridPane();
 
-
 				int i = 0;
 
 				if (!user.getMessageList().isEmpty()) {
@@ -201,19 +198,26 @@ public abstract class ProfileScreen extends Screen {
 
 						messageSubjectLink.setTextFill(Paint.valueOf("blue"));
 						messageSubjectLink.setFont(Font.font(15));
-						
+
 						gridpane.add(messageSubjectLink, 0, i);
 						i++;
 						messageSubjectLink.setOnAction(new EventHandler<ActionEvent>() {
 
 							@Override
 							public void handle(ActionEvent arg0) {
-								// code of displaying message on the screen
+								gridpane = new GridPane();
 								
+								Label messageLabel = new Label(x.getContent());
+								messageLabel.setPrefSize(500, 400);
+								gridpane.add(messageLabel, 0, 0);
+								messageLabel.setFont(Font.font("Verdana", 12));
+								gridpane.setAlignment(Pos.CENTER);
+								borderpane.setCenter(gridpane);
+			
 							}
-							
+
 						});
-						
+
 					}
 					scrollPane.setContent(gridpane);
 
@@ -223,12 +227,10 @@ public abstract class ProfileScreen extends Screen {
 				else {
 					Text noMessagesText = new Text("You don't have any messages.");
 					gridpane.add(noMessagesText, 0, 0);
-					noMessagesText.setFont(Font.font ("Verdana", 20));
+					noMessagesText.setFont(Font.font("Verdana", 20));
 					gridpane.setAlignment(Pos.CENTER);
 					borderpane.setCenter(gridpane);
 				}
-
-
 
 			}
 		});
@@ -278,7 +280,7 @@ public abstract class ProfileScreen extends Screen {
 				gridpane.add(userNameField, 1, 2);
 				gridpane.add(passwordField, 1, 3);
 				gridpane.add(discardChangesButton, 1, 4);
-				
+
 				borderpane.setCenter(gridpane);
 
 				discardChangesButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -293,11 +295,11 @@ public abstract class ProfileScreen extends Screen {
 
 					@Override
 					public void handle(ActionEvent event) {
-						
-						// fill change result function 
+
+						// fill change result function
 						int changeResult = database.changeUserAttributes(user, firstNameField.getText(),
 								lastNameField.getText(), userNameField.getText(), passwordField.getText());
-						
+
 						if (changeResult == 1) {
 							showUserInfo();
 						}

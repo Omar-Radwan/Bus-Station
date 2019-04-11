@@ -27,12 +27,14 @@ public class Main extends Application {
 		Manager.setDataBase(database);
 
 		database.load();
-	
+		
+		database.getDriverList().get(4).addTrip(database.getTripList().get(0));
 		launch(args);
+
 	
-		database.write();
 
 	}
+	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
