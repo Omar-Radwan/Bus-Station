@@ -19,15 +19,14 @@ public class Trip {
 	private double price;
 	private static int firstFreeNumber = 0;
 	private int number;
-
-
+	private int duration;
 
 	/*
 	 * Constructor
 	 */
 
 	public Trip(Vehicle vehilce, String source, String destination, double distance, String type, int numberOfStops,
-			Date date, Time time, double price) {
+			Date date, Time time, double price,int duration) {
 		super();
 		this.vehicle= vehilce;
 		this.source = source;
@@ -40,12 +39,33 @@ public class Trip {
 		this.price = price;
 		changeFreeNumbers();
 		this.number = firstFreeNumber;
+		this.duration = duration;
 	}
 
 	
 	/*
 	 * Getters And Setters
 	 */
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+
+	public int getDuration() {
+		return duration;
+	}
+
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
 
 	public double getPrice() {
 		return price;
@@ -147,15 +167,15 @@ public class Trip {
 	@Override
 	public String toString() {
 
-		return number+" "+vehicle.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
-				+ date + " " + time + " " + price + " ";
+		return number+"&"+vehicle.getNumber() + "&" + source + "&" + destination + "&" + distance + "&" + type + "&" + numberOfStops + "&"
+				+ date + "&" + time + "&" + price + "&"+duration+"&";
 
 	}
 
 	public String data() {
 		return "Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
 				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
-				+ time;
+				+ time+"\nDuration: "+duration;
 	}
 
 	/*

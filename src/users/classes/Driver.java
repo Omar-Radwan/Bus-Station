@@ -7,16 +7,13 @@ import classes.Trip;
 
 public class Driver extends Employee {
 
-	
 	/*
 	 * Attributes
 	 */
-	
+
 	private LinkedList<Trip> tripsList;
 	private Message message;
 
-	
-	
 	/*
 	 * Constructor
 	 */
@@ -27,12 +24,10 @@ public class Driver extends Employee {
 		this.job = "Driver";
 	}
 
-
-	
 	/*
 	 * Getters And Setters
 	 */
-	
+
 	public Message getMessage() {
 		return message;
 	}
@@ -48,7 +43,6 @@ public class Driver extends Employee {
 	public void setTripsList(LinkedList<Trip> tripsList) {
 		this.tripsList = tripsList;
 	}
-	
 
 	/*
 	 * toString uses "&" as delimiter
@@ -67,33 +61,20 @@ public class Driver extends Employee {
 
 		return stringBuilder.toString();
 	}
-	
-	
 
 	/*
 	 * Adders
 	 */
 
-
 	public void addTrip(Trip trip) {
-		tripsList.add(0,trip);
-		
+
+		if (!tripsList.contains(trip))
+			tripsList.add(0, trip);
+
 	}
-	
-	
+
 	/*
 	 * Behavior
 	 */
 
-	public int RequestToCancelTrip() {
-		{
-
-			for (Trip trip : tripsList) {
-				if (trip.equals(trip)) {
-					return 1;
-				}
-			}
-			return 0;
-		}
-	}
 }

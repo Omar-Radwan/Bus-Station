@@ -198,6 +198,7 @@ public abstract class ProfileScreen extends Screen {
 							@Override
 							public void handle(ActionEvent event) {
 								addConfirmationText(message.getContent());
+								i = 0 ; 
 							}
 
 						});

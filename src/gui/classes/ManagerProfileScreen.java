@@ -1,26 +1,19 @@
 package gui.classes;
 
-import java.util.ArrayList;
-
 import classes.Database;
 import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import users.classes.Passenger;
+import users.classes.Manager;
 import users.classes.User;
 
 public class ManagerProfileScreen extends ProfileScreen {
@@ -32,7 +25,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 	Hyperlink removeTripLink;
 	Hyperlink assignDriversLink;
 	Hyperlink viewTrips;
+	Hyperlink removeDriverFromTripLink;
 
+	Manager manager;
 	/*
 	 * Constructor
 	 */
@@ -42,10 +37,12 @@ public class ManagerProfileScreen extends ProfileScreen {
 		addTripLink = new Hyperlink("Add new trip");
 		removeTripLink = new Hyperlink("Remove trip");
 		assignDriversLink = new Hyperlink("Assign driver to trip");
-		viewTrips= new Hyperlink("View Trips");
-		
-		comboBoxFromList(database.getPassengersList(), comboBox,"Passenger: ");
+		viewTrips = new Hyperlink("View all trips");
+		removeDriverFromTripLink = new Hyperlink("Remove driver from trip");
+
+		comboBoxFromList(database.getPassengersList(), comboBox, "Passenger: ");
 		comboBoxFromList(database.getDriverList(), comboBox, "Driver: ");
+		manager = (Manager) user;
 	}
 
 	/*
@@ -53,48 +50,73 @@ public class ManagerProfileScreen extends ProfileScreen {
 	 */
 
 	public void setActions() {
-		
-		
+
 		removeTripLink.setOnAction(new EventHandler<ActionEvent>() {
+			int i = 0;
 
 			@Override
 			public void handle(ActionEvent event) {
-		
+				removeTripLink.setVisited(false);
 
-				
+				if (!database.getTripList().isEmpty()) {
+
+					showList(database.getTripList(), 300, 150, "Hyperlink", "Blue");
+
+					for (Node x : gridpane.getChildren()) {
+
+						Hyperlink hyperlink = (Hyperlink) x;
+
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+
+							Trip trip = database.getTripList().get(i);
+
+							@Override
+							public void handle(ActionEvent event) {
+								manager.removeTrip(trip);
+								addConfirmationText("Trip has been removed successfully.");
+								i = 0;
+							}
+
+						});
+
+						i++;
+					}
+
 				}
-			}
-		);
 
-		
-		
-		
-		
-		
-		
-		
+				else
+					addConfirmationText("No trips to show.");
+
+			}
+		});
+
 		viewTrips.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				viewTrips.setVisited(false);
-				
+
 				cleanScrollableGridPane(0);
-		
-				showList(database.getTripList(), 300, 150,"Label","Black");
-			}}
-			
+
+				if (!database.getTripList().isEmpty())
+					showList(database.getTripList(), 300, 150, "Label", "Black");
+
+				else
+					addConfirmationText("No trips to show.");
+
+			}
+		}
+
 		);
-		
-		
+
 		addTripLink.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				addTripLink.setVisited(false);
+
 				cleanGridPane(10);
-				
-				
+
 				Label vehicleLabel = new Label("Vehicle: ");
 				Label sourceLabel = new Label("Source: ");
 				Label destinationLabel = new Label("Destionation: ");
@@ -103,8 +125,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 				Label numberOfStopsLabel = new Label("Number of stops: ");
 				Label dateLabel = new Label("Date: ");
 				Label timeLabel = new Label("Time: ");
-				Label priceLabel = new Label ("Trip price: ");
-				
+				Label priceLabel = new Label("Trip price: ");
+				Label durationLabel = new Label("Duration: ");
+
 				TextField vehicleField = new TextField();
 				TextField sourceField = new TextField();
 				TextField destinationField = new TextField();
@@ -112,24 +135,28 @@ public class ManagerProfileScreen extends ProfileScreen {
 				TextField typeField = new TextField();
 				TextField numberOfStopsField = new TextField();
 				TextField priceField = new TextField();
+				TextField durationField = new TextField();
 
 				TextField[] dateFields = { new TextField(), new TextField(), new TextField() };
 				TextField[] timeFields = { new TextField(), new TextField() };
-				
+
 				ComboBox<String> amOrPmComboBox = new ComboBox<String>();
-				
+
 				amOrPmComboBox.getItems().addAll("am", "pm");
 				amOrPmComboBox.getSelectionModel().select(0);
 
 				HBox dateHBox = new HBox();
-				dateHBox.getChildren().addAll(dateFields[0],new Text("/"), dateFields[1],new Text("/"), dateFields[2]);
-				for (int i = 0 ; i <2 ; i++) dateFields[i].setPrefSize(30, 20);
+				dateHBox.getChildren().addAll(dateFields[0], new Text("/"), dateFields[1], new Text("/"),
+						dateFields[2]);
+				for (int i = 0; i < 2; i++)
+					dateFields[i].setPrefSize(30, 20);
 				dateFields[2].setPrefSize(70, 20);
 				HBox timeHBox = new HBox();
-			
-				timeHBox.getChildren().addAll(timeFields[0],new Text(":"), timeFields[1], amOrPmComboBox);
-				for (int i = 0 ; i <2 ; i++) timeFields[i].setPrefSize(30, 20);
-				
+
+				timeHBox.getChildren().addAll(timeFields[0], new Text(":"), timeFields[1], amOrPmComboBox);
+				for (int i = 0; i < 2; i++)
+					timeFields[i].setPrefSize(30, 20);
+
 				Button saveButton = new Button("Save");
 				Button discardChangesButton = new Button("Discard changes");
 
@@ -141,8 +168,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(numberOfStopsLabel, 0, 5);
 				gridpane.add(dateLabel, 0, 6);
 				gridpane.add(timeLabel, 0, 7);
-				gridpane.add(saveButton, 0, 9);
+				gridpane.add(durationLabel, 0, 9);
 				gridpane.add(priceLabel, 0, 8);
+				gridpane.add(saveButton, 0, 10);
 
 				gridpane.add(vehicleField, 1, 0);
 				gridpane.add(sourceField, 1, 1);
@@ -152,15 +180,66 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(numberOfStopsField, 1, 5);
 				gridpane.add(dateHBox, 1, 6);
 				gridpane.add(timeHBox, 1, 7);
-				gridpane.add(discardChangesButton, 1, 9);
 				gridpane.add(priceField, 1, 8);
+				gridpane.add(durationField, 1, 9);
+				gridpane.add(discardChangesButton, 1, 10);
+
+				saveButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+					
+						Trip t = manager.addTrip(vehicleField.getText(), sourceField.getText(), destinationField.getText(),
+								Double.parseDouble(distanceField.getText()), typeField.getText(),
+								Integer.parseInt(numberOfStopsField.getText()),
+								database.stringToDate(dateFields[0].getText() + "-" + dateFields[1].getText() + "-"
+										+ dateFields[2].getText()),
+								database.stringToTime(timeFields[0].getText() + "/" + timeFields[1].getText() + ","
+										+ amOrPmComboBox.getValue()),
+								Double.parseDouble(priceField.getText()), Integer.parseInt(durationField.getText()));
+						
+						if (t.equals(null)) {
+							addConfirmationText("No free vehicle available.");
+						}
+						else {
+							addConfirmationText("Trip added successfully.");
+						}
+
+					}
+
+				});
+
+				discardChangesButton.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						addConfirmationText("changes has been discarded.");
+					}
+
+				});
 
 			}
 		});
-		
 
-		
-		
+		removeDriverFromTripLink.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		assignDriversLink.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
 	}
 
 	public void draw() {
@@ -170,7 +249,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		vBox.getChildren().add(removeTripLink);
 		vBox.getChildren().add(assignDriversLink);
 		vBox.getChildren().add(viewTrips);
-	
+
 		setActions();
 
 		super.drawBelowChild();

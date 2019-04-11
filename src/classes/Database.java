@@ -197,10 +197,11 @@ public class Database {
 		return managerList.getLast();
 	}
 
+	
 	public Trip addTrip(Vehicle vehicle, String source, String destination, double distance, String type,
-			int numberOfStops, Date date, Time time, double price) {
+			int numberOfStops, Date date, Time time, double price,int duration) {
 
-		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time, price));
+		tripList.add(new Trip(vehicle, source, destination, distance, type, numberOfStops, date, time, price,duration));
 
 		return tripList.getLast();
 	}
@@ -265,6 +266,7 @@ public class Database {
 		bufferedWriter.close();
 	}
 
+	
 	private void setBufferedWriter(String fileName) {
 		file = new File(fileName);
 		try {
@@ -276,6 +278,7 @@ public class Database {
 		bufferedWriter = new BufferedWriter(filewriter);
 	}
 
+	
 	public void loadVehicles() throws IOException {
 		setBufferedReader("Vehicles.txt");
 		while (bufferedReader.ready()) {
@@ -310,18 +313,16 @@ public class Database {
 	public void loadTrips() throws IOException {
 		setBufferedReader("Trips.txt");
 		while (bufferedReader.ready()) {
-
 			loadTrip(bufferedReader.readLine());
 		}
 	}
 
 	public void loadTrip(String line) {
-		String[] tokens = line.split(" ");
+		String[] tokens = line.split("&");
 		Trip trip = null;
-		System.out.println(Arrays.toString(tokens));
 		int vehicleNumber = Integer.parseInt(tokens[1]);
 		Vehicle v = null;
-
+		
 		for (Vehicle x : vehicleList) {
 			if (x.getNumber() == vehicleNumber) {
 				v = x;
@@ -329,10 +330,10 @@ public class Database {
 		}
 
 		trip = addTrip(v, tokens[2], tokens[3], Double.parseDouble(tokens[4]), tokens[5], Integer.parseInt(tokens[6]),
-				stringToDate(tokens[7]), stringToTime(tokens[8]), Double.parseDouble(tokens[9]));
+				stringToDate(tokens[7]), stringToTime(tokens[8]), Double.parseDouble(tokens[9]),Integer.parseInt(tokens[10]));
 
 		trip.setNumber(Integer.parseInt(tokens[0]));
-		Trip.setFirstFreeNumber(Math.max(Vehicle.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
+		Trip.setFirstFreeNumber(Math.max(Trip.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
 
 	}
 
@@ -363,7 +364,7 @@ public class Database {
 			int tripNumber = Integer.parseInt(tokens[i]);
 			for (Trip x : tripList) {
 				if (x.getNumber() == tripNumber) {
-					d.getTripsList().add(x);
+					d.addTrip(x);
 					break;
 				}
 			}
