@@ -43,10 +43,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 		removeTripLink = new Hyperlink("Remove trip");
 		assignDriversLink = new Hyperlink("Assign driver to trip");
 		viewTrips= new Hyperlink("View Trips");
-
-		for (Passenger x : database.getPassengersList()) {
-			userComboBox.getItems().add("Passenger" + ": " + x.getUserName());
-		}
+		
+		comboBoxFromList(database.getPassengersList(), comboBox,"Passenger: ");
+		comboBoxFromList(database.getDriverList(), comboBox, "Driver: ");
 	}
 
 	/*
@@ -79,27 +78,13 @@ public class ManagerProfileScreen extends ProfileScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				viewTrips.setVisited(false);
+				
 				cleanScrollableGridPane(0);
-
-				int i = 1;
-
-				for (Trip x : database.getTripList()) {
-					Label tripLabel = new Label();
-
-					tripLabel.setPrefSize(400, 150);
-					tripLabel.setBorder(Border.EMPTY);
-					tripLabel.setTextFill(Paint.valueOf("black"));
-					tripLabel.setFont(Font.font(12));
-
-					gridpane.add(tripLabel, 0, i);
-
-					tripLabel.setText(i + x.data());
-					
-					i++;
-					}
+		
+				showList(database.getTripList(), 300, 150,"Label","Black");
 			}}
 			
-				);
+		);
 		
 		
 		addTripLink.setOnAction(new EventHandler<ActionEvent>() {

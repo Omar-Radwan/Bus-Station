@@ -153,7 +153,7 @@ public class Trip {
 	}
 
 	public String data() {
-		return ".Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
+		return "Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
 				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
 				+ time;
 	}

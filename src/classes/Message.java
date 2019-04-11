@@ -73,7 +73,15 @@ public class Message {
 	public String toString () {
 		return to+"$"+from+"$"+subject+"$"+content+"&";
 	}
-	
+
+
+	public static String data() {
+
+		return null;
+	}
+
+
+
 	
 	/*
 	 * Adders

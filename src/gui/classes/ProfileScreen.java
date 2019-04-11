@@ -5,9 +5,13 @@ import java.util.StringTokenizer;
 
 import classes.Database;
 import classes.Message;
+import classes.Ticket;
+import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
@@ -16,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -47,7 +52,7 @@ public abstract class ProfileScreen extends Screen {
 	VBox vBox;
 	HBox hBox;
 
-	ComboBox<String> userComboBox;
+	ComboBox<String> comboBox;
 	/*
 	 * Constructor
 	 */
@@ -64,15 +69,8 @@ public abstract class ProfileScreen extends Screen {
 		editProfileLink = new Hyperlink("Edit your info");
 		logoutLink = new Hyperlink("Logout");
 
-		this.userComboBox = new ComboBox<String>();
-		userComboBox.setPrefSize(150, 10);
-
-		for (Manager x : database.getManagerList()) {
-			if (!x.equals(this.user)) {
-				userComboBox.getItems().add(x.getJob() + ": " + x.getUserName());
-			}
-			userComboBox.getSelectionModel().select(0);
-		}
+		this.comboBox = new ComboBox<String>();
+		comboBoxFromList(database.getManagerList(), comboBox, "Manager");
 
 		vBox = new VBox();
 		hBox = new HBox();
@@ -114,28 +112,6 @@ public abstract class ProfileScreen extends Screen {
 		vBox.getChildren().add(logoutLink);
 	}
 
-	private void showUserInfo() {
-
-		cleanGridPane(10);
-
-		Label firstNameLabel = new Label("Firstname: ");
-		Label lastNameLabel = new Label("Lastname: ");
-		Label userNameLabel = new Label("Username: ");
-
-		Label firstName = new Label(user.getFirstName());
-		Label lastName = new Label(user.getLastName());
-		Label userName = new Label(user.getUserName());
-
-		gridpane.add(firstNameLabel, 0, 0);
-		gridpane.add(lastNameLabel, 0, 1);
-		gridpane.add(userNameLabel, 0, 2);
-
-		gridpane.add(firstName, 1, 0);
-		gridpane.add(lastName, 1, 1);
-		gridpane.add(userName, 1, 2);
-
-	}
-
 	@Override
 	public abstract void draw();
 
@@ -167,7 +143,7 @@ public abstract class ProfileScreen extends Screen {
 				TextArea messageTextArea = new TextArea();
 				messageTextArea.setPrefSize(300, 300);
 
-				buttonsBox.getChildren().addAll(send, toLabel, userComboBox);
+				buttonsBox.getChildren().addAll(send, toLabel, comboBox);
 
 				gridpane.add(buttonsBox, 0, 0);
 				gridpane.add(subjectBox, 0, 1);
@@ -178,7 +154,7 @@ public abstract class ProfileScreen extends Screen {
 					@Override
 					public void handle(ActionEvent arg0) {
 
-						StringTokenizer st = new StringTokenizer(userComboBox.getValue(), ": ");
+						StringTokenizer st = new StringTokenizer(comboBox.getValue(), ": ");
 
 						st.nextToken();
 
@@ -199,33 +175,34 @@ public abstract class ProfileScreen extends Screen {
 
 		messagesLink.setOnAction(new EventHandler<ActionEvent>() {
 
+			int i = 0;
+
 			@Override
 			public void handle(ActionEvent event) {
-				messagesLink.setVisited(false);
 
+				messagesLink.setVisited(false);
 				cleanScrollableGridPane(0);
-				int i = 0;
 
 				if (!user.getMessageList().isEmpty()) {
 
-					for (Message x : user.getMessageList()) {
-						Hyperlink messageSubjectLink = new Hyperlink(x.getSubject());
-						messageSubjectLink.setPrefSize(400, 50);
+					showList(user.getMessageList(), 300, 100, "Hyperlink", "Blue");
 
-						messageSubjectLink.setTextFill(Paint.valueOf("blue"));
-						messageSubjectLink.setFont(Font.font(15));
+					for (Node x : gridpane.getChildren()) {
 
-						gridpane.add(messageSubjectLink, 0, i);
-						i++;
-						messageSubjectLink.setOnAction(new EventHandler<ActionEvent>() {
+						Hyperlink hyperlink = (Hyperlink) x;
+
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+
+							Message message = user.getMessageList().get(i);
 
 							@Override
-							public void handle(ActionEvent arg0) {
-								addConfirmationText(x.getContent());
+							public void handle(ActionEvent event) {
+								addConfirmationText(message.getContent());
 							}
 
 						});
 
+						i++;
 					}
 
 				}
@@ -301,7 +278,7 @@ public abstract class ProfileScreen extends Screen {
 						if (changeResult == 1) {
 							showUserInfo();
 						}
-						
+
 					}
 				});
 
@@ -320,24 +297,10 @@ public abstract class ProfileScreen extends Screen {
 		});
 
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
 	/*
 	 * Helping functions
 	 */
-	
-	
-	
-	
-	
-
 
 	protected void cleanGridPane(double vGap) {
 		gridpane = new GridPane();
@@ -354,24 +317,97 @@ public abstract class ProfileScreen extends Screen {
 		scrollPane.setContent(gridpane);
 		borderpane.setCenter(scrollPane);
 	}
-	
-	protected void addConfirmationText (String text) {
+
+	protected void addConfirmationText(String text) {
 		cleanGridPane(0);
 		Text confirmationText = new Text(text);
 		gridpane.add(confirmationText, 0, 0);
 		confirmationText.setWrappingWidth(300);
 		confirmationText.setFont(Font.font("Verdana", 20));
 	}
-	
-	protected void comboBoxFromList(LinkedList<User> list, ComboBox<String> comboBox,String type) {
-		
-		for (User x: list) {
-			comboBox.getItems().add(type+": "+x.getUserName());
+
+	protected <T> void comboBoxFromList(LinkedList<T> list, ComboBox<String> comboBox, String type) {
+
+		comboBox.setPrefSize(150, 10);
+
+		for (T x : list) {
+			User temp = (User) x;
+
+			if (!x.equals(this.user))
+				comboBox.getItems().add(type + ": " + temp.getUserName());
 		}
-	
-		if (!comboBox.getSelectionModel().isEmpty())
+
 		comboBox.getSelectionModel().select(0);
-	
+
+	}
+
+	protected <T> void showList(LinkedList<T> list, double prefWidth, double prefHeight, String nodeType,
+			String color) {
+		cleanScrollableGridPane(0);
+
+		int i = 1;
+		String data = null;
+
+		Label tLabel;
+		Hyperlink tLink;
+
+		for (T x : list) {
+			if (x instanceof Trip)
+				data = ((Trip) x).data();
+
+			else if (x instanceof Ticket) {
+				data = ((Ticket) x).data();
+			} else if (x instanceof Message) {
+				data = Message.data();
+			}
+
+			if (nodeType.equals("Label")) {
+				tLabel = new Label();
+				tLabel.setPrefSize(prefWidth, prefHeight);
+				tLabel.setBorder(Border.EMPTY);
+				tLabel.setFont(Font.font(12));
+				tLabel.setWrapText(true);
+				gridpane.add(tLabel, 0, i - 1);
+				tLabel.setText(i + ". " + data);
+				tLabel.setTextFill(Paint.valueOf(color));
+			}
+
+			else if (nodeType.equals("Hyperlink")) {
+				tLink = new Hyperlink();
+				tLink.setPrefSize(prefWidth, prefHeight);
+				tLink.setBorder(Border.EMPTY);
+				tLink.setFont(Font.font(12));
+				tLink.setWrapText(true);
+				gridpane.add(tLink, 0, i - 1);
+				tLink.setText(i + ". " + data);
+				tLink.setTextFill(Paint.valueOf(color));
+			}
+
+			i++;
+		}
+
+	}
+
+	private void showUserInfo() {
+
+		cleanGridPane(10);
+
+		Label firstNameLabel = new Label("Firstname: ");
+		Label lastNameLabel = new Label("Lastname: ");
+		Label userNameLabel = new Label("Username: ");
+
+		Label firstName = new Label(user.getFirstName());
+		Label lastName = new Label(user.getLastName());
+		Label userName = new Label(user.getUserName());
+
+		gridpane.add(firstNameLabel, 0, 0);
+		gridpane.add(lastNameLabel, 0, 1);
+		gridpane.add(userNameLabel, 0, 2);
+
+		gridpane.add(firstName, 1, 0);
+		gridpane.add(lastName, 1, 1);
+		gridpane.add(userName, 1, 2);
+
 	}
 
 }

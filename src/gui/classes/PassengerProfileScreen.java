@@ -5,16 +5,11 @@ import classes.Ticket;
 import classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import users.classes.Passenger;
 import users.classes.User;
@@ -50,76 +45,68 @@ public class PassengerProfileScreen extends ProfileScreen {
 		Passenger passenger = (Passenger) user;
 
 		bookTripLink.setOnAction(new EventHandler<ActionEvent>() {
+			int i = 0;
 
 			@Override
 			public void handle(ActionEvent event) {
 				bookTripLink.setVisited(false);
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
+				cleanScrollableGridPane(0);
 
-				ScrollPane scrollPane = new ScrollPane();
-				scrollPane.setContent(gridpane);
-				borderpane.setCenter(scrollPane);
+				if (!database.getTripList().isEmpty()) {
+					showList(database.getTripList(), 300, 150, "Hyperlink", "Blue");
 
-				int i = 1;
+					for (Node x : gridpane.getChildren()) {
 
-				for (Trip x : database.getTripList()) {
-					Hyperlink tripLink = new Hyperlink();
+						Hyperlink hyperlink = (Hyperlink) x;
 
-					tripLink.setPrefSize(400, 150);
-					tripLink.setBorder(Border.EMPTY);
-					tripLink.setTextFill(Paint.valueOf("blue"));
-					tripLink.setFont(Font.font(12));
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-					gridpane.add(tripLink, 0, i);
+							Trip trip = database.getTripList().get(i);
 
-					tripLink.setText(i + x.data());
+							@Override
+							public void handle(ActionEvent event) {
+								cleanGridPane(0);
 
-					
-					
-					tripLink.setOnAction(new EventHandler<ActionEvent>() {
+								Label ticketTypeLabel = new Label("Ticket type:   ");
 
-						@Override
-						public void handle(ActionEvent event) {
-							gridpane = new GridPane();
+								ComboBox<String> ticketComboBox = new ComboBox<String>();
+								ticketComboBox.getItems().addAll("One way", "Round");
+								ticketComboBox.getSelectionModel().select(0);
 
-							Label ticketTypeLabel = new Label("Ticket type:   ");
+								Button okButton = new Button("Ok");
 
-							ComboBox<String> ticketComboBox = new ComboBox<String>();
-							ticketComboBox.getItems().addAll("One way", "Round");
-							ticketComboBox.getSelectionModel().select(0);
-							
-							Button okButton = new Button("Ok");
+								gridpane.add(ticketTypeLabel, 0, 0);
+								gridpane.add(ticketComboBox, 1, 0);
+								gridpane.add(okButton, 2, 0);
 
-							gridpane.add(ticketTypeLabel, 0, 0);
-							gridpane.add(ticketComboBox, 1, 0);
-							gridpane.add(okButton, 2, 0);
+								okButton.setOnAction(new EventHandler<ActionEvent>() {
 
-							gridpane.setAlignment(Pos.CENTER);
-							borderpane.setCenter(gridpane);
+									@Override
+									public void handle(ActionEvent arg0) {
 
-							okButton.setOnAction(new EventHandler<ActionEvent>() {
+										String choice = ticketComboBox.getValue();
 
-								@Override
-								public void handle(ActionEvent arg0) {
-									
-									String choice = ticketComboBox.getValue();
+										if (choice.equals("One way")) {
+											passenger.addOneWayTicket(trip);
+										}
 
-									if (choice.equals("One way")) {
-										passenger.addOneWayTicket(x);
+										else {
+											passenger.addRoundTicket(trip);
+										}
+
 									}
 
-									else {
-										passenger.addRoundTicket(x);	
-									}
+								});
+							}
+						});
 
-								}
+						i++;
+					}
 
-							});
-						}
-					});
+				}
 
-					i++;
+				else {
+					addConfirmationText("No trips to show.");
 				}
 
 			}
@@ -128,41 +115,41 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 		cancelTripLink.setOnAction(new EventHandler<ActionEvent>() {
 
+			int i = 0;
+
 			@Override
 			public void handle(ActionEvent event) {
+
 				cancelTripLink.setVisited(false);
+				cleanScrollableGridPane(0);
 
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
+				if (!passenger.getTicketList().isEmpty()) {
 
-				ScrollPane scrollPane = new ScrollPane();
-				scrollPane.setContent(gridpane);
-				borderpane.setCenter(scrollPane);
+					showList(passenger.getTicketList(), 300, 200, "Hyperlink", "Green");
 
-				int i = 1;
-				for (Ticket x : passenger.getTicketList()) {
-					Hyperlink ticketLink = new Hyperlink();
+					for (Node x : gridpane.getChildren()) {
 
-					ticketLink.setPrefSize(400, 200);
-					ticketLink.setBorder(Border.EMPTY);
-					ticketLink.setTextFill(Paint.valueOf("blue"));
-					ticketLink.setFont(Font.font(12));
+						Hyperlink hyperlink = (Hyperlink) x;
 
-					gridpane.add(ticketLink, 0, i);
+						hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-					ticketLink.setText(i + x.data());
+							Ticket ticket = passenger.getTicketList().get(i);
 
-					ticketLink.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								passenger.removeTicket(ticket);
+								addConfirmationText("trip has been removed successfully.");
+							}
 
-						@Override
-						public void handle(ActionEvent event) {
-							passenger.removeTicket(x);
-							showTrips(passenger);
-						}
+						});
 
-					});
+						i++;
+					}
 
-					i++;
+				}
+
+				else {
+					addConfirmationText("No trips to show.");
 				}
 
 			}
@@ -173,7 +160,11 @@ public class PassengerProfileScreen extends ProfileScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				viewTripsLink.setVisited(false);
-				showTrips(passenger);
+				if (!passenger.getTicketList().isEmpty()) {
+					showList(passenger.getTicketList(), 300, 200, "Label", "Black");
+				} else {
+					addConfirmationText("No trips to show.");
+				}
 			}
 		});
 
@@ -187,31 +178,6 @@ public class PassengerProfileScreen extends ProfileScreen {
 
 		drawBelowChild();
 
-	}
-
-	private void showTrips(Passenger passenger) {
-		gridpane = new GridPane();
-		gridpane.setAlignment(Pos.CENTER);
-
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(gridpane);
-		borderpane.setCenter(scrollPane);
-
-		int i = 1;
-
-		for (Ticket x : passenger.getTicketList()) {
-			Label ticketLink = new Label();
-
-			ticketLink.setPrefSize(400, 200);
-			ticketLink.setBorder(Border.EMPTY);
-			ticketLink.setFont(Font.font(12));
-
-			gridpane.add(ticketLink, 0, i);
-
-			ticketLink.setText(i + x.data());
-
-			i++;
-		}
 	}
 
 }
