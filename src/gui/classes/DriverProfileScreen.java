@@ -53,11 +53,9 @@ public class DriverProfileScreen extends ProfileScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				viewTripsLink.setVisited(false);
-	
-				gridpane = new GridPane();
 
 				if (!driver.getTripsList().isEmpty()) {
-					ScrollPane scrollPane = new ScrollPane();
+					cleanScrollableGridPane(0);
 
 					int i = 1;
 
@@ -75,19 +73,11 @@ public class DriverProfileScreen extends ProfileScreen {
 						i++;
 					}
 
-					scrollPane.setContent(gridpane);
-
-					borderpane.setCenter(scrollPane);
 				}
 
 				else {
 					
-					Text noTripsText = new Text("You don't have any trips.");
-					gridpane.add(noTripsText, 0, 0);
-					noTripsText.setFont(Font.font("Verdana", 20));
-					gridpane.setAlignment(Pos.CENTER);
-					borderpane.setCenter(gridpane);
-					gridpane = new GridPane();
+					addConfirmationText("You don't have any trips.");
 					
 
 				}
@@ -99,12 +89,8 @@ public class DriverProfileScreen extends ProfileScreen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
-				
-				ScrollPane scrollPane = new ScrollPane();
-				scrollPane.setContent(gridpane);
-				borderpane.setCenter(scrollPane);
+
+				cleanScrollableGridPane(0);
 				
 				int i = 1; 
 
@@ -126,19 +112,15 @@ public class DriverProfileScreen extends ProfileScreen {
 						public void handle(ActionEvent event) {
 							// send a message to the concerned manager
 							
-							String driverName = driver.getFirstName()+" "+driver.getLastName();
-							String managerName = database.getManagerList().get(0).getFirstName()+" "+database.getManagerList().get(0).getLastName();
+							String driverName = driver.getUserName();
+							String managerName = database.getManagerList().get(0).getUserName();
 							String subject = "Trip cancelation";
 							String content = "unfortunately i won't be able to take trip number"+x.getNumber();
 							
 							database.getManagerList().get(0).addMessage(driverName, managerName, subject, content);
 							
-							gridpane = new GridPane();
-							Text noTripsText = new Text("A message has been sent to the\nconcerned manager");
-							gridpane.add(noTripsText, 0, 0);
-							noTripsText.setFont(Font.font("Verdana", 20));
-							gridpane.setAlignment(Pos.CENTER);
-							borderpane.setCenter(gridpane);
+							addConfirmationText("A message has been sent to the concerned manager");
+
 						}
 					});
 

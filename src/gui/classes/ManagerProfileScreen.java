@@ -45,7 +45,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		viewTrips= new Hyperlink("View Trips");
 
 		for (Passenger x : database.getPassengersList()) {
-			userComboBox.getItems().add("Passenger" + ": " + x.getFirstName() + " " + x.getLastName());
+			userComboBox.getItems().add("Passenger" + ": " + x.getUserName());
 		}
 	}
 
@@ -79,12 +79,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				viewTrips.setVisited(false);
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
-
-				ScrollPane scrollPane = new ScrollPane();
-				scrollPane.setContent(gridpane);
-				borderpane.setCenter(scrollPane);
+				cleanScrollableGridPane(0);
 
 				int i = 1;
 
@@ -112,10 +107,9 @@ public class ManagerProfileScreen extends ProfileScreen {
 			@Override
 			public void handle(ActionEvent event) {
 				addTripLink.setVisited(false);
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
-				gridpane.setVgap(10);
-
+				cleanGridPane(10);
+				
+				
 				Label vehicleLabel = new Label("Vehicle: ");
 				Label sourceLabel = new Label("Source: ");
 				Label destinationLabel = new Label("Destionation: ");
@@ -176,9 +170,10 @@ public class ManagerProfileScreen extends ProfileScreen {
 				gridpane.add(discardChangesButton, 1, 9);
 				gridpane.add(priceField, 1, 8);
 
-				borderpane.setCenter(gridpane);
 			}
 		});
+		
+
 		
 		
 	}
@@ -190,6 +185,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		vBox.getChildren().add(removeTripLink);
 		vBox.getChildren().add(assignDriversLink);
 		vBox.getChildren().add(viewTrips);
+	
 		setActions();
 
 		super.drawBelowChild();

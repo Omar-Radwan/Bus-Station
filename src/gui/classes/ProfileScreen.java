@@ -1,5 +1,8 @@
 package gui.classes;
 
+import java.util.LinkedList;
+import java.util.StringTokenizer;
+
 import classes.Database;
 import classes.Message;
 import javafx.event.ActionEvent;
@@ -66,7 +69,7 @@ public abstract class ProfileScreen extends Screen {
 
 		for (Manager x : database.getManagerList()) {
 			if (!x.equals(this.user)) {
-				userComboBox.getItems().add(x.getJob() + ": " + x.getFirstName() + " " + x.getLastName());
+				userComboBox.getItems().add(x.getJob() + ": " + x.getUserName());
 			}
 			userComboBox.getSelectionModel().select(0);
 		}
@@ -112,9 +115,8 @@ public abstract class ProfileScreen extends Screen {
 	}
 
 	private void showUserInfo() {
-		gridpane = new GridPane();
-		gridpane.setAlignment(Pos.CENTER);
-		gridpane.setVgap(10);
+
+		cleanGridPane(10);
 
 		Label firstNameLabel = new Label("Firstname: ");
 		Label lastNameLabel = new Label("Lastname: ");
@@ -132,8 +134,6 @@ public abstract class ProfileScreen extends Screen {
 		gridpane.add(lastName, 1, 1);
 		gridpane.add(userName, 1, 2);
 
-		gridpane.setAlignment(Pos.CENTER);
-		borderpane.setCenter(gridpane);
 	}
 
 	@Override
@@ -146,15 +146,23 @@ public abstract class ProfileScreen extends Screen {
 			@Override
 			public void handle(ActionEvent event) {
 				sendMessageLink.setVisited(false);
-
-				gridpane = new GridPane();
+				cleanGridPane(0);
 
 				Button send = new Button("Send");
 
 				Label toLabel = new Label("			To:");
 
+				Label subjectLabel = new Label("Subject");
+				TextField subjectField = new TextField();
+				subjectField.setPrefWidth(300 - subjectLabel.getWidth() - 10);
+
 				HBox buttonsBox = new HBox();
 				buttonsBox.setSpacing(10);
+
+				HBox subjectBox = new HBox();
+				subjectBox.setSpacing(10);
+
+				subjectBox.getChildren().addAll(subjectLabel, subjectField);
 
 				TextArea messageTextArea = new TextArea();
 				messageTextArea.setPrefSize(300, 300);
@@ -162,16 +170,26 @@ public abstract class ProfileScreen extends Screen {
 				buttonsBox.getChildren().addAll(send, toLabel, userComboBox);
 
 				gridpane.add(buttonsBox, 0, 0);
-				gridpane.add(messageTextArea, 0, 1);
-
-				gridpane.setAlignment(Pos.CENTER);
-				borderpane.setCenter(gridpane);
+				gridpane.add(subjectBox, 0, 1);
+				gridpane.add(messageTextArea, 0, 2);
 
 				send.setOnAction(new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent arg0) {
-						// code of sending message
+
+						StringTokenizer st = new StringTokenizer(userComboBox.getValue(), ": ");
+
+						st.nextToken();
+
+						String userName = st.nextToken();
+
+						User x = database.getUser(userName);
+
+						x.addMessage(user.getUserName(), x.getUserName(), subjectField.getText(),
+								messageTextArea.getText());
+
+						addConfirmationText("Your feedback has been sent to the manager thanks.");
 					}
 
 				});
@@ -185,12 +203,10 @@ public abstract class ProfileScreen extends Screen {
 			public void handle(ActionEvent event) {
 				messagesLink.setVisited(false);
 
-				gridpane = new GridPane();
-
+				cleanScrollableGridPane(0);
 				int i = 0;
 
 				if (!user.getMessageList().isEmpty()) {
-					ScrollPane scrollPane = new ScrollPane();
 
 					for (Message x : user.getMessageList()) {
 						Hyperlink messageSubjectLink = new Hyperlink(x.getSubject());
@@ -205,31 +221,17 @@ public abstract class ProfileScreen extends Screen {
 
 							@Override
 							public void handle(ActionEvent arg0) {
-								gridpane = new GridPane();
-								
-								Label messageLabel = new Label(x.getContent());
-								messageLabel.setPrefSize(500, 400);
-								gridpane.add(messageLabel, 0, 0);
-								messageLabel.setFont(Font.font("Verdana", 12));
-								gridpane.setAlignment(Pos.CENTER);
-								borderpane.setCenter(gridpane);
-			
+								addConfirmationText(x.getContent());
 							}
 
 						});
 
 					}
-					scrollPane.setContent(gridpane);
 
-					borderpane.setCenter(scrollPane);
 				}
 
 				else {
-					Text noMessagesText = new Text("You don't have any messages.");
-					gridpane.add(noMessagesText, 0, 0);
-					noMessagesText.setFont(Font.font("Verdana", 20));
-					gridpane.setAlignment(Pos.CENTER);
-					borderpane.setCenter(gridpane);
+					addConfirmationText("You don't have any messages.");
 				}
 
 			}
@@ -250,9 +252,7 @@ public abstract class ProfileScreen extends Screen {
 			public void handle(ActionEvent event) {
 				editProfileLink.setVisited(false);
 
-				gridpane = new GridPane();
-				gridpane.setAlignment(Pos.CENTER);
-				gridpane.setVgap(10);
+				cleanGridPane(10);
 
 				Label firstNameLabel = new Label("Firstname: ");
 				Label lastNameLabel = new Label("Lastname: ");
@@ -281,8 +281,6 @@ public abstract class ProfileScreen extends Screen {
 				gridpane.add(passwordField, 1, 3);
 				gridpane.add(discardChangesButton, 1, 4);
 
-				borderpane.setCenter(gridpane);
-
 				discardChangesButton.setOnAction(new EventHandler<ActionEvent>() {
 
 					@Override
@@ -303,7 +301,7 @@ public abstract class ProfileScreen extends Screen {
 						if (changeResult == 1) {
 							showUserInfo();
 						}
-
+						
 					}
 				});
 
@@ -321,6 +319,59 @@ public abstract class ProfileScreen extends Screen {
 			}
 		});
 
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	/*
+	 * Helping functions
+	 */
+	
+	
+	
+	
+	
+
+
+	protected void cleanGridPane(double vGap) {
+		gridpane = new GridPane();
+		gridpane.setAlignment(Pos.CENTER);
+		gridpane.setVgap(vGap);
+		borderpane.setCenter(gridpane);
+
+	}
+
+	protected void cleanScrollableGridPane(double vGap) {
+		gridpane = new GridPane();
+		gridpane.setVgap(vGap);
+		ScrollPane scrollPane = new ScrollPane();
+		scrollPane.setContent(gridpane);
+		borderpane.setCenter(scrollPane);
+	}
+	
+	protected void addConfirmationText (String text) {
+		cleanGridPane(0);
+		Text confirmationText = new Text(text);
+		gridpane.add(confirmationText, 0, 0);
+		confirmationText.setWrappingWidth(300);
+		confirmationText.setFont(Font.font("Verdana", 20));
+	}
+	
+	protected void comboBoxFromList(LinkedList<User> list, ComboBox<String> comboBox,String type) {
+		
+		for (User x: list) {
+			comboBox.getItems().add(type+": "+x.getUserName());
+		}
+	
+		if (!comboBox.getSelectionModel().isEmpty())
+		comboBox.getSelectionModel().select(0);
+	
 	}
 
 }

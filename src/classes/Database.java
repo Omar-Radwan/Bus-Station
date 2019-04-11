@@ -137,20 +137,19 @@ public class Database {
 		return null;
 	}
 
-	public boolean isExist(String userName) {
+	public User getUser(String userName) {
 		for (Passenger x : passengersList)
 			if (x.getUserName().equals(userName))
-				return true;
+				return x;
 
 		for (Driver x : driverList)
 			if (x.getUserName().equals(userName))
-				return true;
+				return x;
 
 		for (Manager x : managerList)
 			if (x.getUserName().equals(userName))
-				return true;
-
-		return false;
+				return x;
+		return null;
 	}
 
 	/*
@@ -219,7 +218,7 @@ public class Database {
 	
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 	
-		if (isExist(userName)) {
+		if (getUser(userName)==null) {
 			
 			return -1;
 		}
@@ -238,7 +237,7 @@ public class Database {
 	
 	public int RegisterNew (String firstName, String lastName, String userName, String password, double balance) 
 	{
-		if (isExist(userName)) {
+		if (getUser(userName)==null) {
 			
 			return -1;
 		}
