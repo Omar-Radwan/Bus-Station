@@ -1,12 +1,9 @@
 package users.classes;
 
-import java.util.LinkedList;
-
 import classes.Database;
 import classes.Date;
 import classes.Trip;
 import vehicles.classes.Vehicle;
-import classes.Message;
 import classes.Time;
 
 
@@ -17,15 +14,9 @@ public class Manager extends Employee {
 	 * Attributes
 	 */
 	
-	private static final Vehicle Vehicle = null;
-	static Database database ;
-	LinkedList<Trip> tripsList; 
-	Message message;
-	Driver driver;
-	Trip trip;
+	private static Database database ;
 	
-	LinkedList <Vehicle> vehicleList;
-
+	
 	/*
 	 * Constructor
 	 */
@@ -35,35 +26,39 @@ public class Manager extends Employee {
 		this.job = "Manager";
 	}
 
+	
+	
 	/*
 	 * Getters And Setters
 	 */
 	public static void setDataBase (Database database) {
 		Manager.database = database;
 	}
-	/*
-	 * toString uses " " as delimiter
-	 */
 
-	/*
-	 * Behavior
-	 */
 	
-
-
+	
+	/*
+	 * toString uses "&" as delimiter
+	 */
 
 	@Override 
 	public String toString() {
 		return super.toString()+salary+"&";
 
 }
+	
+	
+	/*
+	 * Adders
+	 */
+
 	public Trip addTrip(String vehicle, String source, String destination, double distance, String type,
 			int numberOfStops, Date date, Time time,double price)
 	{		
 				
 		Vehicle v = null;
 		
-		for(Vehicle x : vehicleList)
+		for(Vehicle x : database.getVehicleList())
 			
 		{
 			if (x.getType().equals(vehicle)  && x.isAssigned()==false)
@@ -77,10 +72,9 @@ public class Manager extends Employee {
 		database.addTrip(v, source, destination, distance, type, numberOfStops, date, time, price);
 		return database.getTripList().getLast();
 	}
+	
+	
+	/*
+	 * Behavior
+	 */
 }
-
-
-
-
-
-

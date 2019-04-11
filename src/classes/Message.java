@@ -2,12 +2,35 @@ package classes;
 
 public class Message {
 	
-	String from ; 
-	String to; 
+	
+	/*
+	 * Attributes
+	 */
+	
+	private String from ; 
+	private String to; 
+	private String subject;
+	private String content;
 
-	String subject;
-	String content;
+	
+	/*
+	 * Constructor
+	 */
 
+	public Message(String from, String to, String subject, String content) {
+		super();
+		this.from = from;
+		this.to = to;
+		this.subject = subject;
+		this.content = content;
+	}
+	
+	
+	/*
+	 * Getters and setters
+	 */
+	
+	
 	public String getFrom() {
 		return from;
 	}
@@ -40,16 +63,24 @@ public class Message {
 		this.content = content;
 	}
 
-	public Message(String from, String to, String subject, String content) {
-		super();
-		this.from = from;
-		this.to = to;
-		this.subject = subject;
-		this.content = content;
-	}
+
+	/*
+	 * toString uses "&" as delimiter
+	 */
+	
+	
 	@Override
 	public String toString () {
 		return to+"$"+from+"$"+subject+"$"+content+"&";
 	}
+	
+	
+	/*
+	 * Adders
+	 */
+	
+	/*
+	 * Behavior
+	 */
 	
 }

@@ -1,6 +1,5 @@
 package classes;
 
-import java.util.Scanner;
 
 public class Ticket {
 	
@@ -8,10 +7,9 @@ public class Ticket {
 	 * Attributes
 	 */
 	
-	String type;
-	double price;
-	
-	Trip trip;
+	private String type;
+	private double price;
+	private Trip trip;
 	
 
 	/*
@@ -24,6 +22,7 @@ public class Ticket {
 		this.price = price;
 		this.trip = trip;
 	}
+	
 	
 	/*
 	 * Getters And Setters
@@ -41,19 +40,27 @@ public class Ticket {
 		return price;
 	}
 
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public void setPrice(float price) {
 		this.price = price;
 	}
 
 
 	/*
-	 * toString uses " " as delimiter
+	 * toString uses "&" as delimiter
 	 */
 
-	/*
-	 * Behavior
-	 */
-	
 	public String data () {
 		return trip.data()+"\nType: "+type+"\nPrice: "+price;
 	}
@@ -62,4 +69,13 @@ public class Ticket {
 	public String toString() {
 		return type+"$"+price+"$"+trip.getNumber()+"&";
 	}
-}
+
+	/*
+	 * Adders
+	 */
+	
+	/*
+	 * Behavior
+	 */
+	
+	}

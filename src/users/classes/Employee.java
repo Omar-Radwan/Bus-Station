@@ -1,17 +1,19 @@
 package users.classes;
 
-import classes.Date;
 
 public abstract class Employee extends User {
 
+	
+	
 	/*
 	 * Attributes
 	 */
 	
-	double salary ; 
+	protected double salary ; 
+	protected String job ;
 
-	String job ;
-
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -23,35 +25,22 @@ public abstract class Employee extends User {
 	
 	}
 	
-
-
-
-
 	
 	/*
 	 * Getters And Setters
 	 */
 
-
-
 	public String getJob() {
 		return job;
 	}
-
 
 	public void setJob(String job) {
 		this.job = job;
 	}
 
-
-
-
-
-
 	public double getSalary() {
 		return salary;
 	}
-
 
 	public void setSalary(double salary) {
 		this.salary = salary;
@@ -63,11 +52,13 @@ public abstract class Employee extends User {
 	 * toString uses " " as delimiter
 	 */
 
+	/*
+	 * Adders
+	 */
 	
 	/*
 	 * Behavior
 	 */
 	
 	
-
 }

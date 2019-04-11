@@ -2,18 +2,21 @@ package users.classes;
 
 import java.util.LinkedList;
 
-import classes.Date;
 import classes.Message;
 import classes.Trip;
 
 public class Driver extends Employee {
 
+	
 	/*
 	 * Attributes
 	 */
-	LinkedList<Trip> tripsList;
-	Message message;
+	
+	private LinkedList<Trip> tripsList;
+	private Message message;
 
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -24,6 +27,20 @@ public class Driver extends Employee {
 		this.job = "Driver";
 	}
 
+
+	
+	/*
+	 * Getters And Setters
+	 */
+	
+	public Message getMessage() {
+		return message;
+	}
+
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+
 	public LinkedList<Trip> getTripsList() {
 		return tripsList;
 	}
@@ -31,6 +48,11 @@ public class Driver extends Employee {
 	public void setTripsList(LinkedList<Trip> tripsList) {
 		this.tripsList = tripsList;
 	}
+	
+
+	/*
+	 * toString uses "&" as delimiter
+	 */
 
 	public String toString() {
 
@@ -45,21 +67,22 @@ public class Driver extends Employee {
 
 		return stringBuilder.toString();
 	}
-
-	/*
-	 * Getters And Setters
-	 */
-
-	/*
-	 * toString uses " " as delimiter
-	 */
-
-	/*
-	 * Behavior
-	 */
+	
+	
 
 	/*
 	 * Adders
+	 */
+
+
+	public void addTrip(Trip trip) {
+		tripsList.add(0,trip);
+		
+	}
+	
+	
+	/*
+	 * Behavior
 	 */
 
 	public int RequestToCancelTrip() {
@@ -70,14 +93,7 @@ public class Driver extends Employee {
 					return 1;
 				}
 			}
-
 			return 0;
 		}
 	}
-
-	public void addTrip(Trip trip) {
-		tripsList.add(0,trip);
-		
-	}
-
 }

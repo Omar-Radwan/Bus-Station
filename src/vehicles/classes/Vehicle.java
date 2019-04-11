@@ -2,17 +2,18 @@ package vehicles.classes;
 
 public class Vehicle {
 
+
 	/*
 	 * Attributes
 	 */
 
-	int currentNumberOfSeats;
-	String type;
-	int maxNumberOfSeats;
+	protected int currentNumberOfSeats;
+	protected String type;
+	protected int maxNumberOfSeats;
 	
-	boolean isAssigned;
-	static int firstFreeNumber = 0 ;
-	int number;
+	protected boolean isAssigned;
+	protected static int firstFreeNumber = 0 ;
+	protected int number;
 
 
 	/*
@@ -21,12 +22,14 @@ public class Vehicle {
 
 	public Vehicle() {
 		super();
-
+		
 		isAssigned = false;
 		changeFreeNumbers();
 		this.number = firstFreeNumber;
 	}
 
+	
+	
 	/*
 	 * Getters And Setters
 	 */
@@ -47,7 +50,6 @@ public class Vehicle {
 		this.maxNumberOfSeats = maxNumberOfSeats;
 	}
 
-
 	public boolean isAssigned() {
 		return isAssigned;
 	}
@@ -64,7 +66,6 @@ public class Vehicle {
 		this.number = number;
 	}
 
-
 	public int getCurrentNumberOfSeats() {
 		return currentNumberOfSeats;
 	}
@@ -73,6 +74,7 @@ public class Vehicle {
 		this.currentNumberOfSeats = currentNumberOfSeats;
 	}
 
+	
 	/*
 	 * toString uses " " as delimiter
 	 */
@@ -94,7 +96,10 @@ public class Vehicle {
 		Vehicle.firstFreeNumber = firstFreeNumber;
 	}
 
-
+	/*
+	 * Adders
+	 */
+	
 	/*
 	 * Behavior
 	 */

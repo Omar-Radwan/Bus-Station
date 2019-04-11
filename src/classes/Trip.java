@@ -8,25 +8,17 @@ public class Trip {
 	 * Attributes
 	 */
 
-
-	Vehicle vehicle;
-
-	String source;
-	String destination;
-
-	double distance;
-
-	String type;
-	int numberOfStops;
-
-	Date date;
-	Time time;
-
-	double price;
-
-
-	static int firstFreeNumber = 0;
-	int number;
+	private Vehicle vehicle;
+	private String source;
+	private String destination;
+	private double distance;
+	private String type;
+	private int numberOfStops;
+	private Date date;
+	private Time time;
+	private double price;
+	private static int firstFreeNumber = 0;
+	private int number;
 
 
 
@@ -50,6 +42,7 @@ public class Trip {
 		this.number = firstFreeNumber;
 	}
 
+	
 	/*
 	 * Getters And Setters
 	 */
@@ -60,20 +53,6 @@ public class Trip {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	@Override
-	public String toString() {
-
-		return number+" "+vehicle.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
-				+ date + " " + time + " " + price + " ";
-
-	}
-
-	public String data() {
-		return ".Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
-				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
-				+ time;
 	}
 
 	public Vehicle getVehilce() {
@@ -161,11 +140,28 @@ public class Trip {
 	}
 
 
+	/*
+	 * toString uses "&" as delimiter
+	 */
+	
+	@Override
+	public String toString() {
+
+		return number+" "+vehicle.getNumber() + " " + source + " " + destination + " " + distance + " " + type + " " + numberOfStops + " "
+				+ date + " " + time + " " + price + " ";
+
+	}
+
+	public String data() {
+		return ".Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
+				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
+				+ time;
+	}
 
 	/*
-	 * toString uses " " as delimiter
+	 * Adders
 	 */
-
+	
 	/*
 	 * Behavior
 	 */

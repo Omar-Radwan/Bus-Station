@@ -7,13 +7,17 @@ import classes.Trip;
 
 public class Passenger extends User {
 
+
+	
 	/*
 	 * Attributes
 	 */
 
-	double balance;
-	LinkedList<Ticket> ticketList;
+	private double balance;
+	private LinkedList<Ticket> ticketList;
 
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -23,6 +27,8 @@ public class Passenger extends User {
 		this.balance = balance;
 		ticketList = new LinkedList<Ticket>();
 	}
+	
+	
 
 	/*
 	 * Getters And Setters
@@ -36,44 +42,20 @@ public class Passenger extends User {
 		this.ticketList = tickets;
 	}
 
-	/*
-	 * toString uses " " as delimiter
-	 */
-
-	/*
-	 * Behavior
-	 */
-
-	public boolean addTicket(Ticket ticket) {
-		if (balance >= ticket.getPrice()) {
-			balance -= ticket.getPrice();
-			ticketList.add(0, ticket);
-			return true;
-		}
-		return false;
+	public double getBalance() {
+		return balance;
+	}
+	
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 
 	
-	public void removeTicket(Ticket ticket) {
-		int i = 0;
-		for (Ticket x : ticketList) {
-			if (x.equals(ticket)) {
-				ticketList.remove(i);
-			}
-			i++;
-		}
-	}
+
+	/*
+	 * toString uses "&" as delimiter
+	 */
 	
-	public void addOneWayTicket(Trip trip) {
-		Ticket t = new Ticket("One way", trip.getPrice(), trip);
-		ticketList.add(t);
-	}
-
-	public void addRoundTicket(Trip trip) {
-		Ticket t = new Ticket("Round",( trip.getPrice()*2)-((20/100)*trip.getPrice()) , trip);
-		ticketList.add(t);
-	}
-
 	public String toString (){
 		StringBuilder stringBuilder = new StringBuilder(super.toString());
 
@@ -86,6 +68,48 @@ public class Passenger extends User {
 		}
 		
 		return stringBuilder.toString();
+	}
+
+		
+	
+	/*
+	 * Adders
+	 */
+
+
+	public boolean addTicket(Ticket ticket) {
+		if (balance >= ticket.getPrice()) {
+			balance -= ticket.getPrice();
+			ticketList.add(0, ticket);
+			return true;
+		}
+		return false;
+	}
+
+	
+	public void addOneWayTicket(Trip trip) {
+		Ticket t = new Ticket("One way", trip.getPrice(), trip);
+		ticketList.add(t);
+	}
+
+	public void addRoundTicket(Trip trip) {
+		Ticket t = new Ticket("Round",( trip.getPrice()*2)-((20/100)*trip.getPrice()) , trip);
+		ticketList.add(t);
+	}
+
+	
+	/*
+	 * Behavior
+	 */
+	
+	public void removeTicket(Ticket ticket) {
+		int i = 0;
+		for (Ticket x : ticketList) {
+			if (x.equals(ticket)) {
+				ticketList.remove(i);
+			}
+			i++;
+		}
 	}
 	
 }

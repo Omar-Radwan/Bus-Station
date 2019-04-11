@@ -1,6 +1,5 @@
 package vehicles.classes;
 
-import users.classes.Driver;
 
 public class Bus extends Vehicle {
 

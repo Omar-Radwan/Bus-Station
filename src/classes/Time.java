@@ -2,13 +2,16 @@ package classes;
 
 public class Time {
 
+	
 	/*
 	 * Attributes
 	 */
 	
-	int hours ; 
-	int minutes;
-	String amOrPM ;
+	private int hours ; 
+	private int minutes;
+	private String amOrPM ;
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -20,6 +23,7 @@ public class Time {
 		this.amOrPM = amOrPm;
 	}
 
+	
 	/*
 	 * Getters and Setters
 	 */
@@ -41,9 +45,8 @@ public class Time {
 	}
 
 
-	
 	/*
-	 * toString
+	 * toString uses "&" as delimiter
 	 */
 	
 	@Override
@@ -51,13 +54,12 @@ public class Time {
 		return String.format("%02d:%02d,%s", hours,minutes,amOrPM);
 	}  
 	
+	/*
+	 * Adders
+	 */
 	
 	/*
 	 *  Behavior
 	 */
-	
-	
-	
-	
 	
 }

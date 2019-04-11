@@ -6,17 +6,21 @@ import classes.Message;
 
 public abstract class User {
 
+	
 	/*
 	 * Attributes
 	 */
 
-	String userName;
-	String firstName;
-	String lastName;
-	String password;
+	protected String userName;
+	protected String firstName;
+	protected String lastName;
+	protected String password;
 
-	LinkedList<Message> messageList = new LinkedList<Message>();
+	protected LinkedList<Message> messageList = new LinkedList<Message>();
 
+	
+	
+	
 	/*
 	 * Constructor
 	 */
@@ -31,6 +35,8 @@ public abstract class User {
 		this.messageList = new LinkedList<Message>();
 	}
 
+	
+	
 	/*
 	 * Getters And Setters
 	 */
@@ -75,8 +81,10 @@ public abstract class User {
 		this.messageList = messageList;
 	}
 
+	
+	
 	/*
-	 * toString uses " " as delimiter
+	 * toString uses "&" as delimiter
 	 */
 
 	@Override
@@ -90,10 +98,8 @@ public abstract class User {
 		return stringBuilder.toString();
 	}
 
-	/*
-	 * Behavior
-	 */
-
+	
+	
 	/*
 	 * Adders
 	 */
@@ -102,5 +108,9 @@ public abstract class User {
 		messageList.add(0, new Message(from, to, subject, content));
 		return messageList.getFirst();
 	}
-
+	
+	
+	/*
+	 * Behavior
+	 */
 }

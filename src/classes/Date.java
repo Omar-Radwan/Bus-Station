@@ -2,14 +2,16 @@ package classes;
 
 public class Date {
 
+	
 	/*
 	 * Attributes
 	 */
 
-	int day;
-	int month;
-	int year;
+	private int day;
+	private int month;
+	private int year;
 
+	
 	/*
 	 * Constructor
 	 */
@@ -21,6 +23,7 @@ public class Date {
 		this.year = year;
 	}
 
+	
 	/*
 	 * Getters And Setters
 	 */
@@ -49,9 +52,10 @@ public class Date {
 		this.year = year;
 	}
 
+	
 	/*
-	 * toString function to save date in file
-	 */
+	 * toString uses "&" as delimiter
+	 */	 
 
 	@Override
 	public String toString() {
@@ -59,8 +63,10 @@ public class Date {
 	}
 
 	/*
+	 * Adders
+	 */
+	
+	/*
 	 * Behaviors
 	 */
-
-
 }
