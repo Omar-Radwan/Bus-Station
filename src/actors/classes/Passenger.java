@@ -1,9 +1,9 @@
-package users.classes;
+package actors.classes;
 
 import java.util.LinkedList;
 
-import classes.Ticket;
-import classes.Trip;
+import helping.classes.Ticket;
+import helping.classes.Trip;
 
 public class Passenger extends User {
 
@@ -90,8 +90,9 @@ public class Passenger extends User {
 	public int addOneWayTicket(Trip trip) {
 	
 		if (getTicketFromTrip(trip)==null) {
-			Ticket t = new Ticket("One way", trip.getPrice(), trip);
+			Ticket t = new Ticket("One way",Ticket.priceInCaseOfOneWay(trip.getPrice()), trip);
 			if (addTicket(t)) {
+				trip.getVehicle().setCurrentNumberOfSeats(trip.getVehicle().getCurrentNumberOfSeats()-1);
 				return 1;
 			}
 			else {
@@ -103,8 +104,10 @@ public class Passenger extends User {
 
 	public int addRoundTicket(Trip trip) {
 		if (getTicketFromTrip(trip)==null) {
-			Ticket t = new Ticket("Round",( trip.getPrice()*2)-((20/100)*trip.getPrice()) , trip);
+			Ticket t = new Ticket("Round",(Ticket.priceInCaseOfRound(trip.getPrice())) , trip);
+			
 			if (addTicket(t)) {
+				trip.getVehicle().setCurrentNumberOfSeats(trip.getVehicle().getCurrentNumberOfSeats()-1);
 				return 1;
 			}
 			else {
@@ -137,7 +140,7 @@ public class Passenger extends User {
 				}
 		
 			}
-			if (canTake) {
+			if (canTake&&(x.getVehicle().getCurrentNumberOfSeats()>0)) {
 				unbookedTrips.add(x);
 			}
 		}
@@ -151,7 +154,7 @@ public class Passenger extends User {
 	 */
 	
 	public void removeTicket(Ticket ticket) {
-
+				ticket.getTrip().getVehicle().setCurrentNumberOfSeats(ticket.getTrip().getVehicle().getCurrentNumberOfSeats()+1);
 				balance+=ticket.getPrice();
 				ticketList.remove(ticket);
 			

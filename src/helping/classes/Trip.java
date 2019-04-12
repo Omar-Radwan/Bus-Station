@@ -1,4 +1,4 @@
-package classes;
+package helping.classes;
 
 import vehicles.classes.Vehicle;
 
@@ -173,7 +173,7 @@ public class Trip {
 	}
 
 	public String data() {
-		return "Vehicle: " + vehicle + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
+		return vehicle.data() + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
 				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
 				+ time+"\nDuration: "+duration;
 	}

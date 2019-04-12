@@ -1,4 +1,4 @@
-package users.classes;
+package actors.classes;
 
 
 public abstract class Employee extends User {

@@ -1,8 +1,8 @@
-package users.classes;
+package actors.classes;
 
 import java.util.LinkedList;
 
-import classes.Message;
+import helping.classes.Message;
 
 public abstract class User {
 

@@ -1,4 +1,4 @@
-package classes;
+package helping.classes;
 
 public class Time {
 
@@ -70,6 +70,11 @@ public class Time {
 	/*
 	 *  Behavior
 	 */
+	
+	public static double timeToValue (Time t, double duration) {
+		double increaseValue = t.getAmOrPM().equals("am")? 0 : 12*60;
+		return t.getHours()*60+t.getMinutes()+increaseValue+duration*60;
+	}
 
 	public boolean areOverlapping (double duration1,Time t2,double duration2) {
 		

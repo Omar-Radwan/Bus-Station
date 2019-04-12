@@ -4,9 +4,15 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import classes.Database;
-import classes.Message;
-import classes.Trip;
+import javax.swing.text.View;
+
+import actors.classes.Driver;
+import actors.classes.Manager;
+import actors.classes.User;
+import database.classes.Database;
+import gui.behaviors.EmployeeInfo;
+import helping.classes.Message;
+import helping.classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -18,9 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import users.classes.Driver;
-import users.classes.Manager;
-import users.classes.User;
 
 public class ManagerProfileScreen extends ProfileScreen {
 	/*
@@ -32,7 +35,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 	Hyperlink assignDriversLink;
 	Hyperlink viewTrips;
 	Hyperlink removeDriverFromTripLink;
-
+	Hyperlink viewVehicles ; 
 	Manager manager;
 	/*
 	 * Constructor
@@ -40,15 +43,18 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 	ManagerProfileScreen(double width, double height, Stage stage, Database database, User user) {
 		super(width, height, stage, database, user);
+		
+		
 		addTripLink = new Hyperlink("Add new trip");
 		removeTripLink = new Hyperlink("Remove trip");
 		assignDriversLink = new Hyperlink("Assign driver to trip");
 		viewTrips = new Hyperlink("View all trips");
 		removeDriverFromTripLink = new Hyperlink("Remove driver from trip");
-
-		comboBoxFromList(database.getPassengersList(), comboBox, "Passenger: ");
-		comboBoxFromList(database.getDriverList(), comboBox, "Driver: ");
-
+		drawableInformation = new EmployeeInfo(user);
+		comboBoxFromList(database.getPassengersList(), comboBox, "Passenger");
+		comboBoxFromList(database.getDriverList(), comboBox, "Driver");
+		viewVehicles = new Hyperlink("View vehicles");
+		manager = (Manager) user;
 	}
 
 	/*
@@ -57,7 +63,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 	public void setActions() {
 
-		manager = (Manager) user;
+
 
 		removeTripLink.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -68,7 +74,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 				if (!database.getTripList().isEmpty()) {
 					Iterator<Trip> tripsIterator = database.getTripList().iterator();
-					showList(database.getTripList(), 300, 150, "Hyperlink", "Blue");
+					showList(database.getTripList(), 300, 200, "Hyperlink", "Blue");
 
 					for (Node x : gridpane.getChildren()) {
 
@@ -109,7 +115,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 				cleanScrollableGridPane(0);
 
 				if (!database.getTripList().isEmpty())
-					showList(database.getTripList(), 300, 150, "Label", "Black");
+					showList(database.getTripList(), 300, 200, "Label", "Black");
 
 				else
 					addConfirmationText("No trips to show.");
@@ -227,12 +233,12 @@ public class ManagerProfileScreen extends ProfileScreen {
 									database.stringToTime(timeFields[0].getText() + ":" + timeFields[1].getText() + ","
 											+ amOrPmComboBox.getValue()),
 									Double.parseDouble(priceField.getText()),
-									Integer.parseInt(durationField.getText()));
+									Double.parseDouble(durationField.getText()));
 						} catch (Exception e) {
 							addConfirmationText("Error in entered data.");
 							isError = true;
 						}
-
+						System.out.println(t);
 						if (t == null && !isError) {
 							addConfirmationText("No free vehicle available.");
 						} else if (t != null && !isError) {
@@ -284,7 +290,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 							public void handle(ActionEvent event) {
 
 								if (!driver.getTripsList().isEmpty()) {
-									showList(driver.getTripsList(), 300, 225, "Hyperlink", "Blue");
+									showList(driver.getTripsList(), 300, 200, "Hyperlink", "Blue");
 									Iterator<Trip> tripsIterator = driver.getTripsList().iterator();
 
 									for (Node y : gridpane.getChildren()) {
@@ -295,7 +301,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 											@Override
 											public void handle(ActionEvent event) {
-												driver.getTripsList().remove(trip);
+												manager.removeDriverFromTrip(driver, trip);
 												addConfirmationText("Trip removed successfully.");
 											}
 										});
@@ -388,6 +394,22 @@ public class ManagerProfileScreen extends ProfileScreen {
 			}
 
 		});
+		
+		viewVehicles.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			
+			public void handle(ActionEvent event) {
+				viewVehicles.setVisited(false);
+				if (!database.getVehicleList().isEmpty()) {
+					showList(database.getVehicleList(), 300, 30,"Label", "Black");
+				}
+				else {
+					addConfirmationText("No vehicles available.");
+				}
+			}
+			
+		});
 
 	}
 
@@ -399,7 +421,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 		vBox.getChildren().add(assignDriversLink);
 		vBox.getChildren().add(removeDriverFromTripLink);
 		vBox.getChildren().add(viewTrips);
-
+		vBox.getChildren().add(viewVehicles);
 		setActions();
 
 		super.drawBelowChild();

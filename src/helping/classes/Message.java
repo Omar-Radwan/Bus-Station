@@ -1,4 +1,4 @@
-package classes;
+package helping.classes;
 
 public class Message {
 	
@@ -11,7 +11,7 @@ public class Message {
 	private String to; 
 	private String subject;
 	private String content;
-
+	private boolean isOpened;
 	
 	/*
 	 * Constructor
@@ -23,6 +23,7 @@ public class Message {
 		this.to = to;
 		this.subject = subject;
 		this.content = content;
+		this.isOpened = false;
 	}
 	
 	
@@ -63,6 +64,15 @@ public class Message {
 		this.content = content;
 	}
 
+	public boolean isOpened() {
+		return isOpened;
+	}
+
+
+	public void setOpened(boolean isOpened) {
+		this.isOpened = isOpened;
+	}
+
 
 	/*
 	 * toString uses "&" as delimiter
@@ -71,15 +81,16 @@ public class Message {
 	
 	@Override
 	public String toString () {
-		return to+"$"+from+"$"+subject+"$"+content+"&";
+		return from+"$"+to+"$"+subject+"$"+content+"$"+isOpened+"&";
 	}
+
+
 
 
 	public  String data() {
 
 		return "From: "+from+"\nSubject: "+subject;
 	}
-
 
 
 	

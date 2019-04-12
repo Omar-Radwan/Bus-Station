@@ -1,6 +1,9 @@
 package gui.classes;
 
-import classes.Database;
+import actors.classes.Manager;
+import actors.classes.Passenger;
+import actors.classes.User;
+import database.classes.Database;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -13,9 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import users.classes.Manager;
-import users.classes.Passenger;
-import users.classes.User;
 
 public class LoginScreen extends Screen {
 

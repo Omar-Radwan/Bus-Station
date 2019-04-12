@@ -1,29 +1,26 @@
-package classes;
-
+package helping.classes;
 
 public class Ticket {
-	
+
 	/*
 	 * Attributes
 	 */
-	
+
 	private String type;
 	private double price;
 	private Trip trip;
-	
 
 	/*
 	 * Constructor
 	 */
-	
+
 	public Ticket(String type, double price, Trip trip) {
 		super();
 		this.type = type;
 		this.price = price;
 		this.trip = trip;
 	}
-	
-	
+
 	/*
 	 * Getters And Setters
 	 */
@@ -56,26 +53,33 @@ public class Ticket {
 		this.price = price;
 	}
 
-
 	/*
 	 * toString uses "&" as delimiter
 	 */
 
-	public String data () {
-		return trip.data()+"\nType: "+type+"\nPrice: "+price;
+	public String data() {
+		return trip.data() + "\nType: " + type + "\nPrice: " + price;
 	}
-	
-	@Override 
+
+	@Override
 	public String toString() {
-		return type+"$"+price+"$"+trip.getNumber()+"&";
+		return type + "$" + price + "$" + trip.getNumber() + "&";
+	}
+
+	public static double priceInCaseOfOneWay(double triPrice) {
+		return triPrice;
+	}
+
+	public static double priceInCaseOfRound(double tripPrice) {
+		return ((tripPrice * 2) - ((20.0/ 100.0) * tripPrice));
 	}
 
 	/*
 	 * Adders
 	 */
-	
+
 	/*
 	 * Behavior
 	 */
-	
-	}
+
+}

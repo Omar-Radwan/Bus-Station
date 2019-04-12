@@ -1,5 +1,2 @@
-omar&hisham&dada&123&1&mohamed ahmed$omar hisham$Trip cancelation$unfortunately i won't be able to take trip number 1&100.0&
-nadeen&elgazar&nadnod&123&0&100.0&
-hana&magdy&hanhoon&123&0&100.0&
-omar&radwan&rado&123&1&rado$tokyo$eh ya rado 3aml eh $al kalam 3la eh a sa7be&100.0&
-ahmed&hamada&hamada&123&0&100.0&
+m&1&m1&123&0&40000.0&
+m&2&m2&123&0&40000.0&

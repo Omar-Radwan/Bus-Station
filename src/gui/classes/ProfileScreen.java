@@ -5,13 +5,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import classes.Database;
-import classes.Message;
-import classes.Ticket;
-import classes.Trip;
+import actors.classes.Driver;
+import actors.classes.User;
+import database.classes.Database;
+import gui.behaviors.DrawableInformation;
+import helping.classes.Message;
+import helping.classes.Ticket;
+import helping.classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -19,21 +21,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import users.classes.Driver;
-import users.classes.Manager;
-import users.classes.User;
+import vehicles.classes.Vehicle;
 
 public abstract class ProfileScreen extends Screen {
 
@@ -56,6 +53,8 @@ public abstract class ProfileScreen extends Screen {
 	HBox hBox;
 
 	ComboBox<String> comboBox;
+	DrawableInformation drawableInformation ;
+	
 	/*
 	 * Constructor
 	 */
@@ -85,7 +84,8 @@ public abstract class ProfileScreen extends Screen {
 	 */
 
 	protected void drawAboveChild() {
-
+		showUserInfo();
+		stage.setTitle(user.getFirstName()+" "+user.getLastName()+"'s Profile");
 		hBox.setAlignment(Pos.TOP_LEFT);
 
 		hBox.getChildren().add(welcomeLabel);
@@ -104,7 +104,7 @@ public abstract class ProfileScreen extends Screen {
 		borderpane.setTop(hBox);
 		borderpane.setLeft(vBox);
 
-		vBox.setSpacing(12);
+		vBox.setSpacing(7);
 		hBox.setSpacing(12);
 
 		super.draw();
@@ -146,7 +146,8 @@ public abstract class ProfileScreen extends Screen {
 
 				TextArea messageTextArea = new TextArea();
 				messageTextArea.setPrefSize(300, 300);
-
+				messageTextArea.setWrapText(true);
+				
 				buttonsBox.getChildren().addAll(send, toLabel, comboBox);
 
 				gridpane.add(buttonsBox, 0, 0);
@@ -209,8 +210,8 @@ public abstract class ProfileScreen extends Screen {
 							@Override
 							public void handle(ActionEvent event) {
 								addConfirmationText(message.getContent());
+								message.setOpened(true);
 							}
-
 						});
 					}
 
@@ -353,8 +354,13 @@ public abstract class ProfileScreen extends Screen {
 				data = ((Ticket) x).data();
 			} else if (x instanceof Message) {
 				data = ((Message) x).data();
+				Message y = (Message )x;
+				color = y.isOpened()? "Blue":"Red";
 			} else if (x instanceof Driver) {
 				data = ((Driver) x).data();
+			}
+			else if (x instanceof Vehicle) {
+				data = ((Vehicle) x).data();
 			}
 			if (nodeType.equals("Label")) {
 				tLabel = new Label();
@@ -402,7 +408,17 @@ public abstract class ProfileScreen extends Screen {
 		gridpane.add(firstName, 1, 0);
 		gridpane.add(lastName, 1, 1);
 		gridpane.add(userName, 1, 2);
+		
 
+		
+		drawableInformation.drawExtraInfo(gridpane);
+		
+		for (Node n : gridpane.getChildren()) {
+			Label l = (Label) n;
+			l.setFont(Font.font(null, FontWeight.LIGHT,15 ));
+		}
+		
+		gridpane.setVgap(20);
 	}
 
 }

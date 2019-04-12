@@ -1,4 +1,4 @@
-package classes;
+package database.classes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,11 +11,16 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import users.classes.Driver;
-import users.classes.Employee;
-import users.classes.Manager;
-import users.classes.Passenger;
-import users.classes.User;
+import actors.classes.Driver;
+import actors.classes.Employee;
+import actors.classes.Manager;
+import actors.classes.Passenger;
+import actors.classes.User;
+import helping.classes.Date;
+import helping.classes.Message;
+import helping.classes.Ticket;
+import helping.classes.Time;
+import helping.classes.Trip;
 import vehicles.classes.Bus;
 import vehicles.classes.Limosine;
 import vehicles.classes.MiniBus;
@@ -150,7 +155,7 @@ public class Database {
 	}
 
 	/*
-	 * ======= >>>>>>> branch 'master' of https://github.com/Omar-Radwan/Bus-Station
+	 * 
 	 * Adders
 	 */
 
@@ -212,14 +217,15 @@ public class Database {
 
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 
-		if (!(getUser(userName) == null)) {
-			return -1;
-		} else {
+		if (user.getUserName().equals(userName)||getUser(userName)==null) {
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setUserName(userName);
 			user.setPassword(password);
 			return 1;
+		}
+		else {
+			return -1;
 		}
 
 	}
@@ -269,8 +275,8 @@ public class Database {
 	}
 
 	public void loadVehicle(String line) {
-		String[] tokens = line.split(" ");
-
+		String[] tokens = line.split("&");
+		
 		Vehicle v = null;
 		if (tokens[1].equals("Limosine")) {
 			v = addLimosine();
@@ -284,11 +290,12 @@ public class Database {
 			v = addBus();
 		}
 		v.setNumber(Integer.parseInt(tokens[0]));
-		v.setMaxNumberOfSeats(Integer.parseInt(tokens[3]));
+		
+		v.setMaxNumberOfSeats(Integer.parseInt(tokens[2]));
+		v.setCurrentNumberOfSeats(Integer.parseInt(tokens[3]));
 		v.setAssigned(Boolean.parseBoolean(tokens[4]));
-
+		
 		Vehicle.setFirstFreeNumber(Math.max(Vehicle.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
-
 	}
 
 	public void loadTrips() throws IOException {
@@ -328,9 +335,9 @@ public class Database {
 	}
 
 	public void loadDriver(String line) {
+
 		String[] tokens = line.split("&");
 		int messageSize = Integer.parseInt(tokens[4]);
-
 		Driver d = addDriver(tokens[0], tokens[1], tokens[2], tokens[3], Double.parseDouble(tokens[5 + messageSize]));
 
 		int i = 5;
@@ -364,7 +371,6 @@ public class Database {
 
 	public void loadPassenger(String line) {
 		String[] tokens = line.split("&");
-		System.out.println(Arrays.toString(tokens));
 		int messageSize = Integer.parseInt(tokens[4]);
 
 		Passenger p = addPassenger(tokens[0], tokens[1], tokens[2], tokens[3],
@@ -410,7 +416,6 @@ public class Database {
 
 	public void loadManager(String line) {
 		String[] tokens = line.split("&");
-		System.out.println(Arrays.toString(tokens));
 		int messageSize = Integer.parseInt(tokens[4]);
 
 		Manager m = addManager(tokens[0], tokens[1], tokens[2], tokens[3], Double.parseDouble(tokens[5 + messageSize]));
@@ -444,6 +449,7 @@ public class Database {
 	public Message stringToMessage(String s) {
 		StringTokenizer st = new StringTokenizer(s, "$");
 		Message message = new Message(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
+		message.setOpened(Boolean.parseBoolean(st.nextToken()));
 		return message;
 	}
 
@@ -460,6 +466,7 @@ public class Database {
 		writeUsers();
 		writeList(vehicleList, "Vehicles.txt");
 	}
+	
 	public void writeUsers () throws IOException{
 		writeList(passengersList, "Passengers.txt");
 		writeList(driverList, "Drivers.txt");

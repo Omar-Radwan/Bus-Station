@@ -1,10 +1,10 @@
-package users.classes;
+package actors.classes;
 
 import java.util.LinkedList;
 
-import classes.Message;
-import classes.Time;
-import classes.Trip;
+import helping.classes.Message;
+import helping.classes.Time;
+import helping.classes.Trip;
 
 public class Driver extends Employee {
 
@@ -95,7 +95,6 @@ public class Driver extends Employee {
 		
 			}
 			if (canTake) {
-				System.out.println(canTake);
 				canTakeTrip.add(x);
 			}
 		}

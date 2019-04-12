@@ -71,7 +71,7 @@ public class Vehicle {
 	}
 
 	public void setCurrentNumberOfSeats(int currentNumberOfSeats) {
-		this.currentNumberOfSeats = currentNumberOfSeats;
+		this.currentNumberOfSeats = Math.max(currentNumberOfSeats, currentNumberOfSeats);
 	}
 
 	
@@ -81,7 +81,11 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return number+" "+ type + " " + maxNumberOfSeats + " " + currentNumberOfSeats + " " + isAssigned + " ";
+		return number+"&"+ type + "&" + maxNumberOfSeats + "&" + currentNumberOfSeats + "&" + isAssigned + "&";
+	}
+	
+	public String data () {
+		return "Vehicle number: "+number+", available Seats: "+ currentNumberOfSeats+", type: "+type;
 	}
 
 	static void changeFreeNumbers() {
