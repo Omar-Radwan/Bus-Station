@@ -88,12 +88,15 @@ public class Manager extends Employee {
 
 		for (Driver x : database.getDriverList()) {
 
-			x.addMessage(this.userName, x.getUserName(), "Trip cancelation", "Sorrily the trip with number "
-					+ trip.getNumber() + " has been cancelled, please review your trips, sorry for inconvinience.");
-			try {
-				x.getTripsList().remove(trip);
-			} catch (Exception e) {
+			if (x.getTripsList().contains(trip)) {
+				x.addMessage(this.userName, x.getUserName(), "Trip cancelation", "Sorrily the trip with number "
+						+ trip.getNumber() + " has been cancelled, please review your trips, sorry for inconvinience.");
+				try {
+					x.getTripsList().remove(trip);
+				} catch (Exception e) {
+				}
 			}
+
 
 		}
 
