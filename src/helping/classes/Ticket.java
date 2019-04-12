@@ -57,21 +57,9 @@ public class Ticket {
 	 * toString uses "&" as delimiter
 	 */
 
-	public String data() {
-		return trip.data() + "\nType: " + type + "\nPrice: " + price;
-	}
-
 	@Override
 	public String toString() {
 		return type + "$" + price + "$" + trip.getNumber() + "&";
-	}
-
-	public static double priceInCaseOfOneWay(double triPrice) {
-		return triPrice;
-	}
-
-	public static double priceInCaseOfRound(double tripPrice) {
-		return ((tripPrice * 2) - ((20.0/ 100.0) * tripPrice));
 	}
 
 	/*
@@ -81,5 +69,17 @@ public class Ticket {
 	/*
 	 * Behavior
 	 */
+
+	public static double priceInCaseOfOneWay(double triPrice) {
+		return triPrice;
+	}
+
+	public static double priceInCaseOfRound(double tripPrice) {
+		return ((tripPrice * 2) - ((20.0 / 100.0) * tripPrice));
+	}
+
+	public String data() {
+		return trip.data() + "\nType: " + type + "\nPrice: " + price;
+	}
 
 }

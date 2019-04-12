@@ -26,9 +26,9 @@ public class Trip {
 	 */
 
 	public Trip(Vehicle vehilce, String source, String destination, double distance, String type, int numberOfStops,
-			Date date, Time time, double price,double duration) {
+			Date date, Time time, double price, double duration) {
 		super();
-		this.vehicle= vehilce;
+		this.vehicle = vehilce;
 		this.source = source;
 		this.destination = destination;
 		this.distance = distance;
@@ -42,7 +42,6 @@ public class Trip {
 		this.duration = duration;
 	}
 
-	
 	/*
 	 * Getters And Setters
 	 */
@@ -51,21 +50,17 @@ public class Trip {
 		return vehicle;
 	}
 
-
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
-
 
 	public double getDuration() {
 		return duration;
 	}
 
-
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-
 
 	public double getPrice() {
 		return price;
@@ -143,7 +138,7 @@ public class Trip {
 		this.numberOfStops = numberOfStops;
 	}
 
-	 public static int getFirstFreeNumber() {
+	public static int getFirstFreeNumber() {
 		return firstFreeNumber;
 	}
 
@@ -159,36 +154,33 @@ public class Trip {
 		this.number = number;
 	}
 
-
 	/*
 	 * toString uses "&" as delimiter
 	 */
-	
+
 	@Override
 	public String toString() {
 
-		return number+"&"+vehicle.getNumber() + "&" + source + "&" + destination + "&" + distance + "&" + type + "&" + numberOfStops + "&"
-				+ date + "&" + time + "&" + price + "&"+duration+"&";
+		return number + "&" + vehicle.getNumber() + "&" + source + "&" + destination + "&" + distance + "&" + type + "&"
+				+ numberOfStops + "&" + date + "&" + time + "&" + price + "&" + duration + "&";
 
-	}
-
-	public String data() {
-		return vehicle.data() + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: "
-				+ distance + "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: "
-				+ time+"\nDuration: "+duration;
 	}
 
 	/*
 	 * Adders
 	 */
-	
+
 	/*
 	 * Behavior
 	 */
 
-	
 	static void changeFreeNumbers() {
 		firstFreeNumber++;
 	}
 
+	public String data() {
+		return vehicle.data() + "\nSource: " + source + "\nDestination: " + destination + "\nDistance: " + distance
+				+ "\nType: " + type + "\nNumberOfStops: " + numberOfStops + "\nDate: " + date + "\nTime: " + time
+				+ "\nDuration: " + duration;
+	}
 }

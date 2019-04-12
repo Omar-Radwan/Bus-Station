@@ -6,7 +6,6 @@ import helping.classes.Message;
 
 public abstract class User {
 
-	
 	/*
 	 * Attributes
 	 */
@@ -18,9 +17,6 @@ public abstract class User {
 
 	protected LinkedList<Message> messageList = new LinkedList<Message>();
 
-	
-	
-	
 	/*
 	 * Constructor
 	 */
@@ -35,8 +31,6 @@ public abstract class User {
 		this.messageList = new LinkedList<Message>();
 	}
 
-	
-	
 	/*
 	 * Getters And Setters
 	 */
@@ -81,25 +75,22 @@ public abstract class User {
 		this.messageList = messageList;
 	}
 
-	
-	
 	/*
 	 * toString uses "&" as delimiter
 	 */
 
 	@Override
 	public String toString() {
-		StringBuilder stringBuilder =  new StringBuilder(firstName + "&" + lastName + "&" + userName + "&" + password + "&");
-		stringBuilder.append(messageList.size()+"&");
-		
-		for (Message x: messageList) {
+		StringBuilder stringBuilder = new StringBuilder(
+				firstName + "&" + lastName + "&" + userName + "&" + password + "&");
+		stringBuilder.append(messageList.size() + "&");
+
+		for (Message x : messageList) {
 			stringBuilder.append(x.toString());
 		}
 		return stringBuilder.toString();
 	}
 
-	
-	
 	/*
 	 * Adders
 	 */
@@ -108,8 +99,7 @@ public abstract class User {
 		messageList.add(0, new Message(from, to, subject, content));
 		return messageList.getFirst();
 	}
-	
-	
+
 	/*
 	 * Behavior
 	 */

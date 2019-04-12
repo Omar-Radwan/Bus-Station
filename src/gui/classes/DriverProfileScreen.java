@@ -69,17 +69,17 @@ public class DriverProfileScreen extends ProfileScreen {
 			public void handle(ActionEvent event) {
 				cancelTripLink.setVisited(false);
 				cleanScrollableGridPane(0);
-				
+
 				if (!driver.getTripsList().isEmpty()) {
-					
+
 					Iterator<Trip> tripIterator = driver.getTripsList().iterator();
 					showList(driver.getTripsList(), 300, 250, "Hyperlink", "Blue");
 
 					for (Node x : gridpane.getChildren()) {
-					
+
 						Hyperlink tripHyperlink = (Hyperlink) x;
 						Trip trip = tripIterator.next();
-						
+
 						tripHyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
 							@Override

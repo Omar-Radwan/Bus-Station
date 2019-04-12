@@ -1,6 +1,5 @@
 package vehicles.classes;
 
-
 public class Bus extends Vehicle {
 
 	public Bus() {

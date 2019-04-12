@@ -10,20 +10,18 @@ public class EmployeeInfo implements DrawableInformation {
 
 	public EmployeeInfo(User user) {
 		super();
-		this.employee = (Employee)user;
+		this.employee = (Employee) user;
 	}
-
 
 	@Override
 	public void drawExtraInfo(GridPane gridpane) {
-		Label salaryLabel = new Label ("Salary:");
-		Label salaryValueLabel = new Label (Double.toString(employee.getSalary())+" ");
-		Label egpLabel = new Label ("Egp");
-		
+		Label salaryLabel = new Label("Salary:");
+		Label salaryValueLabel = new Label(Double.toString(employee.getSalary()) + " ");
+		Label egpLabel = new Label("Egp");
+
 		gridpane.add(salaryLabel, 0, 3);
-		gridpane.add(salaryValueLabel,1, 3);
-		gridpane.add(egpLabel,2,3);
+		gridpane.add(salaryValueLabel, 1, 3);
+		gridpane.add(egpLabel, 2, 3);
 	}
-	
-	
+
 }

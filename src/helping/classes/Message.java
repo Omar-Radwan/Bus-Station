@@ -1,18 +1,17 @@
 package helping.classes;
 
 public class Message {
-	
-	
+
 	/*
 	 * Attributes
 	 */
-	
-	private String from ; 
-	private String to; 
+
+	private String from;
+	private String to;
 	private String subject;
 	private String content;
 	private boolean isOpened;
-	
+
 	/*
 	 * Constructor
 	 */
@@ -25,13 +24,11 @@ public class Message {
 		this.content = content;
 		this.isOpened = false;
 	}
-	
-	
+
 	/*
 	 * Getters and setters
 	 */
-	
-	
+
 	public String getFrom() {
 		return from;
 	}
@@ -68,38 +65,26 @@ public class Message {
 		return isOpened;
 	}
 
-
 	public void setOpened(boolean isOpened) {
 		this.isOpened = isOpened;
 	}
 
-
 	/*
 	 * toString uses "&" as delimiter
 	 */
-	
-	
+
 	@Override
-	public String toString () {
-		return from+"$"+to+"$"+subject+"$"+content+"$"+isOpened+"&";
+	public String toString() {
+		return from + "$" + to + "$" + subject + "$" + content + "$" + isOpened + "&";
 	}
 
-
-
-
-	public  String data() {
-
-		return "From: "+from+"\nSubject: "+subject;
-	}
-
-
-	
-	/*
-	 * Adders
-	 */
-	
 	/*
 	 * Behavior
 	 */
-	
+
+	public String data() {
+
+		return "From: " + from + "\nSubject: " + subject;
+	}
+
 }

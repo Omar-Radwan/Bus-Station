@@ -46,7 +46,7 @@ public class Database {
 	 * Constructor
 	 */
 
-	public Database(String pathname) {
+	public Database() {
 		super();
 
 		this.passengersList = new LinkedList<Passenger>();
@@ -105,17 +105,6 @@ public class Database {
 	 * Behavior
 	 */
 
-	/*
-	 * Adds new user to the file and to the database
-	 */
-
-
-
-	/*
-	 * 
-	 * Function that checks if there exists a user with user name and password given
-	 */
-
 	public User authenticate(String userName, String password, String type) {
 
 		if (type.equals("Passenger")) {
@@ -153,7 +142,6 @@ public class Database {
 	}
 
 	/*
-	 * 
 	 * Adders
 	 */
 
@@ -206,23 +194,18 @@ public class Database {
 	}
 
 	/*
-	 * Functions
-	 */
-
-	/*
-	 * Function that checks if there exists a user with user name and password given
+	 * Behaviors
 	 */
 
 	public int changeUserAttributes(User user, String firstName, String lastName, String userName, String password) {
 
-		if (user.getUserName().equals(userName)||getUser(userName)==null) {
+		if (user.getUserName().equals(userName) || getUser(userName) == null) {
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setUserName(userName);
 			user.setPassword(password);
 			return 1;
-		}
-		else {
+		} else {
 			return -1;
 		}
 
@@ -241,7 +224,9 @@ public class Database {
 
 	}
 
-	// writing functions
+	/*
+	 * writing to file functions
+	 */
 
 	public <T> void writeList(LinkedList<T> list, String fileName) throws IOException {
 		setBufferedWriter(fileName);
@@ -264,6 +249,22 @@ public class Database {
 		bufferedWriter = new BufferedWriter(filewriter);
 	}
 
+	public void write() throws IOException {
+		writeList(tripList, "Trips.txt");
+		writeUsers();
+		writeList(vehicleList, "Vehicles.txt");
+	}
+
+	public void writeUsers() throws IOException {
+		writeList(passengersList, "Passengers.txt");
+		writeList(driverList, "Drivers.txt");
+		writeList(managerList, "Managers.txt");
+	}
+
+	/*
+	 * loading functions
+	 */
+
 	public void loadVehicles() throws IOException {
 		setBufferedReader("Vehicles.txt");
 		while (bufferedReader.ready()) {
@@ -274,7 +275,7 @@ public class Database {
 
 	public void loadVehicle(String line) {
 		String[] tokens = line.split("&");
-		
+
 		Vehicle v = null;
 		if (tokens[1].equals("Limosine")) {
 			v = addLimosine();
@@ -288,11 +289,11 @@ public class Database {
 			v = addBus();
 		}
 		v.setNumber(Integer.parseInt(tokens[0]));
-		
+
 		v.setMaxNumberOfSeats(Integer.parseInt(tokens[2]));
 		v.setCurrentNumberOfSeats(Integer.parseInt(tokens[3]));
 		v.setAssigned(Boolean.parseBoolean(tokens[4]));
-		
+
 		Vehicle.setFirstFreeNumber(Math.max(Vehicle.getFirstFreeNumber(), Integer.parseInt(tokens[0])));
 	}
 
@@ -425,11 +426,23 @@ public class Database {
 		}
 	}
 
+	public void load() throws IOException {
+		loadVehicles();
+		loadTrips();
+		loadDrivers();
+		loadPassengers();
+		loadManagers();
+	}
+
 	void setBufferedReader(String fileName) throws FileNotFoundException {
 		file = new File(fileName);
 		filereader = new FileReader(file);
 		bufferedReader = new BufferedReader(filereader);
 	}
+
+	/*
+	 * helping functions
+	 */
 
 	public Date stringToDate(String s) {
 		StringTokenizer st = new StringTokenizer(s, "/");
@@ -451,23 +464,4 @@ public class Database {
 		return message;
 	}
 
-	public void load() throws IOException {
-		loadVehicles();
-		loadTrips();
-		loadDrivers();
-		loadPassengers();
-		loadManagers();
-	}
-
-	public void write() throws IOException {
-		writeList(tripList, "Trips.txt");
-		writeUsers();
-		writeList(vehicleList, "Vehicles.txt");
-	}
-	
-	public void writeUsers () throws IOException{
-		writeList(passengersList, "Passengers.txt");
-		writeList(driverList, "Drivers.txt");
-		writeList(managerList, "Managers.txt");
-	}
 }

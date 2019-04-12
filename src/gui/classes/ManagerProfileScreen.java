@@ -32,7 +32,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 	Hyperlink assignDriversLink;
 	Hyperlink viewTrips;
 	Hyperlink removeDriverFromTripLink;
-	Hyperlink viewVehicles ; 
+	Hyperlink viewVehicles;
 	Manager manager;
 	/*
 	 * Constructor
@@ -40,8 +40,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 	ManagerProfileScreen(double width, double height, Stage stage, Database database, User user) {
 		super(width, height, stage, database, user);
-		
-		
+
 		addTripLink = new Hyperlink("Add new trip");
 		removeTripLink = new Hyperlink("Remove trip");
 		assignDriversLink = new Hyperlink("Assign driver to trip");
@@ -60,10 +59,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 	public void setActions() {
 
-
-
 		removeTripLink.setOnAction(new EventHandler<ActionEvent>() {
-			
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -71,7 +67,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 				if (!database.getTripList().isEmpty()) {
 					Iterator<Trip> tripsIterator = database.getTripList().iterator();
-					showList(database.getTripList(), 300, 200, "Hyperlink", "Blue");
+					showList(database.getTripList(), 300, 200, "Hyperlink", "Red");
 
 					for (Node x : gridpane.getChildren()) {
 
@@ -89,7 +85,6 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 						});
 
-			
 					}
 
 				}
@@ -100,8 +95,6 @@ public class ManagerProfileScreen extends ProfileScreen {
 			}
 		});
 
-		
-		
 		// done
 		viewTrips.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -235,7 +228,6 @@ public class ManagerProfileScreen extends ProfileScreen {
 							addConfirmationText("Error in entered data.");
 							isError = true;
 						}
-						System.out.println(t);
 						if (t == null && !isError) {
 							addConfirmationText("No free vehicle available.");
 						} else if (t != null && !isError) {
@@ -273,7 +265,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 
 				if (!database.getDriverList().isEmpty()) {
 					Iterator<Driver> driverIterator = database.getDriverList().iterator();
-					showList(database.getDriverList(), 300, 45, "Hyperlink", "Blue");
+					showList(database.getDriverList(), 300, 45, "Hyperlink", "Red");
 
 					for (Node x : gridpane.getChildren()) {
 
@@ -287,7 +279,7 @@ public class ManagerProfileScreen extends ProfileScreen {
 							public void handle(ActionEvent event) {
 
 								if (!driver.getTripsList().isEmpty()) {
-									showList(driver.getTripsList(), 300, 200, "Hyperlink", "Blue");
+									showList(driver.getTripsList(), 300, 200, "Hyperlink", "Red");
 									Iterator<Trip> tripsIterator = driver.getTripsList().iterator();
 
 									for (Node y : gridpane.getChildren()) {
@@ -391,21 +383,20 @@ public class ManagerProfileScreen extends ProfileScreen {
 			}
 
 		});
-		
+
 		viewVehicles.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
-			
+
 			public void handle(ActionEvent event) {
 				viewVehicles.setVisited(false);
 				if (!database.getVehicleList().isEmpty()) {
-					showList(database.getVehicleList(), 300, 30,"Label", "Black");
-				}
-				else {
+					showList(database.getVehicleList(), 300, 30, "Label", "Black");
+				} else {
 					addConfirmationText("No vehicles available.");
 				}
 			}
-			
+
 		});
 
 	}

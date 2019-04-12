@@ -72,7 +72,7 @@ public class RegisterScreen extends Screen {
 
 		gridpane.add(backButton, 1, 4);
 		gridpane.add(saveButton, 0, 4);
-		
+
 		super.draw();
 
 		setActions();
@@ -83,34 +83,34 @@ public class RegisterScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
+
 				Screen homeScreen = new HomeScreen(scene.getWidth(), scene.getHeight(), stage, database);
 				homeScreen.draw();
 			}
 		});
-		
+
 		saveButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-			int result = database.RegisterNew(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), passwordField.getText(),100);
-				if (result==-1) {
+
+				int result = database.RegisterNew(firstNameField.getText(), lastNameField.getText(),
+						userNameField.getText(), passwordField.getText(), 100);
+				if (result == -1) {
 					addConfirmationText("Username you chose already exist.");
-	
-				}
-				else {
+
+				} else {
 					addConfirmationText("Account created successfully.");
 				}
-				
+
 				gridpane.add(backButton, 0, 1);
-			
+
 				try {
 					database.writeList(database.getPassengersList(), "Passeneger.txt");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			
+
 			}
 		});
 	}

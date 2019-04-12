@@ -15,7 +15,7 @@ public abstract class Screen {
 	/*
 	 * Attributes
 	 */
-	protected Database  database ; 
+	protected Database database;
 	protected double width;
 	protected double height;
 
@@ -29,17 +29,16 @@ public abstract class Screen {
 	 * Constructor
 	 */
 
-	Screen(double width, double height, Stage stage,Database database) {
+	Screen(double width, double height, Stage stage, Database database) {
 		this.database = database;
 		this.width = width;
 		this.height = height;
-		
+
 		this.stage = stage;
-		
+
 		gridpane = new GridPane();
-		
+
 		borderpane = new BorderPane();
-		
 
 	}
 
@@ -55,14 +54,13 @@ public abstract class Screen {
 		gridpane.setAlignment(Pos.CENTER);
 
 		borderpane.setCenter(gridpane);
-		borderpane.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+		borderpane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 		scene = new Scene(borderpane, width, height);
-		gridpane.setGridLinesVisible(true);
 		stage.setScene(scene);
 
 	};
-	
+
 	protected void cleanGridPane(double vGap) {
 		gridpane = new GridPane();
 		gridpane.setAlignment(Pos.CENTER);
@@ -86,6 +84,5 @@ public abstract class Screen {
 		confirmationText.setWrappingWidth(300);
 		confirmationText.setFont(Font.font("Verdana", 20));
 	}
-
 
 }

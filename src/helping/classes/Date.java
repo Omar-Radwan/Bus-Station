@@ -2,7 +2,6 @@ package helping.classes;
 
 public class Date {
 
-	
 	/*
 	 * Attributes
 	 */
@@ -11,7 +10,6 @@ public class Date {
 	private int month;
 	private int year;
 
-	
 	/*
 	 * Constructor
 	 */
@@ -23,7 +21,6 @@ public class Date {
 		this.year = year;
 	}
 
-	
 	/*
 	 * Getters And Setters
 	 */
@@ -52,24 +49,17 @@ public class Date {
 		this.year = year;
 	}
 
-	
 	/*
 	 * toString uses "&" as delimiter
-	 */	 
+	 */
 
 	@Override
 	public String toString() {
-		return String.format("%02d/%02d/%d", day , month , year);
+		return String.format("%02d/%02d/%d", day, month, year);
 	}
 
 	/*
-	 * Adders
-	 */
-	
-	/*
 	 * Behaviors
 	 */
-	public boolean areEqual (Date y ) {
-		return this.toString().equals(y);
-	}
+
 }

@@ -13,6 +13,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class LoginScreen extends Screen {
@@ -20,7 +23,6 @@ public class LoginScreen extends Screen {
 	/*
 	 * Attributes
 	 */
-	
 
 	Label usernameLabel;
 	Label passwordLabel;
@@ -51,10 +53,10 @@ public class LoginScreen extends Screen {
 		this.backButton = new Button("Back");
 
 		this.comboBox = new ComboBox<String>();
-	
+
 		comboBox.getItems().addAll("Passenger", "Employee");
 		comboBox.getSelectionModel().select(0);
-		
+
 		this.gridpane = new GridPane();
 		this.borderpane = new BorderPane();
 
@@ -64,10 +66,8 @@ public class LoginScreen extends Screen {
 	 * Behavior
 	 */
 
-
 	@Override
 	public void draw() {
-		
 
 		stage.setTitle("Login Page");
 
@@ -83,9 +83,10 @@ public class LoginScreen extends Screen {
 
 		gridpane.add(messageLabel, 1, 3);
 		messageLabel.setPrefSize(200, 50);
-
+		messageLabel.setWrapText(true);
+		messageLabel.setFont(Font.font("Vernada", FontWeight.MEDIUM, 15));
 		super.draw();
-		
+
 		setActions();
 
 	}
@@ -96,9 +97,9 @@ public class LoginScreen extends Screen {
 
 			@Override
 			public void handle(ActionEvent event) {
-			
-				User x  ;
-				
+
+				User x;
+
 				if (comboBox.getValue().equals("Passenger")) {
 					x = database.authenticate(usernameField.getText(), passwordField.getText(), "Passenger");
 				} else {
@@ -106,7 +107,8 @@ public class LoginScreen extends Screen {
 				}
 
 				if (x == null) {
-					messageLabel.setText("You entered an invalid\nusername or password");
+					messageLabel.setText("You entered an invalid username or password");
+					messageLabel.setTextFill(Paint.valueOf("Red"));
 				} else {
 					ProfileScreen profileScreen;
 					if (x instanceof Passenger) {

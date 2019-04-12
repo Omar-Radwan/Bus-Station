@@ -2,7 +2,6 @@ package vehicles.classes;
 
 public class Vehicle {
 
-
 	/*
 	 * Attributes
 	 */
@@ -10,11 +9,10 @@ public class Vehicle {
 	protected int currentNumberOfSeats;
 	protected String type;
 	protected int maxNumberOfSeats;
-	
-	protected boolean isAssigned;
-	protected static int firstFreeNumber = 0 ;
-	protected int number;
 
+	protected boolean isAssigned;
+	protected static int firstFreeNumber = 0;
+	protected int number;
 
 	/*
 	 * Constructor
@@ -22,14 +20,12 @@ public class Vehicle {
 
 	public Vehicle() {
 		super();
-		
+
 		isAssigned = false;
 		changeFreeNumbers();
 		this.number = firstFreeNumber;
 	}
 
-	
-	
 	/*
 	 * Getters And Setters
 	 */
@@ -74,22 +70,17 @@ public class Vehicle {
 		this.currentNumberOfSeats = Math.max(currentNumberOfSeats, currentNumberOfSeats);
 	}
 
-	
 	/*
 	 * toString uses " " as delimiter
 	 */
 
 	@Override
 	public String toString() {
-		return number+"&"+ type + "&" + maxNumberOfSeats + "&" + currentNumberOfSeats + "&" + isAssigned + "&";
-	}
-	
-	public String data () {
-		return "Vehicle number: "+number+", available Seats: "+ currentNumberOfSeats+", type: "+type;
+		return number + "&" + type + "&" + maxNumberOfSeats + "&" + currentNumberOfSeats + "&" + isAssigned + "&";
 	}
 
-	static void changeFreeNumbers() {
-		firstFreeNumber++;
+	public String data() {
+		return "Vehicle number: " + number + ", available Seats: " + currentNumberOfSeats + ", type: " + type;
 	}
 
 	public static int getFirstFreeNumber() {
@@ -103,9 +94,12 @@ public class Vehicle {
 	/*
 	 * Adders
 	 */
-	
+
 	/*
 	 * Behavior
 	 */
+	static void changeFreeNumbers() {
+		firstFreeNumber++;
+	}
 
 }

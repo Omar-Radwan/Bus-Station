@@ -53,8 +53,8 @@ public abstract class ProfileScreen extends Screen {
 	HBox hBox;
 
 	ComboBox<String> comboBox;
-	DrawableInformation drawableInformation ;
-	
+	DrawableInformation drawableInformation;
+
 	/*
 	 * Constructor
 	 */
@@ -85,7 +85,7 @@ public abstract class ProfileScreen extends Screen {
 
 	protected void drawAboveChild() {
 		showUserInfo();
-		stage.setTitle(user.getFirstName()+" "+user.getLastName()+"'s Profile");
+		stage.setTitle(user.getFirstName() + " " + user.getLastName() + "'s Profile");
 		hBox.setAlignment(Pos.TOP_LEFT);
 
 		hBox.getChildren().add(welcomeLabel);
@@ -147,7 +147,7 @@ public abstract class ProfileScreen extends Screen {
 				TextArea messageTextArea = new TextArea();
 				messageTextArea.setPrefSize(300, 300);
 				messageTextArea.setWrapText(true);
-				
+
 				buttonsBox.getChildren().addAll(send, toLabel, comboBox);
 
 				gridpane.add(buttonsBox, 0, 0);
@@ -354,12 +354,11 @@ public abstract class ProfileScreen extends Screen {
 				data = ((Ticket) x).data();
 			} else if (x instanceof Message) {
 				data = ((Message) x).data();
-				Message y = (Message )x;
-				color = y.isOpened()? "Blue":"Red";
+				Message y = (Message) x;
+				color = y.isOpened() ? "Blue" : "Red";
 			} else if (x instanceof Driver) {
 				data = ((Driver) x).data();
-			}
-			else if (x instanceof Vehicle) {
+			} else if (x instanceof Vehicle) {
 				data = ((Vehicle) x).data();
 			}
 			if (nodeType.equals("Label")) {
@@ -408,16 +407,14 @@ public abstract class ProfileScreen extends Screen {
 		gridpane.add(firstName, 1, 0);
 		gridpane.add(lastName, 1, 1);
 		gridpane.add(userName, 1, 2);
-		
 
-		
 		drawableInformation.drawExtraInfo(gridpane);
-		
+
 		for (Node n : gridpane.getChildren()) {
 			Label l = (Label) n;
-			l.setFont(Font.font(null, FontWeight.LIGHT,15 ));
+			l.setFont(Font.font(null, FontWeight.LIGHT, 15));
 		}
-		
+
 		gridpane.setVgap(20);
 	}
 

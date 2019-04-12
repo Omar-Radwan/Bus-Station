@@ -71,7 +71,6 @@ public class Driver extends Employee {
 
 	public void addTrip(Trip trip) {
 
-
 		if (!tripsList.contains(trip))
 			tripsList.add(0, trip);
 
@@ -87,11 +86,11 @@ public class Driver extends Employee {
 			boolean canTake = true;
 			for (Trip y : tripsList) {
 				if (x.getDate().toString().equals((y.getDate().toString()))) {
-						canTake = false;
-						break;
-					
+					canTake = false;
+					break;
+
 				}
-		
+
 			}
 			if (canTake) {
 				canTakeTrip.add(x);
