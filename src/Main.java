@@ -1,19 +1,12 @@
 
 import java.io.IOException;
 
-import actors.classes.Driver;
 import actors.classes.Manager;
 import database.classes.Database;
 import gui.classes.HomeScreen;
-import gui.classes.LoginScreen;
 import gui.classes.Screen;
-import helping.classes.Date;
-import helping.classes.Ticket;
-import helping.classes.Time;
-import helping.classes.Trip;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import vehicles.classes.Vehicle;
 
 public class Main extends Application {
 

@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.swing.text.View;
-
 import actors.classes.Driver;
 import actors.classes.Manager;
 import actors.classes.User;
 import database.classes.Database;
 import gui.behaviors.EmployeeInfo;
-import helping.classes.Message;
 import helping.classes.Trip;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
