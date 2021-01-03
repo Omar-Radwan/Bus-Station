@@ -1,0 +1,5 @@
+1&2&Alexandria&Cairo&300.0&Internal&1&01/01/2020&01:00,am&75.0&2.5&
+3&1&Egypt&Saudia&900.0&External&2&01/10/2019&01:00,am&9000.0&8.0&
+4&6&Egypt&Libia&500.0&External&3&27/10/2019&03:00,am&500.0&5.0&
+5&3&Alexandria&Matrouh&300.0&Internal&0&01/01/2020&09:00,pm&100.0&5.0&
+6&5&Alexandria&Aswan&650.0&Internal&2&01/01/2021&01:20,pm&700.0&9.0&

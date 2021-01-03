@@ -106,7 +106,7 @@ public class RegisterScreen extends Screen {
 				gridpane.add(backButton, 0, 1);
 
 				try {
-					database.writeList(database.getPassengersList(), "Passeneger.txt");
+					database.writeList(database.getPassengersList(), Database.PASSENGERS_DATA_PATH);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
